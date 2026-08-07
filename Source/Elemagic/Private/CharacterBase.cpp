@@ -121,8 +121,9 @@ void ACharacterBase::UpdateAnimation()
 		return;
 	}
 
+	const bool bIsFalling = GetCharacterMovement() && GetCharacterMovement()->IsFalling();
 	const bool bIsMoving = !FMath::IsNearlyZero(GetVelocity().X);
-	UPaperFlipbook* DesiredFlipbook = bIsMoving ? RunFlipbook : IdleFlipbook;
+	UPaperFlipbook* DesiredFlipbook = SelectFlipbookForState(bIsFalling, bIsMoving, IdleFlipbook, RunFlipbook, JumpFlipbook);
 
 	if (DesiredFlipbook && SpriteComp->GetFlipbook() != DesiredFlipbook)
 	{
