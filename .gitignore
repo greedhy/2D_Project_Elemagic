@@ -1,0 +1,25 @@
+# Visual Studio / Rider / VSCode
+.vs/
+.vscode/
+*.sln
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb
+
+# Unreal Engine generated/intermediate
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+Plugins/*/Binaries/
+Plugins/*/Intermediate/
+
+# Build artifacts
+*.pdb
+*.obj
+
+# OS
+.DS_Store
+Thumbs.db
