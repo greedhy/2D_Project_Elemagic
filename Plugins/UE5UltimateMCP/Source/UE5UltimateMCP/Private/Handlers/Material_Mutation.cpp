@@ -45,7 +45,7 @@ extern int32 TryAddMaterialExpressionSEH(
 // Local helpers
 namespace
 {
-	UMaterial* LoadMaterialByName(const FString& Name, FString& OutError)
+	UMaterial* LoadMaterialByName_Mutation(const FString& Name, FString& OutError)
 	{
 		IAssetRegistry& Registry = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry").Get();
 		TArray<FAssetData> Assets;
@@ -70,7 +70,7 @@ namespace
 		return nullptr;
 	}
 
-	UMaterialFunction* LoadMaterialFunctionByName(const FString& Name, FString& OutError)
+	UMaterialFunction* LoadMaterialFunctionByName_Mutation(const FString& Name, FString& OutError)
 	{
 		IAssetRegistry& Registry = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry").Get();
 		TArray<FAssetData> Assets;
@@ -95,7 +95,7 @@ namespace
 		return nullptr;
 	}
 
-	UMaterialInstanceConstant* LoadMaterialInstanceByName(const FString& Name, FString& OutError)
+	UMaterialInstanceConstant* LoadMaterialInstanceByName_Mutation(const FString& Name, FString& OutError)
 	{
 		IAssetRegistry& Registry = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry").Get();
 		TArray<FAssetData> Assets;
@@ -112,7 +112,7 @@ namespace
 		return nullptr;
 	}
 
-	void EnsureMaterialGraph(UMaterial* Material)
+	void EnsureMaterialGraph_Mutation(UMaterial* Material)
 	{
 		if (!Material->MaterialGraph)
 		{
@@ -252,7 +252,7 @@ public:
 		Params->TryGetBoolField(TEXT("dryRun"), bDryRun);
 
 		FString LoadError;
-		UMaterial* Material = LoadMaterialByName(MaterialName, LoadError);
+		UMaterial* Material = LoadMaterialByName_Mutation(MaterialName, LoadError);
 		if (!Material) return FMCPToolResult::Error(LoadError);
 
 		FString OldValue, NewValue;
@@ -402,7 +402,7 @@ public:
 		if (!MaterialFunctionName.IsEmpty())
 		{
 			FString LoadError;
-			MatFunc = LoadMaterialFunctionByName(MaterialFunctionName, LoadError);
+			MatFunc = LoadMaterialFunctionByName_Mutation(MaterialFunctionName, LoadError);
 			if (!MatFunc) return FMCPToolResult::Error(LoadError);
 			Owner = MatFunc;
 			AssetDisplayName = MatFunc->GetName();
@@ -410,13 +410,13 @@ public:
 		else
 		{
 			FString LoadError;
-			Material = LoadMaterialByName(MaterialName, LoadError);
+			Material = LoadMaterialByName_Mutation(MaterialName, LoadError);
 			if (!Material) return FMCPToolResult::Error(LoadError);
 			Owner = Material;
 			AssetDisplayName = Material->GetName();
 		}
 
-		if (Material) EnsureMaterialGraph(Material);
+		if (Material) EnsureMaterialGraph_Mutation(Material);
 
 		UMaterialExpression* NewExpr = nullptr;
 #if PLATFORM_WINDOWS
@@ -508,18 +508,18 @@ public:
 
 		if (!MaterialFunctionName.IsEmpty())
 		{
-			FString E; MatFunc = LoadMaterialFunctionByName(MaterialFunctionName, E);
+			FString E; MatFunc = LoadMaterialFunctionByName_Mutation(MaterialFunctionName, E);
 			if (!MatFunc) return FMCPToolResult::Error(E);
 			AssetDisplayName = MatFunc->GetName();
 		}
 		else
 		{
-			FString E; Material = LoadMaterialByName(MaterialName, E);
+			FString E; Material = LoadMaterialByName_Mutation(MaterialName, E);
 			if (!Material) return FMCPToolResult::Error(E);
 			AssetDisplayName = Material->GetName();
 		}
 
-		if (Material) EnsureMaterialGraph(Material);
+		if (Material) EnsureMaterialGraph_Mutation(Material);
 		UEdGraph* Graph = Material ? (UEdGraph*)Material->MaterialGraph : (MatFunc ? MatFunc->MaterialGraph : nullptr);
 		if (!Graph) return FMCPToolResult::Error(FString::Printf(TEXT("'%s' has no material graph"), *AssetDisplayName));
 
@@ -604,18 +604,18 @@ public:
 
 		if (!MaterialFunctionName.IsEmpty())
 		{
-			FString E; MatFunc = LoadMaterialFunctionByName(MaterialFunctionName, E);
+			FString E; MatFunc = LoadMaterialFunctionByName_Mutation(MaterialFunctionName, E);
 			if (!MatFunc) return FMCPToolResult::Error(E);
 			AssetDisplayName = MatFunc->GetName();
 		}
 		else
 		{
-			FString E; Material = LoadMaterialByName(MaterialName, E);
+			FString E; Material = LoadMaterialByName_Mutation(MaterialName, E);
 			if (!Material) return FMCPToolResult::Error(E);
 			AssetDisplayName = Material->GetName();
 		}
 
-		if (Material) EnsureMaterialGraph(Material);
+		if (Material) EnsureMaterialGraph_Mutation(Material);
 		UEdGraph* Graph = Material ? (UEdGraph*)Material->MaterialGraph : (MatFunc ? MatFunc->MaterialGraph : nullptr);
 		if (!Graph) return FMCPToolResult::Error(FString::Printf(TEXT("'%s' has no material graph"), *AssetDisplayName));
 
@@ -699,18 +699,18 @@ public:
 		FString AssetDisplayName;
 		if (!MaterialFunctionName.IsEmpty())
 		{
-			FString E; MatFunc = LoadMaterialFunctionByName(MaterialFunctionName, E);
+			FString E; MatFunc = LoadMaterialFunctionByName_Mutation(MaterialFunctionName, E);
 			if (!MatFunc) return FMCPToolResult::Error(E);
 			AssetDisplayName = MatFunc->GetName();
 		}
 		else
 		{
-			FString E; Material = LoadMaterialByName(MaterialName, E);
+			FString E; Material = LoadMaterialByName_Mutation(MaterialName, E);
 			if (!Material) return FMCPToolResult::Error(E);
 			AssetDisplayName = Material->GetName();
 		}
 
-		if (Material) EnsureMaterialGraph(Material);
+		if (Material) EnsureMaterialGraph_Mutation(Material);
 		UEdGraph* Graph = Material ? (UEdGraph*)Material->MaterialGraph : (MatFunc ? MatFunc->MaterialGraph : nullptr);
 		if (!Graph) return FMCPToolResult::Error(FString::Printf(TEXT("'%s' has no material graph"), *AssetDisplayName));
 
@@ -780,18 +780,18 @@ public:
 		FString AssetDisplayName;
 		if (!MaterialFunctionName.IsEmpty())
 		{
-			FString E; MatFunc = LoadMaterialFunctionByName(MaterialFunctionName, E);
+			FString E; MatFunc = LoadMaterialFunctionByName_Mutation(MaterialFunctionName, E);
 			if (!MatFunc) return FMCPToolResult::Error(E);
 			AssetDisplayName = MatFunc->GetName();
 		}
 		else
 		{
-			FString E; Material = LoadMaterialByName(MaterialName, E);
+			FString E; Material = LoadMaterialByName_Mutation(MaterialName, E);
 			if (!Material) return FMCPToolResult::Error(E);
 			AssetDisplayName = Material->GetName();
 		}
 
-		if (Material) EnsureMaterialGraph(Material);
+		if (Material) EnsureMaterialGraph_Mutation(Material);
 		UEdGraph* Graph = Material ? (UEdGraph*)Material->MaterialGraph : (MatFunc ? MatFunc->MaterialGraph : nullptr);
 		if (!Graph) return FMCPToolResult::Error(FString::Printf(TEXT("'%s' has no material graph"), *AssetDisplayName));
 
@@ -959,18 +959,18 @@ public:
 		FString AssetDisplayName;
 		if (!MaterialFunctionName.IsEmpty())
 		{
-			FString E; MatFunc = LoadMaterialFunctionByName(MaterialFunctionName, E);
+			FString E; MatFunc = LoadMaterialFunctionByName_Mutation(MaterialFunctionName, E);
 			if (!MatFunc) return FMCPToolResult::Error(E);
 			AssetDisplayName = MatFunc->GetName();
 		}
 		else
 		{
-			FString E; Material = LoadMaterialByName(MaterialName, E);
+			FString E; Material = LoadMaterialByName_Mutation(MaterialName, E);
 			if (!Material) return FMCPToolResult::Error(E);
 			AssetDisplayName = Material->GetName();
 		}
 
-		if (Material) EnsureMaterialGraph(Material);
+		if (Material) EnsureMaterialGraph_Mutation(Material);
 		UEdGraph* Graph = Material ? (UEdGraph*)Material->MaterialGraph : (MatFunc ? MatFunc->MaterialGraph : nullptr);
 		if (!Graph) return FMCPToolResult::Error(FString::Printf(TEXT("'%s' has no material graph"), *AssetDisplayName));
 
@@ -1033,7 +1033,7 @@ public:
 			return FMCPToolResult::Error(TEXT("Missing: name, packagePath, parent"));
 
 		FString LoadError;
-		UMaterial* Parent = LoadMaterialByName(ParentName, LoadError);
+		UMaterial* Parent = LoadMaterialByName_Mutation(ParentName, LoadError);
 		if (!Parent) return FMCPToolResult::Error(LoadError);
 
 		FString FullPath = PackagePath / Name;
@@ -1092,7 +1092,7 @@ public:
 			return FMCPToolResult::Error(TEXT("Missing: value"));
 
 		FString LoadError;
-		UMaterialInstanceConstant* MI = LoadMaterialInstanceByName(InstanceName, LoadError);
+		UMaterialInstanceConstant* MI = LoadMaterialInstanceByName_Mutation(InstanceName, LoadError);
 		if (!MI) return FMCPToolResult::Error(LoadError);
 
 		FString SetType;
@@ -1157,10 +1157,10 @@ public:
 		if (MaterialName.IsEmpty()) return FMCPToolResult::Error(TEXT("Missing: material"));
 
 		FString LoadError;
-		UMaterial* Material = LoadMaterialByName(MaterialName, LoadError);
+		UMaterial* Material = LoadMaterialByName_Mutation(MaterialName, LoadError);
 		if (!Material) return FMCPToolResult::Error(LoadError);
 
-		EnsureMaterialGraph(Material);
+		EnsureMaterialGraph_Mutation(Material);
 		if (!Material->MaterialGraph) return FMCPToolResult::Error(TEXT("Material has no graph"));
 
 		FGraphSnapshot Snapshot;
@@ -1214,10 +1214,10 @@ public:
 		if (!SnapshotPtr) return FMCPToolResult::Error(FString::Printf(TEXT("Snapshot '%s' not found"), *SnapshotId));
 
 		FString LoadError;
-		UMaterial* Material = LoadMaterialByName(MaterialName, LoadError);
+		UMaterial* Material = LoadMaterialByName_Mutation(MaterialName, LoadError);
 		if (!Material) return FMCPToolResult::Error(LoadError);
 
-		EnsureMaterialGraph(Material);
+		EnsureMaterialGraph_Mutation(Material);
 		if (!Material->MaterialGraph) return FMCPToolResult::Error(TEXT("Material has no graph"));
 
 		FGraphSnapshotData CurrentData = MCPHelpers::CaptureGraphSnapshot(Material->MaterialGraph);
@@ -1320,10 +1320,10 @@ public:
 		if (!SnapshotPtr) return FMCPToolResult::Error(FString::Printf(TEXT("Snapshot '%s' not found"), *SnapshotId));
 
 		FString LoadError;
-		UMaterial* Material = LoadMaterialByName(MaterialName, LoadError);
+		UMaterial* Material = LoadMaterialByName_Mutation(MaterialName, LoadError);
 		if (!Material) return FMCPToolResult::Error(LoadError);
 
-		EnsureMaterialGraph(Material);
+		EnsureMaterialGraph_Mutation(Material);
 		if (!Material->MaterialGraph) return FMCPToolResult::Error(TEXT("Material has no graph"));
 
 		FGraphSnapshotData CurrentData = MCPHelpers::CaptureGraphSnapshot(Material->MaterialGraph);
@@ -1407,7 +1407,7 @@ public:
 		if (MaterialName.IsEmpty()) return FMCPToolResult::Error(TEXT("Missing: material"));
 
 		FString LoadError;
-		UMaterial* Material = LoadMaterialByName(MaterialName, LoadError);
+		UMaterial* Material = LoadMaterialByName_Mutation(MaterialName, LoadError);
 		if (!Material) return FMCPToolResult::Error(LoadError);
 
 		Material->PreEditChange(nullptr);
