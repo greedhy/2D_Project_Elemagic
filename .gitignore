@@ -1,6 +1,9 @@
 # Visual Studio / Rider / VSCode
 .vs/
 .vscode/
+
+# Claude Code local session state (machine-specific)
+.claude/
 *.sln
 *.suo
 *.opensdf
