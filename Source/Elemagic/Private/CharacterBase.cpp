@@ -99,6 +99,20 @@ void ACharacterBase::Die_Implementation()
 	SetActorEnableCollision(false);
 }
 
+UPaperFlipbook* ACharacterBase::SelectFlipbookForState(bool bIsFalling, bool bIsMoving,
+	UPaperFlipbook* IdleFlipbook, UPaperFlipbook* RunFlipbook, UPaperFlipbook* JumpFlipbook)
+{
+	if (bIsFalling && JumpFlipbook)
+	{
+		return JumpFlipbook;
+	}
+	if (bIsMoving && RunFlipbook)
+	{
+		return RunFlipbook;
+	}
+	return IdleFlipbook;
+}
+
 void ACharacterBase::UpdateAnimation()
 {
 	UPaperFlipbookComponent* SpriteComp = GetSprite();

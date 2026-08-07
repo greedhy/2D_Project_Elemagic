@@ -34,12 +34,21 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Elemagic|Character")
 	bool IsDead() const;
 
+	// 纯函数,不依赖 UWorld,方便单独做自动化测试。
+	// 优先级:下落(有 JumpFlipbook 才用)> 移动(有 RunFlipbook 才用)> 待机。
+	static UPaperFlipbook* SelectFlipbookForState(bool bIsFalling, bool bIsMoving,
+		UPaperFlipbook* IdleFlipbook, UPaperFlipbook* RunFlipbook, UPaperFlipbook* JumpFlipbook);
+
 	// 待美术资源完善前的临时序列帧,先用现有素材跑通表现层
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Elemagic|Animation")
 	TObjectPtr<UPaperFlipbook> IdleFlipbook;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Elemagic|Animation")
 	TObjectPtr<UPaperFlipbook> RunFlipbook;
+
+	// 目前还没有专门的跳跃/下落美术,先留空;SelectFlipbookForState 会在未赋值时自动退回 RunFlipbook。
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Elemagic|Animation")
+	TObjectPtr<UPaperFlipbook> JumpFlipbook;
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Elemagic|Abilities")
