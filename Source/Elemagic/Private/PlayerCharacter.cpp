@@ -36,10 +36,11 @@ APlayerCharacter::APlayerCharacter()
 	}
 }
 
-void APlayerCharacter::BeginPlay()
+void APlayerCharacter::PostInitializeComponents()
 {
-	// BP Class Defaults 在构造之后才反序列化,因此必须等到 BeginPlay 才能读到蓝图覆盖值;
-	// 这里把蓝图可调属性同步到 CharacterMovementComponent,以蓝图设置为准。
+	// PostInitializeComponents 在所有组件(含 CharacterMovementComponent)的 BP CDO
+	// 属性反序列化完毕后执行,此时 MoveSpeed/JumpVelocity 等属性已被蓝图覆盖值替换;
+	// 这里写入组件的值就是最终生效的值。
 	if (UCharacterMovementComponent* MoveComp = GetCharacterMovement())
 	{
 		MoveComp->MaxWalkSpeed = MoveSpeed;
@@ -48,7 +49,7 @@ void APlayerCharacter::BeginPlay()
 		MoveComp->JumpMaxCount = JumpMaxCount;
 	}
 
-	Super::BeginPlay();
+	Super::PostInitializeComponents();
 }
 
 void APlayerCharacter::PossessedBy(AController* NewController)

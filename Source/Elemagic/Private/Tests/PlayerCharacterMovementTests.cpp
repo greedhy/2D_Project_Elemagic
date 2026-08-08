@@ -23,9 +23,10 @@ bool FPlayerCharacterMovementTuningTest::RunTest(const FString& Parameters)
 		return false;
 	}
 
-	// BP 可调参数 C++ 默认值——运行时 BeginPlay 会把这些值同步到 CharacterMovementComponent,
-	// 以蓝图子类 Class Defaults 覆盖后的值为准。CDO 上组件值不等于属性值是正常的(引擎默认 vs 我们的默认),
-	// BeginPlay 之后才会对齐。
+	// BP 可调参数 C++ 默认值——运行时 PostInitializeComponents 会把这些值同步到
+	// CharacterMovementComponent,以蓝图子类 Class Defaults 覆盖后的值为准。
+	// CDO 上组件值不等于属性值是正常的(引擎默认 vs 我们的默认),
+	// PostInitializeComponents 之后才会对齐。
 	TestEqual(TEXT("MoveSpeed default for brisk platformer run"), CDO->MoveSpeed, 600.f);
 	TestEqual(TEXT("JumpVelocity default for snappy jump"), CDO->JumpVelocity, 700.f);
 	TestEqual(TEXT("JumpHoldTime default"), CDO->JumpHoldTime, 0.3f);
