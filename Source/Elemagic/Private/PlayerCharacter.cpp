@@ -22,20 +22,24 @@ APlayerCharacter::APlayerCharacter()
 	SideViewCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	SideViewCamera->bUsePawnControlRotation = false;
 
-	// 按住 Jump 越久跳得越高:持续按住期间 CharacterMovementComponent 会把 Velocity.Z 顶回 JumpZVelocity 对抗重力,
-	// 松开时(Controller 的 JumpReleased 调用 StopJumping)重力立刻接管,超过该时长则强制停止施力。
-	JumpMaxHoldTime = 0.3f;
-
-	// 横版动作平台跳跃手感:CharacterMovementComponent 默认值是为写实 3D 游戏调的,
-	// 这里改成更快的下落速度、更高的空中控制力,让跳跃弧线更"脆"、走位更跟手。
-	// 数值先给一版合理起点,具体手感后续可以直接在 BP_PlayerCharacter 的 Class Defaults 里继续微调。
 	if (UCharacterMovementComponent* MoveComp = GetCharacterMovement())
 	{
-		MoveComp->MaxWalkSpeed = 600.f;
-		MoveComp->JumpZVelocity = 700.f;
+		// 移动速度和跳跃高度以 EditDefaultsOnly 属性为准,构造中先写入默认值;
+		// BP 子类的 Class Defaults 覆盖这些属性后,运行时取到的就是 BP 设置的值。
+		MoveComp->MaxWalkSpeed = MoveSpeed;
+		MoveComp->JumpZVelocity = JumpVelocity;
+		JumpMaxHoldTime = JumpHoldTime;
+		MoveComp->JumpMaxCount = JumpMaxCount;
+
+		// 横版动作平台跳跃手感:CharacterMovementComponent 默认值是为写实 3D 游戏调的,
+		// 这里改成更快的下落速度,让跳跃弧线更"脆"。
 		MoveComp->GravityScale = 2.f;
-		MoveComp->AirControl = 0.8f;
-		MoveComp->BrakingDecelerationWalking = 2048.f;
+
+		// 零惯性即时响应:按下方向键瞬间到位,松开瞬间停止,空中也跟手。
+		MoveComp->MaxAcceleration = 99999.f;
+		MoveComp->BrakingDecelerationWalking = 99999.f;
+		MoveComp->AirControl = 1.f;
+		MoveComp->bUseSeparateBrakingFriction = false;
 	}
 }
 

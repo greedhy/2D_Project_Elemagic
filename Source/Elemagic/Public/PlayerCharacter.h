@@ -34,4 +34,19 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Elemagic|Abilities")
 	TSubclassOf<UGameplayAbility> AttackAbilityClass;
+
+	// 移动参数以蓝图中设置的为准；构造里写入 CharacterMovementComponent 的初始值。
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Elemagic|Movement")
+	float MoveSpeed = 600.f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Elemagic|Movement")
+	float JumpVelocity = 700.f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Elemagic|Movement")
+	float JumpHoldTime = 0.3f;
+
+	// 最大跳跃次数:默认 2 开局即可二段跳,运行时可被 GA 动态修改(如先解锁再赋更高值)。
+	// 以蓝图子类 Class Defaults 设置的值为准。
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Elemagic|Movement")
+	int32 JumpMaxCount = 2;
 };
