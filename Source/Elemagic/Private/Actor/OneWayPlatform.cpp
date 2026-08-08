@@ -14,18 +14,21 @@ AOneWayPlatform::AOneWayPlatform()
 	RootComponent = CollisionBox;
 	CollisionBox->SetBoxExtent(FVector(50.f, 50.f, 10.f));
 	CollisionBox->SetCollisionResponseToChannel(ECC_Pawn, ECR_Block);
-	CollisionBox->SetGenerateOverlapEvents(true);
+
+	// Block 和 Overlap 对同一对组件是互斥的(见头文件注释),CollisionBox 是 Block 就永远不会
+	// 触发重叠事件,所以另开一个纯检测用的 Overlap 组件,范围比 CollisionBox 上下都多探出一截。
+	constexpr float DetectionMarginZ = 60.f;
+	DetectionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("DetectionBox"));
+	DetectionBox->SetupAttachment(RootComponent);
+	DetectionBox->SetBoxExtent(FVector(50.f, 50.f, 10.f + DetectionMarginZ));
+	DetectionBox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	DetectionBox->SetCollisionResponseToAllChannels(ECR_Ignore);
+	DetectionBox->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	DetectionBox->SetGenerateOverlapEvents(true);
 
 	Sprite = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("Sprite"));
 	Sprite->SetupAttachment(RootComponent);
 	Sprite->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-}
-
-void AOneWayPlatform::BeginPlay()
-{
-	Super::BeginPlay();
-
-	CollisionBox->OnComponentEndOverlap.AddDynamic(this, &AOneWayPlatform::OnPlatformEndOverlap);
 }
 
 bool AOneWayPlatform::ShouldPassThroughPlatform(float CharacterFeetZ, float PlatformTopZ, float CharacterVelocityZ)
@@ -47,7 +50,7 @@ void AOneWayPlatform::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	TArray<AActor*> OverlappingActors;
-	CollisionBox->GetOverlappingActors(OverlappingActors, ACharacter::StaticClass());
+	DetectionBox->GetOverlappingActors(OverlappingActors, ACharacter::StaticClass());
 
 	const float PlatformTopZ = GetPlatformTopZ();
 
@@ -62,29 +65,14 @@ void AOneWayPlatform::Tick(float DeltaTime)
 
 		const float FeetZ = Capsule->GetComponentLocation().Z - Capsule->GetScaledCapsuleHalfHeight();
 		const float VelocityZ = Character->GetVelocity().Z;
+		const bool bShouldPass = ShouldPassThroughPlatform(FeetZ, PlatformTopZ, VelocityZ);
 
-		if (ShouldPassThroughPlatform(FeetZ, PlatformTopZ, VelocityZ))
-		{
-			Capsule->MoveIgnoreActors.AddUnique(this);
-		}
-		else
-		{
-			Capsule->MoveIgnoreActors.Remove(this);
-		}
-	}
-}
-
-void AOneWayPlatform::OnPlatformEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
-{
-	// 保险丝:角色离开重叠范围时,不管 Tick 当时把它设成了穿透还是阻挡,
-	// 都强制把这块平台从它的 MoveIgnoreActors 里摘掉,避免角色绕开平台后
-	// 这块平台被永久标记为"忽略"、之后再也挡不住它。
-	if (ACharacter* Character = Cast<ACharacter>(OtherActor))
-	{
-		if (UCapsuleComponent* Capsule = Character->GetCapsuleComponent())
-		{
-			Capsule->MoveIgnoreActors.Remove(this);
-		}
+		// 注意:这里必须是"组件级"忽略(IgnoreComponentWhenMoving 只忽略 CollisionBox),
+		// 不能用"Actor 级"忽略(IgnoreActorWhenMoving 会让角色对这个 Actor 的所有组件都失明,
+		// 包括 DetectionBox 自己)。实测过 Actor 级忽略的后果:一旦角色开始穿透,DetectionBox
+		// 的重叠检测对它也一起失效,Tick 从此再也检测不到这个角色,忽略状态永远撤不回来,
+		// 角色会直接从平台底下一路掉穿到底。组件级忽略只影响 CollisionBox,DetectionBox
+		// 全程保持追踪,才能在角色到达平台顶面时正常把忽略状态改回来、恢复支撑。
+		Capsule->IgnoreComponentWhenMoving(CollisionBox, bShouldPass);
 	}
 }
