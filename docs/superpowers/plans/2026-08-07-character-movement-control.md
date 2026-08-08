@@ -1,6 +1,6 @@
 # 角色移动控制(Character Movement Control) Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Turn the already-partially-wired run/jump/facing-flip movement on `APlayerCharacter` into a verified, good-feeling first playable slice — including a falling/jump animation state that the current Idle/Run-only flipbook switch doesn't have — so it can serve as the foundation the rest of Elemagic's features build on.
 
@@ -41,7 +41,7 @@
 - Produces: `TObjectPtr<UPaperFlipbook> ACharacterBase::JumpFlipbook` — new `EditDefaultsOnly, BlueprintReadOnly` property, same pattern as the existing `IdleFlipbook`/`RunFlipbook`.
 - Consumes: nothing (first task).
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Create `Source/Elemagic/Private/Tests/CharacterAnimationTests.cpp`:
 
@@ -86,7 +86,7 @@ bool FCharacterBaseSelectFlipbookTest::RunTest(const FString& Parameters)
 #endif // WITH_AUTOMATION_TESTS
 ```
 
-- [ ] **Step 2: Run the build to verify it fails**
+- [x] **Step 2: Run the build to verify it fails**
 
 Run (PowerShell):
 ```
@@ -94,7 +94,7 @@ Run (PowerShell):
 ```
 Expected: FAILS with an error like `'SelectFlipbookForState': is not a member of 'ACharacterBase'` — the symbol referenced by the test doesn't exist yet. This is the "red" step; a compiled language fails to build instead of failing at runtime.
 
-- [ ] **Step 3: Implement the minimal code to make it pass**
+- [x] **Step 3: Implement the minimal code to make it pass**
 
 In `Source/Elemagic/Public/CharacterBase.h`, add the new property next to the existing two, and declare the static helper (add to the `public:` section, near `IsDead()`):
 
@@ -130,7 +130,7 @@ UPaperFlipbook* ACharacterBase::SelectFlipbookForState(bool bIsFalling, bool bIs
 
 Do **not** wire this into `UpdateAnimation()` yet — that's Task 2. This task only needs the pure function to exist and compile so the test can pass.
 
-- [ ] **Step 4: Run the build and the test to verify it passes**
+- [x] **Step 4: Run the build and the test to verify it passes**
 
 Run the same `Build.bat` command as Step 2. Expected: builds with no errors.
 
@@ -140,7 +140,7 @@ Then run:
 ```
 Then check `Saved\Logs\AutomationTest.log` for a line containing `Elemagic.CharacterBase.SelectFlipbookForState` and `Result={Passed}`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add Source/Elemagic/Public/CharacterBase.h Source/Elemagic/Private/CharacterBase.cpp Source/Elemagic/Private/Tests/CharacterAnimationTests.cpp
@@ -161,7 +161,7 @@ git commit -m "feat: add falling-aware flipbook selection for CharacterBase"
 - Consumes: `ACharacterBase::SelectFlipbookForState` and `ACharacterBase::JumpFlipbook` (Task 1).
 - Produces: `UpdateAnimation()` now falling-aware (internal, no new public surface). Tuned `UCharacterMovementComponent` constants on `APlayerCharacter`'s movement component — `MaxWalkSpeed = 600.f`, `JumpZVelocity = 700.f`, `GravityScale = 2.f`, `AirControl = 0.8f`, `BrakingDecelerationWalking = 2048.f` — consumed by Task 3's manual PIE verification.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Create `Source/Elemagic/Private/Tests/PlayerCharacterMovementTests.cpp`:
 
@@ -198,12 +198,12 @@ bool FPlayerCharacterMovementTuningTest::RunTest(const FString& Parameters)
 #endif // WITH_AUTOMATION_TESTS
 ```
 
-- [ ] **Step 2: Run the build and the test to verify it fails**
+- [x] **Step 2: Run the build and the test to verify it fails**
 
 Run the `Build.bat` command from Task 1 Step 2 (expected: builds fine, this test doesn't reference any new symbol). Then run the `UnrealEditor-Cmd.exe` command from Task 1 Step 4, replacing the test name with `Elemagic.PlayerCharacter.MovementTuning`.
 Expected: FAIL — `APlayerCharacter`'s constructor hasn't set these values yet, so at least the `GravityScale`/`AirControl`/`JumpZVelocity` assertions (which differ sharply from `UCharacterMovementComponent`'s realistic-3D-game defaults) won't match.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 In `Source/Elemagic/Private/PlayerCharacter.cpp`, add the include:
 
@@ -250,11 +250,11 @@ void ACharacterBase::UpdateAnimation()
 }
 ```
 
-- [ ] **Step 4: Run the build and the test to verify it passes**
+- [x] **Step 4: Run the build and the test to verify it passes**
 
 Same two commands as Step 2. Expected: build succeeds, and the log for `Elemagic.PlayerCharacter.MovementTuning` shows `Result={Passed}`. Also re-run `Elemagic.CharacterBase.SelectFlipbookForState` (Task 1's test) to confirm it's still passing after the `UpdateAnimation()` change.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add Source/Elemagic/Private/CharacterBase.cpp Source/Elemagic/Private/PlayerCharacter.cpp Source/Elemagic/Private/Tests/PlayerCharacterMovementTests.cpp
@@ -274,11 +274,11 @@ git commit -m "feat: wire falling animation state and tune platformer movement f
 
 This task has no C++ to write. Everything here has to be checked/set in the Unreal Editor because Blueprint asset references live in binary `.uasset` files. Do these checks in order; only touch (and re-save) a Blueprint if a check finds something wrong.
 
-- [ ] **Step 1: Rebuild and open the editor**
+- [x] **Step 1: Rebuild and open the editor**
 
 Run the `Build.bat` command from Task 1 Step 2 one more time to make sure Tasks 1–2's code is in the binary the editor will load. Then open `Elemagic.uproject` in the Unreal Editor (double-click it, or launch `UnrealEditor.exe` with the `.uproject` path as an argument).
 
-- [ ] **Step 2: Verify BP_MyPlayerController's input assets are assigned**
+- [x] **Step 2: Verify BP_MyPlayerController's input assets are assigned**
 
 Open `Content/Blueprint/BP_MyPlayerController`. In the Class Defaults panel, under the "Elemagic|Input" category, confirm:
 - `Player Mapping Context` = `IMC_Default`
@@ -288,23 +288,23 @@ Open `Content/Blueprint/BP_MyPlayerController`. In the Class Defaults panel, und
 
 If any is empty, assign it to the matching asset in `Content/Blueprint/Input/`. Compile and Save if you changed anything.
 
-- [ ] **Step 3: Verify BP_PlayerCharacter's flipbooks are assigned**
+- [x] **Step 3: Verify BP_PlayerCharacter's flipbooks are assigned**
 
 Open `Content/Blueprint/BP_PlayerCharacter`. In the Class Defaults panel, under "Elemagic|Animation", confirm `Idle Flipbook` and `Run Flipbook` are assigned (they should point at the existing `Content/Asset/Player/Player_Idle*` and `Content/Asset/Player_Run` flipbook assets). Leave `Jump Flipbook` empty for now — there's no jump-pose art yet, and Task 1's `SelectFlipbookForState` is written to fall back to `RunFlipbook` when `JumpFlipbook` is unset, so this is expected, not a bug. Compile and Save if you changed anything.
 
-- [ ] **Step 4: Verify BP_GameMode's class references**
+- [x] **Step 4: Verify BP_GameMode's class references**
 
 Open `Content/Blueprint/BP_GameMode`. Confirm `Default Pawn Class` = `BP_PlayerCharacter` and `Player Controller Class` = `BP_MyPlayerController`. Confirm this GameMode (or one that overrides from it) is set as the project's default GameMode in Project Settings → Maps & Modes.
 
-- [ ] **Step 5: Verify level1 has somewhere to stand and a PlayerStart**
+- [x] **Step 5: Verify level1 has somewhere to stand and a PlayerStart**
 
 Open `Content/Level/level1`. Confirm there is a `PlayerStart` actor placed, and that there's platform/tile geometry with collision under it (from the existing `Tilemap_Platform` asset) so the character doesn't spawn into a fall. Add a `PlayerStart` if one is missing. Save the map if you changed anything.
 
-- [ ] **Step 6: Restart the editor if this is the first PIE session since EleInputComponent became the default**
+- [x] **Step 6: Restart the editor if this is the first PIE session since EleInputComponent became the default**
 
 `Config/DefaultInput.ini` sets `DefaultInputComponentClass=/Script/Elemagic.EleInputComponent`, but per the comment in `MyPlayerController.cpp:39-43`, this only takes effect after a **full editor restart** (Live Coding recompiles aren't enough). If you haven't restarted the editor since this project was set up, close and reopen it now, before testing.
 
-- [ ] **Step 7: Manual PIE checklist**
+- [x] **Step 7: Manual PIE checklist**
 
 Open `level1` and press Play. Verify each of the following, in order:
 
@@ -320,7 +320,7 @@ Open `level1` and press Play. Verify each of the following, in order:
 
 If any check fails, fix the underlying cause (most likely a missing/wrong asset assignment from Steps 2–5, or the Step 6 restart) and repeat the checklist from the top.
 
-- [ ] **Step 8: Commit any Blueprint/level changes made while fixing checks**
+- [x] **Step 8: Commit any Blueprint/level changes made while fixing checks**
 
 Only run this if Steps 2–5 actually changed and saved a Blueprint or the map; otherwise skip (nothing to commit).
 
