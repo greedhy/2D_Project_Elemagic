@@ -22,6 +22,8 @@
 
 ## 设计:`AOneWayPlatform`
 
+> **2026-08-08 实现修正**:下面这版设计在 PIE 里实测跑不通,原因和最终修法记在实现计划(`docs/superpowers/plans/2026-08-08-oneway-platform.md`)的 "Post-Implementation Notes" 里,概括如下——(1) `CollisionBox` 单独一个组件时,只要它对 Pawn 是 Block 就**永远不会**触发重叠事件(UE 里两个组件的碰撞响应取双向 min,Block 对 Block 的 min 还是 Block),所以额外加了一个纯检测用的 `DetectionBox`(Overlap-only,比 CollisionBox 上下多探出一截);(2) 忽略碰撞必须用**组件级**的 `IgnoreComponentWhenMoving(CollisionBox, ...)`,不能用下面写的 Actor 级 `MoveIgnoreActors`——Actor 级忽略会让角色对 `DetectionBox` 也一起失明,一旦开始穿透就再也检测不到,永远撤不回忽略状态,角色会直接掉穿到底。最终代码结构以实现计划为准,这里的描述仅供理解设计意图。
+
 ### 组件结构
 
 - `UBoxComponent CollisionBox` —— 碰撞盒,默认对 Pawn 是 Block,同时开启重叠事件(`GenerateOverlapEvents = true`)。
@@ -35,16 +37,17 @@
 - 角色当前垂直速度方向
 
 规则:
-- 角色脚底低于平台顶面 **且** 正在向上运动(跳跃穿过程中)→ 把这个平台加进角色胶囊体的 `MoveIgnoreActors`,角色物理意义上"穿过去"。
-- 角色脚底已经到达/高于平台顶面(准备落地或已站在上面)→ 把平台从该角色的 `MoveIgnoreActors` 移除,恢复正常碰撞阻挡,角色被正常支撑,可以像走在实体地面上一样活动。
+- 角色脚底低于平台顶面 **且** 正在向上运动(跳跃穿过程中)→ 把 `CollisionBox` 这个组件加进角色胶囊体的忽略列表,角色物理意义上"穿过去"。
+- 角色脚底已经到达/高于平台顶面(准备落地或已站在上面)→ 把 `CollisionBox` 从该角色的忽略列表移除,恢复正常碰撞阻挡,角色被正常支撑,可以像走在实体地面上一样活动。
+- 角色**已经在穿透中**时,只看位置(脚底是否真正越过顶面),不看速度方向——避免跳跃最高点恰好卡在 `CollisionBox` 内部、速度过零那一帧被误判成"该恢复阻挡"从而被引擎的解穿插逻辑弹飞。
 
 这个"是否应该穿透"的判断本身是一个不依赖 `UWorld` 的纯函数:
 
 ```
-bool ShouldPassThroughPlatform(float CharacterFeetZ, float PlatformTopZ, float CharacterVelocityZ)
+bool ShouldPassThroughPlatform(float CharacterFeetZ, float PlatformTopZ, float CharacterVelocityZ, bool bWasPassingThrough)
 ```
 
-输入角色脚底 Z、平台顶面 Z、角色垂直速度,输出是否应该穿透。跟移动控制那次的 `ACharacterBase::SelectFlipbookForState` 是同一套路——把可判定的核心逻辑抽成纯函数,单独写自动化测试覆盖边界情况;真正的物理穿透效果(`MoveIgnoreActors` 生效与否)通过 PIE 手动验证,原因跟之前一致:本项目没有走 UWorld 的自动化测试基础设施,能测的部分测,不能测的部分靠明确的手动验证清单。
+输入角色脚底 Z、平台顶面 Z、角色垂直速度、是否已经在穿透中,输出是否应该穿透。跟移动控制那次的 `ACharacterBase::SelectFlipbookForState` 是同一套路——把可判定的核心逻辑抽成纯函数,单独写自动化测试覆盖边界情况;真正的物理穿透效果(忽略是否生效)通过 PIE 手动验证,原因跟之前一致:本项目没有走 UWorld 的自动化测试基础设施,能测的部分测,不能测的部分靠明确的手动验证清单。
 
 ### 验收方式
 

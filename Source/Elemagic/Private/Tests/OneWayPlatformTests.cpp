@@ -12,20 +12,41 @@ bool FOneWayPlatformPassThroughTest::RunTest(const FString& Parameters)
 {
 	const float PlatformTopZ = 100.f;
 
-	TestTrue(TEXT("Below platform and rising should pass through"),
-		AOneWayPlatform::ShouldPassThroughPlatform(50.f, PlatformTopZ, 200.f));
+	// bWasPassingThrough = false: 还没开始穿透,走"是否该开始穿透"的规则。
+	TestTrue(TEXT("Below platform and rising should start passing through"),
+		AOneWayPlatform::ShouldPassThroughPlatform(50.f, PlatformTopZ, 200.f, false));
 
-	TestFalse(TEXT("Below platform and falling should not pass through"),
-		AOneWayPlatform::ShouldPassThroughPlatform(50.f, PlatformTopZ, -200.f));
+	TestTrue(TEXT("Just below platform top and rising should start passing through"),
+		AOneWayPlatform::ShouldPassThroughPlatform(99.99f, PlatformTopZ, 200.f, false));
 
-	TestFalse(TEXT("Below platform and stationary should not pass through"),
-		AOneWayPlatform::ShouldPassThroughPlatform(50.f, PlatformTopZ, 0.f));
+	TestFalse(TEXT("Below platform and falling should not start passing through"),
+		AOneWayPlatform::ShouldPassThroughPlatform(50.f, PlatformTopZ, -200.f, false));
 
-	TestFalse(TEXT("Exactly at platform top while rising should not pass through (already arrived)"),
-		AOneWayPlatform::ShouldPassThroughPlatform(100.f, PlatformTopZ, 200.f));
+	TestFalse(TEXT("Below platform and stationary should not start passing through"),
+		AOneWayPlatform::ShouldPassThroughPlatform(50.f, PlatformTopZ, 0.f, false));
 
-	TestFalse(TEXT("Above platform and falling onto it should not pass through (gets supported)"),
-		AOneWayPlatform::ShouldPassThroughPlatform(150.f, PlatformTopZ, -200.f));
+	TestFalse(TEXT("Exactly at platform top while rising should not start passing through (already arrived)"),
+		AOneWayPlatform::ShouldPassThroughPlatform(100.f, PlatformTopZ, 200.f, false));
+
+	TestFalse(TEXT("Exactly at platform top while falling should not start passing through"),
+		AOneWayPlatform::ShouldPassThroughPlatform(100.f, PlatformTopZ, -200.f, false));
+
+	TestFalse(TEXT("Above platform and falling onto it should not start passing through (gets supported)"),
+		AOneWayPlatform::ShouldPassThroughPlatform(150.f, PlatformTopZ, -200.f, false));
+
+	// bWasPassingThrough = true: 已经在穿透中,只看位置,不看速度——这是修复"跳跃最高点
+	// 恰好卡在平台内部、速度过零那一帧被判定为不该穿透从而被解穿插弹飞"这个 bug 的关键。
+	TestTrue(TEXT("Already passing through and still below top should keep passing through even if velocity just flipped negative"),
+		AOneWayPlatform::ShouldPassThroughPlatform(90.f, PlatformTopZ, -10.f, true));
+
+	TestTrue(TEXT("Already passing through and still below top should keep passing through while stationary"),
+		AOneWayPlatform::ShouldPassThroughPlatform(90.f, PlatformTopZ, 0.f, true));
+
+	TestFalse(TEXT("Already passing through but feet have cleared the top should stop passing through"),
+		AOneWayPlatform::ShouldPassThroughPlatform(100.f, PlatformTopZ, 50.f, true));
+
+	TestFalse(TEXT("Already passing through but well above the top should stop passing through"),
+		AOneWayPlatform::ShouldPassThroughPlatform(150.f, PlatformTopZ, -200.f, true));
 
 	return true;
 }
