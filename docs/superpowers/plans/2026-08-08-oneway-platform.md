@@ -42,7 +42,7 @@
 - Produces: `AOneWayPlatform` class with `CollisionBox` (`UBoxComponent`, root) and `Sprite` (`UPaperSpriteComponent`, attached to root) components, both `protected`.
 - Consumes: nothing (first task).
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Create `Source/Elemagic/Private/Tests/OneWayPlatformTests.cpp`:
 
@@ -82,7 +82,7 @@ bool FOneWayPlatformPassThroughTest::RunTest(const FString& Parameters)
 #endif // WITH_AUTOMATION_TESTS
 ```
 
-- [ ] **Step 2: Run the build to verify it fails**
+- [x] **Step 2: Run the build to verify it fails**
 
 Check first whether the editor is running (`tasklist //FI "IMAGENAME eq UnrealEditor.exe"` in Bash); if so, ask the user to close it. Then run (PowerShell):
 ```
@@ -90,7 +90,7 @@ Check first whether the editor is running (`tasklist //FI "IMAGENAME eq UnrealEd
 ```
 Expected: FAILS — `Actor/OneWayPlatform.h`: No such file or directory (the header referenced by the test doesn't exist yet). This is the "red" step; a compiled language fails to build instead of failing at runtime.
 
-- [ ] **Step 3: Implement the minimal code to make it pass**
+- [x] **Step 3: Implement the minimal code to make it pass**
 
 Create `Source/Elemagic/Public/Actor/OneWayPlatform.h`:
 
@@ -206,7 +206,7 @@ void AOneWayPlatform::OnPlatformEndOverlap(UPrimitiveComponent* OverlappedCompon
 }
 ```
 
-- [ ] **Step 4: Run the build and the test to verify it passes**
+- [x] **Step 4: Run the build and the test to verify it passes**
 
 Run the same `Build.bat` command as Step 2. Expected: builds with no errors.
 
@@ -216,7 +216,7 @@ Then run:
 ```
 Check `Saved\Logs\Elemagic.log` (or `Elemagic_2.log` if the interactive editor is also running) for a line containing `Elemagic.OneWayPlatform.ShouldPassThroughPlatform` and `Result={Success}`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add Source/Elemagic/Public/Actor/OneWayPlatform.h Source/Elemagic/Private/Actor/OneWayPlatform.cpp Source/Elemagic/Private/Tests/OneWayPlatformTests.cpp
@@ -238,7 +238,7 @@ git commit -m "feat: add AOneWayPlatform scaffold with testable pass-through rul
 
 This task has no new automated test — the underlying decision logic is already covered by Task 1's test, and what's left (does `MoveIgnoreActors` actually make `UCharacterMovementComponent` behave correctly, does a Blueprint-placed instance work in a real level) can only be checked by playing it, matching this project's established testing approach.
 
-- [ ] **Step 1: Implement the Tick and end-overlap wiring**
+- [x] **Step 1: Implement the Tick and end-overlap wiring**
 
 In `Source/Elemagic/Private/Actor/OneWayPlatform.cpp`, replace the `Tick` and `OnPlatformEndOverlap` bodies:
 
@@ -291,21 +291,21 @@ void AOneWayPlatform::OnPlatformEndOverlap(UPrimitiveComponent* OverlappedCompon
 }
 ```
 
-- [ ] **Step 2: Build**
+- [x] **Step 2: Build**
 
 Check first whether the editor is running (as in Task 1 Step 2); close it if so. Run the same `Build.bat` command. Expected: builds with no errors.
 
-- [ ] **Step 3: Re-run Task 1's automation test to confirm no regression**
+- [x] **Step 3: Re-run Task 1's automation test to confirm no regression**
 
 Run the same `UnrealEditor-Cmd.exe` command from Task 1 Step 4. Expected: still `Result={Success}` — the Tick/overlap changes didn't touch `ShouldPassThroughPlatform` itself.
 
-- [ ] **Step 4: Create the placeholder Blueprint and place it in level1**
+- [x] **Step 4: Create the placeholder Blueprint and place it in level1**
 
 Open the editor (`Elemagic.uproject`). In the Content Browser, create folder `Content/Blueprint/Actor/` if it doesn't exist. Right-click → Blueprint Class → search for `OneWayPlatform` as the parent class → name it `BP_OneWayPlatform_Placeholder`. Open it, select the `Sprite` component, and assign any existing flat/rectangular sprite as a stand-in visual (e.g. one of the `Tilemap_Platform`-derived sprites in `Content/Asset/`, or leave the default checkerboard if none fits — this is explicitly a placeholder per the spec, swappable later without code changes). Compile and Save.
 
 Open `Content/Level/level1`, drag one instance of `BP_OneWayPlatform_Placeholder` into the level, positioned a bit above the existing ground tiles with clear space underneath for the character to jump up into it from below.
 
-- [ ] **Step 5: Manual PIE verification checklist**
+- [x] **Step 5: Manual PIE verification checklist**
 
 Press Play in `level1` and verify each of the following, in order:
 
@@ -318,7 +318,7 @@ Press Play in `level1` and verify each of the following, in order:
 
 If any check fails, fix the underlying cause and repeat the checklist from the top.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git status
@@ -335,3 +335,13 @@ git commit -m "feat: wire one-way platform pass-through/support behavior and ver
 - **Spec coverage:** covers the full `AOneWayPlatform` design from `docs/superpowers/specs/2026-08-08-oneway-platform-design.md` — component structure (Task 1), pure pass-through function + its automated test (Task 1), `MoveIgnoreActors` wiring (Task 2), and all 4 points of the spec's manual verification checklist (Task 2 Step 5, expanded to 6 points to also cover the repeat-cycle and Output Log checks the spec's "反复跳上跳下多次没有卡死或抖动" and "没有报错" bullets call for). The spec's "未决问题" (moving one-way platforms, multi-character edge cases) are explicitly out of scope for this plan, matching the spec.
 - **Placeholder scan:** no TBD/TODO left. The BP sprite assignment in Task 2 Step 4 is intentionally a placeholder per the spec, not an unfinished plan step — the spec explicitly calls for a placeholder-first approach here, same as `IdleFlipbook`/`RunFlipbook` were handled in the movement-control plan.
 - **Type consistency:** `ShouldPassThroughPlatform`'s signature (Task 1) is used identically in `Tick()` (Task 2) and in the test file. `CollisionBox`/`Sprite`/`GetPlatformTopZ()` names are consistent across both files.
+
+## Post-Implementation Notes (deviations from this plan, found while executing Task 2)
+
+Task 2's original `Tick`/`OnPlatformEndOverlap` code as written in this plan did **not** work — three real bugs were found and fixed via live debugging in PIE, none of which the plan anticipated:
+
+1. **`CollisionBox` alone never generates overlap events.** UE only generates an overlap between two components when their combined collision response resolves to `ECR_Overlap`; a `Block`-vs-anything pair never does (`CanComponentsGenerateOverlap` in `PrimitiveComponent.cpp` requires strict equality). Since `CollisionBox` is `ECR_Block` for support, `Tick`'s `GetOverlappingActors` on it was always empty — the character could stand on top (Block worked) but could never be detected to allow pass-through. **Fix:** added a second component, `DetectionBox` (`UBoxComponent`, `ECollisionEnabled::QueryOnly`, `ECR_Overlap` to Pawn, extent = `CollisionBox`'s extent + 60 units margin on Z), used only for the `GetOverlappingActors` query; `CollisionBox` remains the sole physically-blocking component.
+2. **`IgnoreActorWhenMoving`/`MoveIgnoreActors` (Actor-level ignore) breaks detection permanently after first use.** It makes the character ignore *all* of the platform Actor's primitive components for movement/collision purposes — including `DetectionBox`. Once a character started passing through, `DetectionBox` went blind to them too, so `Tick` could never see them again to restore blocking; they'd fall straight through the platform forever afterward. **Fix:** switched to `Capsule->IgnoreComponentWhenMoving(CollisionBox, bShouldPass)` (component-level ignore), which only affects `CollisionBox` and leaves `DetectionBox` tracking the character continuously.
+3. **The `OnPlatformEndOverlap` "safety net" (unconditional `MoveIgnoreActors.Remove` on end-overlap) fought the per-frame `Tick` logic.** Toggling the ignore state on every `Tick` call caused `DetectionBox`'s Begin/EndOverlap to fire repeatedly (observed every single frame while the character remained inside the volume) — an artifact of changing collision-affecting state while already overlapping. The unconditional clear in the end-overlap handler raced against `Tick`'s own add/remove, leaving the character stuck oscillating instead of passing through. **Fix:** removed the `OnComponentEndOverlap` binding and handler entirely; `Tick`'s own per-frame add/remove (now using component-level ignore) is sufficient. Residual known gap: if a character exits `DetectionBox` sideways while mid-pass-through (e.g. via a future dash/dodge ability), nothing clears the ignore — revisit if that becomes reachable.
+
+Net effect: the final `AOneWayPlatform::Tick()` is an 8-line loop with **no** `OnComponentBeginOverlap`/`OnComponentEndOverlap` bindings — simpler than what this plan originally specified, not more complex. `ShouldPassThroughPlatform`'s pure-function contract (Task 1) was correct throughout and needed no changes.
