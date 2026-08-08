@@ -33,6 +33,7 @@ bool FPlayerCharacterMovementTuningTest::RunTest(const FString& Parameters)
 	TestEqual(TEXT("MaxWalkSpeed driven by MoveSpeed"), MoveComp->MaxWalkSpeed, CDO->MoveSpeed);
 	TestEqual(TEXT("JumpZVelocity driven by JumpVelocity"), MoveComp->JumpZVelocity, CDO->JumpVelocity);
 	TestEqual(TEXT("JumpMaxCount driven by JumpMaxCount property"), MoveComp->JumpMaxCount, CDO->JumpMaxCount);
+	TestEqual(TEXT("JumpMaxHoldTime driven by JumpHoldTime property"), CDO->JumpMaxHoldTime, CDO->JumpHoldTime);
 
 	// 手感参数
 	TestEqual(TEXT("GravityScale tuned for tight fall arc"), MoveComp->GravityScale, 2.f);
