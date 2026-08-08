@@ -35,6 +35,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Elemagic|Abilities")
 	TSubclassOf<UGameplayAbility> AttackAbilityClass;
 
+public:
 	// 移动参数以蓝图中设置的为准；构造里写入 CharacterMovementComponent 的初始值。
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Elemagic|Movement")
 	float MoveSpeed = 600.f;
