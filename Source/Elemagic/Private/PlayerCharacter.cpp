@@ -24,13 +24,6 @@ APlayerCharacter::APlayerCharacter()
 
 	if (UCharacterMovementComponent* MoveComp = GetCharacterMovement())
 	{
-		// 移动速度和跳跃高度以 EditDefaultsOnly 属性为准,构造中先写入默认值;
-		// BP 子类的 Class Defaults 覆盖这些属性后,运行时取到的就是 BP 设置的值。
-		MoveComp->MaxWalkSpeed = MoveSpeed;
-		MoveComp->JumpZVelocity = JumpVelocity;
-		JumpMaxHoldTime = JumpHoldTime;
-		MoveComp->JumpMaxCount = JumpMaxCount;
-
 		// 横版动作平台跳跃手感:CharacterMovementComponent 默认值是为写实 3D 游戏调的,
 		// 这里改成更快的下落速度,让跳跃弧线更"脆"。
 		MoveComp->GravityScale = 2.f;
@@ -41,6 +34,21 @@ APlayerCharacter::APlayerCharacter()
 		MoveComp->AirControl = 1.f;
 		MoveComp->bUseSeparateBrakingFriction = false;
 	}
+}
+
+void APlayerCharacter::BeginPlay()
+{
+	// BP Class Defaults 在构造之后才反序列化,因此必须等到 BeginPlay 才能读到蓝图覆盖值;
+	// 这里把蓝图可调属性同步到 CharacterMovementComponent,以蓝图设置为准。
+	if (UCharacterMovementComponent* MoveComp = GetCharacterMovement())
+	{
+		MoveComp->MaxWalkSpeed = MoveSpeed;
+		MoveComp->JumpZVelocity = JumpVelocity;
+		JumpMaxHoldTime = JumpHoldTime;
+		MoveComp->JumpMaxCount = JumpMaxCount;
+	}
+
+	Super::BeginPlay();
 }
 
 void APlayerCharacter::PossessedBy(AController* NewController)

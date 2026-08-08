@@ -23,6 +23,7 @@ class ELEMAGIC_API APlayerCharacter : public ACharacterBase
 public:
 	APlayerCharacter();
 
+	virtual void BeginPlay() override;
 	virtual void PossessedBy(AController* NewController) override;
 
 protected:
