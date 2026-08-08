@@ -155,7 +155,7 @@ Create `Source/Elemagic/Private/Actor/OneWayPlatform.cpp`:
 #include "Components/BoxComponent.h"
 #include "PaperSpriteComponent.h"
 #include "GameFramework/Character.h"
-#include "GameFramework/CapsuleComponent.h"
+#include "Components/CapsuleComponent.h"
 
 AOneWayPlatform::AOneWayPlatform()
 {

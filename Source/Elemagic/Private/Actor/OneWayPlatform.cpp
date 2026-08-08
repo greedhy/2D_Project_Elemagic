@@ -3,6 +3,8 @@
 #include "Actor/OneWayPlatform.h"
 #include "Components/BoxComponent.h"
 #include "PaperSpriteComponent.h"
+#include "GameFramework/Character.h"
+#include "Components/CapsuleComponent.h"
 
 AOneWayPlatform::AOneWayPlatform()
 {
@@ -43,11 +45,46 @@ float AOneWayPlatform::GetPlatformTopZ() const
 void AOneWayPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	// Task 2 补上重叠角色的 MoveIgnoreActors 切换逻辑。
+
+	TArray<AActor*> OverlappingActors;
+	CollisionBox->GetOverlappingActors(OverlappingActors, ACharacter::StaticClass());
+
+	const float PlatformTopZ = GetPlatformTopZ();
+
+	for (AActor* OverlappingActor : OverlappingActors)
+	{
+		ACharacter* Character = Cast<ACharacter>(OverlappingActor);
+		UCapsuleComponent* Capsule = Character ? Character->GetCapsuleComponent() : nullptr;
+		if (!Capsule)
+		{
+			continue;
+		}
+
+		const float FeetZ = Capsule->GetComponentLocation().Z - Capsule->GetScaledCapsuleHalfHeight();
+		const float VelocityZ = Character->GetVelocity().Z;
+
+		if (ShouldPassThroughPlatform(FeetZ, PlatformTopZ, VelocityZ))
+		{
+			Capsule->MoveIgnoreActors.AddUnique(this);
+		}
+		else
+		{
+			Capsule->MoveIgnoreActors.Remove(this);
+		}
+	}
 }
 
 void AOneWayPlatform::OnPlatformEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	// Task 2 补上离开重叠范围时的清理逻辑。
+	// 保险丝:角色离开重叠范围时,不管 Tick 当时把它设成了穿透还是阻挡,
+	// 都强制把这块平台从它的 MoveIgnoreActors 里摘掉,避免角色绕开平台后
+	// 这块平台被永久标记为"忽略"、之后再也挡不住它。
+	if (ACharacter* Character = Cast<ACharacter>(OtherActor))
+	{
+		if (UCapsuleComponent* Capsule = Character->GetCapsuleComponent())
+		{
+			Capsule->MoveIgnoreActors.Remove(this);
+		}
+	}
 }
