@@ -4,20 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "ElemagicGameplayAbility.h"
-#include "GA_Dash.generated.h"
+#include "GA_DashBase.generated.h"
 
 /**
- * 冲刺能力:面朝方向 0.15s / 400 单位水平位移,带无敌帧。
- * 地面有 GAS 冷却(空中清零),空中每滞空限 1 次(State_DashedInAir tag 阻挡)。
+ * 冲刺能力骨架:面朝方向水平位移,带无敌帧。
+ * 冷却时长/空中次数等配置由蓝图子类在 Class Defaults 中设置。
  * 输入通过 InputConfig 的 Ability.Dash -> ASC::TryActivateAbilitiesByTag 路由。
  */
 UCLASS()
-class ELEMAGIC_API UGA_Dash : public UElemagicGameplayAbility
+class ELEMAGIC_API UGA_DashBase : public UElemagicGameplayAbility
 {
 	GENERATED_BODY()
 
 public:
-	UGA_Dash();
+	UGA_DashBase();
 
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 		const FGameplayAbilityActorInfo* ActorInfo,

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "ElemagicGameplayAbility.h"
-#include "GA_Attack.generated.h"
+#include "GA_AttackBase.generated.h"
 
 /**
  * 基础近战攻击能力骨架。原生代码只负责提交与状态标签管理,
@@ -12,12 +12,12 @@
  * 并在动画结束时调用 K2_EndAbility 结束能力。
  */
 UCLASS()
-class ELEMAGIC_API UGA_Attack : public UElemagicGameplayAbility
+class ELEMAGIC_API UGA_AttackBase : public UElemagicGameplayAbility
 {
 	GENERATED_BODY()
 
 public:
-	UGA_Attack();
+	UGA_AttackBase();
 
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
 		const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;

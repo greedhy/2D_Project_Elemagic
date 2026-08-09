@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "GA_Dash.h"
+#include "GA_DashBase.h"
 #include "CharacterBase.h"
 #include "ElemagicGameplayTags.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "AbilitySystemComponent.h"
 
-UGA_Dash::UGA_Dash()
+UGA_DashBase::UGA_DashBase()
 {
 	AbilityTags.AddTag(ElemagicGameplayTags::Ability_Dash);
 
@@ -17,7 +17,7 @@ UGA_Dash::UGA_Dash()
 	ActivationBlockedTags.AddTag(ElemagicGameplayTags::State_DashedInAir);
 }
 
-void UGA_Dash::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
+void UGA_DashBase::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 	const FGameplayAbilityActorInfo* ActorInfo,
 	const FGameplayAbilityActivationInfo ActivationInfo,
 	const FGameplayEventData* TriggerEventData)
@@ -46,7 +46,7 @@ void UGA_Dash::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 	UWorld* World = GetWorld();
 	if (World)
 	{
-		World->GetTimerManager().SetTimer(DashTickTimer, this, &UGA_Dash::DashTick, 0.001f, true);
+		World->GetTimerManager().SetTimer(DashTickTimer, this, &UGA_DashBase::DashTick, 0.001f, true);
 		World->GetTimerManager().SetTimer(DashEndTimer,
 			[this, Handle, ActorInfo, ActivationInfo]()
 			{
@@ -59,7 +59,7 @@ void UGA_Dash::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 	DashTick();
 }
 
-void UGA_Dash::EndAbility(const FGameplayAbilitySpecHandle Handle,
+void UGA_DashBase::EndAbility(const FGameplayAbilitySpecHandle Handle,
 	const FGameplayAbilityActorInfo* ActorInfo,
 	const FGameplayAbilityActivationInfo ActivationInfo,
 	bool bReplicateCancel, bool bEndedByCancel)
@@ -78,7 +78,7 @@ void UGA_Dash::EndAbility(const FGameplayAbilitySpecHandle Handle,
 	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateCancel, bEndedByCancel);
 }
 
-void UGA_Dash::DashTick()
+void UGA_DashBase::DashTick()
 {
 	ACharacter* Character = Cast<ACharacter>(GetAvatarActorFromActorInfo());
 	if (!Character) return;
@@ -89,7 +89,7 @@ void UGA_Dash::DashTick()
 	MoveComp->Velocity.X = GetDashDirectionSign() * DashSpeed;
 }
 
-int32 UGA_Dash::GetDashDirectionSign() const
+int32 UGA_DashBase::GetDashDirectionSign() const
 {
 	const ACharacterBase* CharBase = Cast<ACharacterBase>(GetAvatarActorFromActorInfo());
 	if (CharBase)
@@ -99,7 +99,7 @@ int32 UGA_Dash::GetDashDirectionSign() const
 	return 1;
 }
 
-bool UGA_Dash::IsInAir() const
+bool UGA_DashBase::IsInAir() const
 {
 	const ACharacter* Character = Cast<ACharacter>(GetAvatarActorFromActorInfo());
 	if (!Character) return false;
