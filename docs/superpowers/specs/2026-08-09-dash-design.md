@@ -60,8 +60,14 @@
 
 ### 输入
 
-`AMyPlayerController` 新增 `DashAction` (UInputAction*)，EditDefaultsOnly。
-`SetupInputComponent` 中通过 `EleInputComponent::BindAbilityActions` 绑定到 `Ability.Dash` tag——**不需要新增 C++ 绑定代码**，在 `InputConfig` 资源里加映射即可。
+走现有 `BindAbilityActions` 路径——零 C++ 改动：
+
+1. 在 `IMC_Player` 中新建 `IA_Dash`（C 键）
+2. 在 `EleInputConfig` 资源中添加 `(IA_Dash, Ability.Dash)` 映射
+
+`SetupInputComponent` 中现成的 `BindAbilityActions(InputConfig, ...)` 调用已自动覆盖所有 InputConfig 中的映射，
+按下 C 键 → `AbilityInputTagPressed(Ability.Dash)` → `ASC->TryActivateAbilitiesByTag(Ability.Dash)` → 触发 `GA_Dash`。
+不需要像 Move/Jump 那样在 PlayerController 里新增 UPROPERTY 和手动绑定。
 
 ### 动画
 
