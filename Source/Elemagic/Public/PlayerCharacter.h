@@ -35,8 +35,10 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Elemagic|Camera")
 	TObjectPtr<UCameraComponent> SideViewCamera;
 
+	// 开局授予的能力:在 BP 子类的 Class Defaults 中向此数组添加 GA 类即可,
+	// PossessedBy 时遍历数组逐一授予。
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Elemagic|Abilities")
-	TSubclassOf<UGameplayAbility> AttackAbilityClass;
+	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
 
 	// 移动参数以蓝图中设置的为准；构造里写入 CharacterMovementComponent 的初始值。
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Elemagic|Movement")

@@ -54,9 +54,15 @@ void APlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	if (AbilitySystemComponent && AttackAbilityClass)
+	if (AbilitySystemComponent)
 	{
-		AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(AttackAbilityClass, 1, 0));
+		for (const TSubclassOf<UGameplayAbility>& AbilityClass : StartupAbilities)
+		{
+			if (AbilityClass)
+			{
+				AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(AbilityClass, 1, 0));
+			}
+		}
 	}
 }
 
