@@ -15,22 +15,24 @@ bool FCharacterBaseSelectFlipbookTest::RunTest(const FString& Parameters)
 	UPaperFlipbook* Run = NewObject<UPaperFlipbook>();
 	UPaperFlipbook* Jump = NewObject<UPaperFlipbook>();
 
-	// UPaperFlipbook* 是裸 UObject 指针,FAutomationTestBase::TestEqual 没有匹配的重载,
-	// 用 TestTrue + 手动 == 比较来避免重载决议失败。
+	// Signature: (bIsDashing, bIsFalling, bIsMoving, Idle, Run, Jump, Dash)
 	TestTrue(TEXT("Grounded and idle picks Idle flipbook"),
-		ACharacterBase::SelectFlipbookForState(false, false, Idle, Run, Jump) == Idle);
+		ACharacterBase::SelectFlipbookForState(false, false, false, Idle, Run, Jump, nullptr) == Idle);
 
 	TestTrue(TEXT("Grounded and moving picks Run flipbook"),
-		ACharacterBase::SelectFlipbookForState(false, true, Idle, Run, Jump) == Run);
+		ACharacterBase::SelectFlipbookForState(false, false, true, Idle, Run, Jump, nullptr) == Run);
 
 	TestTrue(TEXT("Falling picks Jump flipbook when assigned"),
-		ACharacterBase::SelectFlipbookForState(true, true, Idle, Run, Jump) == Jump);
+		ACharacterBase::SelectFlipbookForState(false, true, true, Idle, Run, Jump, nullptr) == Jump);
 
 	TestTrue(TEXT("Falling without a Jump flipbook falls back to Run"),
-		ACharacterBase::SelectFlipbookForState(true, true, Idle, Run, nullptr) == Run);
+		ACharacterBase::SelectFlipbookForState(false, true, true, Idle, Run, nullptr, nullptr) == Run);
 
 	TestTrue(TEXT("Falling without Jump or Run flipbook falls back to Idle"),
-		ACharacterBase::SelectFlipbookForState(true, true, Idle, nullptr, nullptr) == Idle);
+		ACharacterBase::SelectFlipbookForState(false, true, true, Idle, nullptr, nullptr, nullptr) == Idle);
+
+	TestTrue(TEXT("Dashing picks Dash flipbook even when falling"),
+		ACharacterBase::SelectFlipbookForState(true, true, true, Idle, Run, Jump, Run) == Run);
 
 	return true;
 }

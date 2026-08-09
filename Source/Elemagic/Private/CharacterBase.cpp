@@ -99,9 +99,13 @@ void ACharacterBase::Die_Implementation()
 	SetActorEnableCollision(false);
 }
 
-UPaperFlipbook* ACharacterBase::SelectFlipbookForState(bool bIsFalling, bool bIsMoving,
-	UPaperFlipbook* IdleFlipbook, UPaperFlipbook* RunFlipbook, UPaperFlipbook* JumpFlipbook)
+UPaperFlipbook* ACharacterBase::SelectFlipbookForState(bool bIsDashing, bool bIsFalling, bool bIsMoving,
+	UPaperFlipbook* IdleFlipbook, UPaperFlipbook* RunFlipbook, UPaperFlipbook* JumpFlipbook, UPaperFlipbook* DashFlipbook)
 {
+	if (bIsDashing && DashFlipbook)
+	{
+		return DashFlipbook;
+	}
 	if (bIsFalling && JumpFlipbook)
 	{
 		return JumpFlipbook;
@@ -121,9 +125,11 @@ void ACharacterBase::UpdateAnimation()
 		return;
 	}
 
+	const bool bIsDashing = AbilitySystemComponent && AbilitySystemComponent->HasMatchingGameplayTag(ElemagicGameplayTags::State_Dashing);
 	const bool bIsFalling = GetCharacterMovement() && GetCharacterMovement()->IsFalling();
 	const bool bIsMoving = !FMath::IsNearlyZero(GetVelocity().X);
-	UPaperFlipbook* DesiredFlipbook = SelectFlipbookForState(bIsFalling, bIsMoving, IdleFlipbook, RunFlipbook, JumpFlipbook);
+	UPaperFlipbook* DesiredFlipbook = SelectFlipbookForState(bIsDashing, bIsFalling, bIsMoving,
+		IdleFlipbook, RunFlipbook, JumpFlipbook, DashFlipbook);
 
 	if (DesiredFlipbook && SpriteComp->GetFlipbook() != DesiredFlipbook)
 	{
