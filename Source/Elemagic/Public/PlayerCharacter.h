@@ -25,6 +25,8 @@ public:
 
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void PostInitializeComponents() override;
+	virtual void Landed(const FHitResult& Hit) override;
+	virtual void OnMovementModeChanged(EMovementMode PrevMovementMode, uint8 PreviousCustomMode) override;
 
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Elemagic|Camera")

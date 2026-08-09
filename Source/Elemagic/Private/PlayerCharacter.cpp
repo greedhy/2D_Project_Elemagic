@@ -2,6 +2,7 @@
 
 #include "PlayerCharacter.h"
 #include "AbilitySystemComponent.h"
+#include "ElemagicGameplayTags.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -56,5 +57,32 @@ void APlayerCharacter::PossessedBy(AController* NewController)
 	if (AbilitySystemComponent && AttackAbilityClass)
 	{
 		AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(AttackAbilityClass, 1, 0));
+	}
+}
+
+void APlayerCharacter::Landed(const FHitResult& Hit)
+{
+	Super::Landed(Hit);
+
+	if (AbilitySystemComponent)
+	{
+		AbilitySystemComponent->RemoveLooseGameplayTag(ElemagicGameplayTags::State_DashedInAir);
+	}
+}
+
+void APlayerCharacter::OnMovementModeChanged(EMovementMode PrevMovementMode, uint8 PreviousCustomMode)
+{
+	Super::OnMovementModeChanged(PrevMovementMode, PreviousCustomMode);
+
+	if (!AbilitySystemComponent)
+	{
+		return;
+	}
+
+	if (GetCharacterMovement() && GetCharacterMovement()->MovementMode == MOVE_Falling)
+	{
+		FGameplayTagContainer CooldownTag;
+		CooldownTag.AddTag(ElemagicGameplayTags::Cooldown_Dash);
+		AbilitySystemComponent->RemoveActiveEffectsWithGrantedTags(CooldownTag);
 	}
 }
