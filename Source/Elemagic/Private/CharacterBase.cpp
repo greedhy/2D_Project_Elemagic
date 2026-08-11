@@ -3,6 +3,8 @@
 #include "CharacterBase.h"
 #include "AbilitySystemComponent.h"
 #include "CharacterAttributeSetBase.h"
+#include "Components/BoxComponent.h"
+#include "HitboxManager.h"
 #include "ElemagicGameplayTags.h"
 #include "PaperFlipbookComponent.h"
 #include "PaperFlipbook.h"
@@ -26,6 +28,31 @@ ACharacterBase::ACharacterBase()
 	AbilitySystemComponent->SetIsReplicated(true);
 
 	AttributeSet = CreateDefaultSubobject<UCharacterAttributeSetBase>(TEXT("AttributeSet"));
+
+	// Hitbox/Hurtbox 碰撞通道常量(需与 DefaultEngine.ini 中配置一致)
+	static const ECollisionChannel HITBOX_CHANNEL = ECC_GameTraceChannel1;
+	static const ECollisionChannel HURTBOX_CHANNEL = ECC_GameTraceChannel2;
+
+	AttackHitbox = CreateDefaultSubobject<UBoxComponent>(TEXT("AttackHitbox"));
+	AttackHitbox->SetupAttachment(RootComponent);
+	AttackHitbox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	AttackHitbox->SetCollisionObjectType(HITBOX_CHANNEL);
+	AttackHitbox->SetCollisionResponseToAllChannels(ECR_Ignore);
+	AttackHitbox->SetCollisionResponseToChannel(HURTBOX_CHANNEL, ECR_Overlap);
+	AttackHitbox->SetBoxExtent(FVector(32.f, 1.f, 32.f));
+	AttackHitbox->SetGenerateOverlapEvents(true);
+
+	Hurtbox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hurtbox"));
+	Hurtbox->SetupAttachment(RootComponent);
+	Hurtbox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	Hurtbox->SetCollisionObjectType(HURTBOX_CHANNEL);
+	Hurtbox->SetCollisionResponseToAllChannels(ECR_Ignore);
+	Hurtbox->SetCollisionResponseToChannel(HITBOX_CHANNEL, ECR_Overlap);
+	Hurtbox->SetBoxExtent(FVector(32.f, 1.f, 48.f));
+	Hurtbox->SetGenerateOverlapEvents(true);
+
+	HitboxManager = CreateDefaultSubobject<UHitboxManager>(TEXT("HitboxManager"));
+	HitboxManager->Init(AttackHitbox, Hurtbox);
 }
 
 void ACharacterBase::BeginPlay()

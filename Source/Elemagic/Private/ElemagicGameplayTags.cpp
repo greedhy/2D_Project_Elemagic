@@ -18,4 +18,9 @@ namespace ElemagicGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Cooldown_Dash, "Cooldown.Dash");
 
 	UE_DEFINE_GAMEPLAY_TAG(Data_Damage, "Data.Damage");
+
+	UE_DEFINE_GAMEPLAY_TAG(Event_Attack_EnableHitbox, "Event.Attack.EnableHitbox");
+	UE_DEFINE_GAMEPLAY_TAG(Event_Attack_DisableHitbox, "Event.Attack.DisableHitbox");
+	UE_DEFINE_GAMEPLAY_TAG(Event_Attack_ResetHitTargets, "Event.Attack.ResetHitTargets");
+	UE_DEFINE_GAMEPLAY_TAG(Event_Attack_EndAttack, "Event.Attack.EndAttack");
 }

@@ -14,6 +14,7 @@ UCharacterAttributeSetBase::UCharacterAttributeSetBase()
 	InitAttackPower(10.f);
 	InitDefense(0.f);
 	InitMoveSpeed(600.f);
+	InitIncomingDamage(0.f);
 }
 
 void UCharacterAttributeSetBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -25,6 +26,7 @@ void UCharacterAttributeSetBase::GetLifetimeReplicatedProps(TArray<FLifetimeProp
 	DOREPLIFETIME_CONDITION_NOTIFY(UCharacterAttributeSetBase, AttackPower, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UCharacterAttributeSetBase, Defense, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UCharacterAttributeSetBase, MoveSpeed, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UCharacterAttributeSetBase, IncomingDamage, COND_None, REPNOTIFY_Always);
 }
 
 void UCharacterAttributeSetBase::ClampHealthAttribute(float& Value) const
@@ -54,6 +56,18 @@ void UCharacterAttributeSetBase::PostGameplayEffectExecute(const FGameplayEffect
 	{
 		SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
 	}
+
+	if (Data.EvaluatedData.Attribute == GetIncomingDamageAttribute())
+	{
+		const float Damage = GetIncomingDamage();
+		SetIncomingDamage(0.f);
+
+		if (Damage > 0.f)
+		{
+			SetHealth(FMath::Clamp(GetHealth() - Damage, 0.f, GetMaxHealth()));
+			// Health <= 0 由 OnHealthChanged 回调监听 -> Die()
+		}
+	}
 }
 
 void UCharacterAttributeSetBase::OnRep_Health(const FGameplayAttributeData& OldHealth)
@@ -79,4 +93,9 @@ void UCharacterAttributeSetBase::OnRep_Defense(const FGameplayAttributeData& Old
 void UCharacterAttributeSetBase::OnRep_MoveSpeed(const FGameplayAttributeData& OldMoveSpeed)
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UCharacterAttributeSetBase, MoveSpeed, OldMoveSpeed);
+}
+
+void UCharacterAttributeSetBase::OnRep_IncomingDamage(const FGameplayAttributeData& OldIncomingDamage)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UCharacterAttributeSetBase, IncomingDamage, OldIncomingDamage);
 }
