@@ -49,6 +49,12 @@ public:
 	FGameplayAttributeData MoveSpeed;
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSetBase, MoveSpeed)
 
+	// 管道属性:SetByCaller[Data.Damage] 把伤害写入此属性,
+	// PostGameplayEffectExecute 中消费并扣减 Health 后归零。
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_IncomingDamage, Category = "Attributes")
+	FGameplayAttributeData IncomingDamage;
+	ATTRIBUTE_ACCESSORS(UCharacterAttributeSetBase, IncomingDamage)
+
 protected:
 	UFUNCTION()
 	virtual void OnRep_Health(const FGameplayAttributeData& OldHealth);
@@ -64,6 +70,9 @@ protected:
 
 	UFUNCTION()
 	virtual void OnRep_MoveSpeed(const FGameplayAttributeData& OldMoveSpeed);
+
+	UFUNCTION()
+	virtual void OnRep_IncomingDamage(const FGameplayAttributeData& OldIncomingDamage);
 
 private:
 	void ClampHealthAttribute(float& Value) const;
