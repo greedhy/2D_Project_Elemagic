@@ -59,4 +59,6 @@ public:
 
 private:
     UHitboxManager* GetHitboxManager() const;
+
+    FTimerHandle AttackEndTimer;
 };

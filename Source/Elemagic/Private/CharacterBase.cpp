@@ -152,6 +152,13 @@ void ACharacterBase::UpdateAnimation()
 		return;
 	}
 
+	// 攻击中不覆盖动画 — CGF_Damage 控制 Flipbook 播放
+	const bool bIsAttacking = AbilitySystemComponent && AbilitySystemComponent->HasMatchingGameplayTag(ElemagicGameplayTags::State_Attacking);
+	if (bIsAttacking)
+	{
+		return;
+	}
+
 	const bool bIsDashing = AbilitySystemComponent && AbilitySystemComponent->HasMatchingGameplayTag(ElemagicGameplayTags::State_Dashing);
 	const bool bIsFalling = GetCharacterMovement() && GetCharacterMovement()->IsFalling();
 	const bool bIsMoving = !FMath::IsNearlyZero(GetVelocity().X);
