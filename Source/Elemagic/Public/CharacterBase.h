@@ -9,6 +9,8 @@
 
 class UAbilitySystemComponent;
 class UCharacterAttributeSetBase;
+class UBoxComponent;
+class UHitboxManager;
 class UPaperFlipbook;
 struct FOnAttributeChangeData;
 
@@ -62,6 +64,15 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Elemagic|Abilities")
 	TObjectPtr<UCharacterAttributeSetBase> AttributeSet;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Elemagic|Combat")
+	TObjectPtr<UBoxComponent> AttackHitbox;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Elemagic|Combat")
+	TObjectPtr<UBoxComponent> Hurtbox;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Elemagic|Combat")
+	TObjectPtr<UHitboxManager> HitboxManager;
 
 	virtual void InitializeAttributes();
 	virtual void OnHealthChanged(const FOnAttributeChangeData& Data);
