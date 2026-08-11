@@ -104,24 +104,12 @@ void AMyPlayerController::JumpReleased()
 
 void AMyPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 {
-	UE_LOG(LogTemp, Log, TEXT("[Input] AbilityInputTagPressed: %s"), *InputTag.ToString());
-
 	if (const IAbilitySystemInterface* ASI = Cast<IAbilitySystemInterface>(GetPawn()))
 	{
 		if (UAbilitySystemComponent* ASC = ASI->GetAbilitySystemComponent())
 		{
-			const int32 Count = ASC->TryActivateAbilitiesByTag(FGameplayTagContainer(InputTag));
-			UE_LOG(LogTemp, Log, TEXT("[Input] TryActivateAbilitiesByTag(%s) returned %d (0=no matching ability or blocked)"),
-				*InputTag.ToString(), Count);
+			ASC->TryActivateAbilitiesByTag(FGameplayTagContainer(InputTag));
 		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("[Input] No AbilitySystemComponent on Pawn %s"), *GetNameSafe(GetPawn()));
-		}
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("[Input] Pawn %s does not implement IAbilitySystemInterface"), *GetNameSafe(GetPawn()));
 	}
 }
 

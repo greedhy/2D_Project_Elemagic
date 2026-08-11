@@ -22,21 +22,11 @@ void UCGF_Damage::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
     const FGameplayAbilityActivationInfo ActivationInfo,
     const FGameplayEventData* TriggerEventData)
 {
-    UE_LOG(LogTemp, Log, TEXT("[CGF_Damage] ActivateAbility START: %s"), *GetName());
-
     if (!CommitAbility(Handle, ActorInfo, ActivationInfo))
     {
-        UE_LOG(LogTemp, Warning, TEXT("[CGF_Damage] CommitAbility FAILED for %s"), *GetName());
         EndAbility(Handle, ActorInfo, ActivationInfo, true, true);
         return;
     }
-    UE_LOG(LogTemp, Log, TEXT("[CGF_Damage] CommitAbility OK"));
-
-    // 打印关键配置的当前值
-    UE_LOG(LogTemp, Log, TEXT("[CGF_Damage] AttackAnimation=%s FrameData=%s DamageEffectClass=%s"),
-        *GetNameSafe(AttackAnimation),
-        *GetNameSafe(FrameData),
-        *GetNameSafe(DamageEffectClass));
 
     // 校验:FrameData 的 SourceAnimation 应与 AttackAnimation 匹配
     if (FrameData && AttackAnimation &&
@@ -47,54 +37,29 @@ void UCGF_Damage::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
     }
 
     UHitboxManager* HitboxMan = GetHitboxManager();
-    if (!HitboxMan)
+    if (!HitboxMan || !FrameData)
     {
-        UE_LOG(LogTemp, Warning, TEXT("[CGF_Damage] HitboxManager is null for %s"), *GetName());
+        UE_LOG(LogTemp, Warning, TEXT("[CGF_Damage] HitboxManager or FrameData is null, ending ability"));
         EndAbility(Handle, ActorInfo, ActivationInfo, true, true);
         return;
     }
-    UE_LOG(LogTemp, Log, TEXT("[CGF_Damage] HitboxManager found"));
-
-    if (!FrameData)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("[CGF_Damage] FrameData is null — no attack frame config, ending"));
-        EndAbility(Handle, ActorInfo, ActivationInfo, true, true);
-        return;
-    }
-    UE_LOG(LogTemp, Log, TEXT("[CGF_Damage] FrameData OK, Frames.Num=%d"), FrameData->Frames.Num());
 
     // 将数据喂给 HitboxManager
     HitboxMan->BeginAttack(FrameData, DamageEffectClass, BaseImpulse);
-    UE_LOG(LogTemp, Log, TEXT("[CGF_Damage] HitboxManager->BeginAttack called"));
 
     // 播放动画(纯视觉)
     ACharacterBase* CharBase = Cast<ACharacterBase>(ActorInfo->AvatarActor.Get());
-    if (!CharBase)
+    if (CharBase && AttackAnimation)
     {
-        UE_LOG(LogTemp, Warning, TEXT("[CGF_Damage] AvatarActor is not ACharacterBase"));
-        return;
+        if (UPaperFlipbookComponent* Sprite = CharBase->GetSprite())
+        {
+            Sprite->SetFlipbook(AttackAnimation);
+            Sprite->PlayFromStart();
+        }
     }
-
-    if (!AttackAnimation)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("[CGF_Damage] AttackAnimation is null — no Flipbook to play"));
-        return;
-    }
-
-    UPaperFlipbookComponent* Sprite = CharBase->GetSprite();
-    if (!Sprite)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("[CGF_Damage] Sprite component is null"));
-        return;
-    }
-
-    Sprite->SetFlipbook(AttackAnimation);
-    Sprite->PlayFromStart();
-    UE_LOG(LogTemp, Log, TEXT("[CGF_Damage] Playing Flipbook: %s"), *GetNameSafe(AttackAnimation));
 
     // 按动画时长设置 EndAbility 定时器
     const float Duration = FrameData->GetTotalDuration();
-    UE_LOG(LogTemp, Log, TEXT("[CGF_Damage] Setting EndAbility timer: %.2fs"), Duration);
     UWorld* World = GetWorld();
     if (World)
     {

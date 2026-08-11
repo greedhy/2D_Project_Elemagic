@@ -111,8 +111,6 @@ void UHitboxManager::ProcessFrameConfig(const FAttackFrameConfig& Config)
 
     if (Config.EventTags.HasTagExact(ElemagicGameplayTags::Event_Attack_EnableHitbox))
     {
-        UE_LOG(LogTemp, Log, TEXT("[HitboxManager] EnableHitbox at NormalizedTime=%.2f, Extent=(%.0f,%.0f) Offset=(%.0f,%.0f)"),
-            Config.NormalizedTime, Config.HitboxExtent.X, Config.HitboxExtent.Y, Config.HitboxOffset.X, Config.HitboxOffset.Y);
         AttackHitbox->SetBoxExtent(FVector(Config.HitboxExtent.X, 1.f, Config.HitboxExtent.Y));
         AttackHitbox->SetRelativeLocation(FVector(Config.HitboxOffset.X, 0.f, Config.HitboxOffset.Y));
         AttackHitbox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
@@ -141,39 +139,29 @@ void UHitboxManager::ProcessFrameConfig(const FAttackFrameConfig& Config)
 void UHitboxManager::OnAttackHitboxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
     UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-    UE_LOG(LogTemp, Log, TEXT("[HitboxManager] Overlap: Other=%s OtherComp=%s bActive=%d"),
-        *GetNameSafe(OtherActor), *GetNameSafe(OtherComp), bActive);
-
     if (!bActive || !OtherActor || !CurrentDamageEffectClass)
     {
-        UE_LOG(LogTemp, Log, TEXT("[HitboxManager] Rejected: bActive=%d OtherActor=%s DamageEffectClass=%s"),
-            bActive, *GetNameSafe(OtherActor), *GetNameSafe(CurrentDamageEffectClass.Get()));
         return;
     }
 
     // 不攻击自己
     if (OtherActor == GetOwner())
     {
-        UE_LOG(LogTemp, Log, TEXT("[HitboxManager] Rejected: self-hit"));
         return;
     }
 
     // 检查 OtherComp 是否是 Hurtbox 通道
     if (!OtherComp || OtherComp->GetCollisionObjectType() != ECC_GameTraceChannel2)
     {
-        UE_LOG(LogTemp, Log, TEXT("[HitboxManager] Rejected: OtherComp channel=%d (expected %d)"),
-            OtherComp ? (int32)OtherComp->GetCollisionObjectType() : -1, (int32)ECC_GameTraceChannel2);
         return;
     }
 
     // 去重:本段内同一目标只命中一次
     if (HitTargets.Contains(OtherActor))
     {
-        UE_LOG(LogTemp, Log, TEXT("[HitboxManager] Rejected: already hit %s this attack"), *GetNameSafe(OtherActor));
         return;
     }
 
-    UE_LOG(LogTemp, Log, TEXT("[HitboxManager] HIT! Target=%s DamageMultiplier=%.2f"), *GetNameSafe(OtherActor), CurrentDamageMultiplier);
     ApplyDamage(OtherActor, CurrentDamageMultiplier);
     HitTargets.Add(OtherActor);
 }
@@ -186,8 +174,6 @@ void UHitboxManager::ApplyDamage(AActor* Target, float DamageMultiplier)
     UAbilitySystemComponent* TargetASC = UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(Target);
     if (!SourceASC || !TargetASC)
     {
-        UE_LOG(LogTemp, Warning, TEXT("[HitboxManager] ApplyDamage FAILED: SourceASC=%s TargetASC=%s"),
-            *GetNameSafe(SourceASC), *GetNameSafe(TargetASC));
         return;
     }
 
@@ -199,9 +185,6 @@ void UHitboxManager::ApplyDamage(AActor* Target, float DamageMultiplier)
     }
     const float FinalDamage = AttackPower * DamageMultiplier;
 
-    UE_LOG(LogTemp, Log, TEXT("[HitboxManager] ApplyDamage: AttackPower=%.1f x Multiplier=%.2f = FinalDamage=%.1f"),
-        AttackPower, DamageMultiplier, FinalDamage);
-
     // 源 ASC 创建 GE Spec,通过 SetByCaller 传递伤害值
     FGameplayEffectSpecHandle SpecHandle = SourceASC->MakeOutgoingSpec(
         CurrentDamageEffectClass, 1.f, SourceASC->MakeEffectContext());
@@ -210,16 +193,6 @@ void UHitboxManager::ApplyDamage(AActor* Target, float DamageMultiplier)
     {
         SpecHandle.Data->SetSetByCallerMagnitude(ElemagicGameplayTags::Data_Damage, FinalDamage);
         TargetASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
-
-        // 读取目标血量和伤害结果
-        if (const UCharacterAttributeSetBase* TargetAttr = TargetASC->GetSet<UCharacterAttributeSetBase>())
-        {
-            UE_LOG(LogTemp, Log, TEXT("[HitboxManager] Target Health: %.1f -> %.1f (after %.1f damage)"),
-                TargetAttr->GetHealth() + FinalDamage, TargetAttr->GetHealth(), FinalDamage); // 注意:PostGameplayEffectExecute 可能还没跑完,这里是近似值
-        }
-
-        UE_LOG(LogTemp, Log, TEXT("[HitboxManager] GE applied to %s, FinalDamage=%.1f via SetByCaller[Data.Damage]"),
-            *GetNameSafe(Target), FinalDamage);
 
         OnAttackHit.Broadcast(Target, FinalDamage);
     }
