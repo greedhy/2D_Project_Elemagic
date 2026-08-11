@@ -11,7 +11,8 @@
 
 UCGF_Damage::UCGF_Damage()
 {
-    AbilityTags.AddTag(ElemagicGameplayTags::Ability_Attack);
+    // 注意:AbilityTags(如 Ability.Attack)由 BP 子类在 Class Defaults 中配置,
+    // 框架基类不硬编码任何 Ability Tag。
     ActivationOwnedTags.AddTag(ElemagicGameplayTags::State_Attacking);
     ActivationBlockedTags.AddTag(ElemagicGameplayTags::State_Attacking);
 }

@@ -60,7 +60,7 @@ bool FCGFDamageDefaultsTest::RunTest(const FString& Parameters)
         return false;
     }
 
-    TestTrue(TEXT("Has Ability.Attack tag in AssetTags"),
+    TestFalse(TEXT("Framework CDO should NOT have Ability.Attack tag (set by subclass)"),
         CDO->GetAssetTags().HasTagExact(ElemagicGameplayTags::Ability_Attack));
 
     return true;
