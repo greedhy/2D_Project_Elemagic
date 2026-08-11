@@ -58,13 +58,6 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Elemagic|Animation")
 	TObjectPtr<UPaperFlipbook> DashFlipbook;
 
-protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Elemagic|Abilities")
-	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Elemagic|Abilities")
-	TObjectPtr<UCharacterAttributeSetBase> AttributeSet;
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Elemagic|Combat")
 	TObjectPtr<UBoxComponent> AttackHitbox;
 
@@ -73,6 +66,13 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Elemagic|Combat")
 	TObjectPtr<UHitboxManager> HitboxManager;
+
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Elemagic|Abilities")
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Elemagic|Abilities")
+	TObjectPtr<UCharacterAttributeSetBase> AttributeSet;
 
 	virtual void InitializeAttributes();
 	virtual void OnHealthChanged(const FOnAttributeChangeData& Data);
