@@ -58,7 +58,6 @@ void UCGF_Damage::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
     UWorld* World = GetWorld();
     if (World)
     {
-        // EndAbility 定时器
         World->GetTimerManager().SetTimer(AttackEndTimer,
             [this, Handle, ActorInfo, ActivationInfo]()
             {
@@ -66,31 +65,38 @@ void UCGF_Damage::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
             },
             Duration, false);
 
-        // Combo 窗口打开定时器
         if (ComboWindowStart > 0.f && NextComboAbilityClass)
         {
             const float WindowTime = ComboWindowStart * Duration;
+            UE_LOG(LogTemp, Log, TEXT("[Combo] %s: scheduling combo window at %.2fs (%.0f%% of %.2fs) -> %s"),
+                *GetName(), WindowTime, ComboWindowStart * 100.f, Duration,
+                *GetNameSafe(NextComboAbilityClass.Get()));
             World->GetTimerManager().SetTimer(ComboWindowTimer,
                 this, &UCGF_Damage::OpenComboWindow,
                 WindowTime, false);
+        }
+        else
+        {
+            UE_LOG(LogTemp, Log, TEXT("[Combo] %s: NO combo configured (Start=%.2f Next=%s)"),
+                *GetName(), ComboWindowStart, *GetNameSafe(NextComboAbilityClass.Get()));
         }
     }
 }
 
 void UCGF_Damage::OpenComboWindow()
 {
-    if (!NextComboAbilityClass)
-    {
-        return;
-    }
-
     bComboWindowOpened = true;
 
-    // 在 owner ASC 上标记 Combo.WindowOpen，Controller 读取此 Tag 来判断是否缓冲输入
     UAbilitySystemComponent* ASC = GetAbilitySystemComponentFromActorInfo();
     if (ASC)
     {
         ASC->AddLooseGameplayTag(ElemagicGameplayTags::Combo_WindowOpen);
+        UE_LOG(LogTemp, Log, TEXT("[Combo] Window OPEN for %s, tag added to %s"),
+            *GetName(), *GetNameSafe(ASC->GetOwner()));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("[Combo] OpenComboWindow: No ASC! for %s"), *GetName());
     }
 }
 
@@ -102,10 +108,8 @@ void UCGF_Damage::TryActivateNextCombo()
         return;
     }
 
-    // 关闭 combo window tag
     ASC->RemoveLooseGameplayTag(ElemagicGameplayTags::Combo_WindowOpen);
-
-    // 激活下一段 combo
+    UE_LOG(LogTemp, Log, TEXT("[Combo] Chaining %s -> %s"), *GetName(), *GetNameSafe(NextComboAbilityClass.Get()));
     ASC->TryActivateAbilityByClass(NextComboAbilityClass);
 }
 
@@ -114,6 +118,9 @@ void UCGF_Damage::EndAbility(const FGameplayAbilitySpecHandle Handle,
     const FGameplayAbilityActivationInfo ActivationInfo,
     bool bReplicateCancel, bool bEndedByCancel)
 {
+    UE_LOG(LogTemp, Log, TEXT("[Combo] EndAbility %s: bComboWindowOpened=%d bEndedByCancel=%d"),
+        *GetName(), bComboWindowOpened, bEndedByCancel);
+
     if (UWorld* World = GetWorld())
     {
         World->GetTimerManager().ClearTimer(AttackEndTimer);
@@ -125,34 +132,43 @@ void UCGF_Damage::EndAbility(const FGameplayAbilitySpecHandle Handle,
         HitboxMan->EndAttack();
     }
 
-    // 确保 combo window tag 被移除
     if (UAbilitySystemComponent* ASC = GetAbilitySystemComponentFromActorInfo())
     {
         ASC->RemoveLooseGameplayTag(ElemagicGameplayTags::Combo_WindowOpen);
     }
 
-    // 检查 combo 缓冲输入
     bool bShouldChainCombo = false;
     if (!bEndedByCancel && bComboWindowOpened)
     {
         AMyPlayerController* PC = Cast<AMyPlayerController>(ActorInfo->PlayerController.Get());
-        if (PC && PC->HasBufferedComboInput())
+        const bool bHasBuffered = PC && PC->HasBufferedComboInput();
+
+        UE_LOG(LogTemp, Log, TEXT("[Combo] EndAbility %s: PC=%s HasBuffered=%d"),
+            *GetName(), *GetNameSafe(PC), bHasBuffered);
+
+        if (PC && bHasBuffered)
         {
             const FGameplayTag ComboTag = ComboInputTag.IsValid()
                 ? ComboInputTag
                 : (AbilityTags.IsEmpty() ? FGameplayTag() : *AbilityTags.CreateConstIterator());
 
+            UE_LOG(LogTemp, Log, TEXT("[Combo] EndAbility: ComboTag=%s BufferedTag=%s"),
+                *ComboTag.ToString(), *PC->GetBufferedInputTag().ToString());
+
             if (PC->ConsumeBufferedComboInput(ComboTag))
             {
                 bShouldChainCombo = true;
+                UE_LOG(LogTemp, Log, TEXT("[Combo] WILL chain to next combo!"));
+            }
+            else
+            {
+                UE_LOG(LogTemp, Log, TEXT("[Combo] Tag mismatch or expired"));
             }
         }
     }
 
-    // 先正常结束当前技能（释放 GAS slot + 移除 State.Attacking）
     Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateCancel, bEndedByCancel);
 
-    // 再激活下一段 combo
     if (bShouldChainCombo)
     {
         TryActivateNextCombo();

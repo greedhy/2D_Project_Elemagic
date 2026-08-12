@@ -15,9 +15,6 @@ struct FInputActionValue;
 /**
  * 玩家控制器:统一接管 Enhanced Input 的 Mapping Context 注册与动作绑定,
  * 角色(APlayerCharacter)本身不持有任何 Input 资源引用。
- * 移动/跳跃走原生 CharacterMovementComponent 接口;技能类输入通过 InputConfig
- * (GameplayTag -> InputAction 的数据资源)转发给 Pawn 的 AbilitySystemComponent,
- * 新增技能只需要在 InputConfig 资源里加一条映射,不需要改 C++。
  */
 UCLASS()
 class ELEMAGIC_API AMyPlayerController : public APlayerController
@@ -29,6 +26,7 @@ public:
 
     // Combo 输入缓冲
     bool HasBufferedComboInput() const { return BufferedInputTag.IsValid(); }
+    const FGameplayTag& GetBufferedInputTag() const { return BufferedInputTag; }
     bool ConsumeBufferedComboInput(const FGameplayTag& ExpectedTag);
 
 protected:
@@ -45,7 +43,6 @@ private:
     UPROPERTY(EditDefaultsOnly, Category = "Elemagic|Input")
     TObjectPtr<UInputAction> JumpAction;
 
-    // GameplayTag -> InputAction 映射资源(例如 IA_Attack_Light -> Ability.Attack.Light)。
     UPROPERTY(EditDefaultsOnly, Category = "Elemagic|Input")
     TObjectPtr<UEleInputConfig> InputConfig;
 
@@ -57,7 +54,6 @@ private:
     void AbilityInputTagReleased(FGameplayTag InputTag);
     void AbilityInputTagHeld(FGameplayTag InputTag);
 
-    // Combo 输入缓冲
     FGameplayTag BufferedInputTag;
     float BufferedInputExpiryTime = 0.f;
     static constexpr float ComboBufferWindow = 0.3f;
