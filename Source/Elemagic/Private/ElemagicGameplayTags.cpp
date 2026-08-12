@@ -27,4 +27,5 @@ namespace ElemagicGameplayTags
 
 	UE_DEFINE_GAMEPLAY_TAG(State_Hurt, "State.Hurt");
 	UE_DEFINE_GAMEPLAY_TAG(State_Knockback, "State.Knockback");
+	UE_DEFINE_GAMEPLAY_TAG(Combo_WindowOpen, "Combo.WindowOpen");
 }

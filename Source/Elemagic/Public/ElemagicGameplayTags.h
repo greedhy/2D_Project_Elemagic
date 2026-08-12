@@ -31,4 +31,7 @@ namespace ElemagicGameplayTags
 	// State.* Tags (受击反馈)
 	ELEMAGIC_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(State_Hurt);
 	ELEMAGIC_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(State_Knockback);
+
+	// Combo.* Tags
+	ELEMAGIC_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Combo_WindowOpen);
 }

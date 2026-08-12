@@ -14,10 +14,9 @@ class UHitboxManager;
 class ACharacterBase;
 
 /**
- * 伤害判定框架的攻击能力基类(CGF = C++ GameplayForm)。
+ * 近战攻击能力基类(CGF = C++ GameplayForm)。
  * 纯编排器:激活时把 FrameData/DamageGE/BaseImpulse 喂给 HitboxManager,
  * 播放 AttackAnimation(纯视觉),命中判定由 HitboxManager 的计时器驱动。
- * 不再有 PerformAttack() BlueprintImplementableEvent。
  */
 UCLASS()
 class ELEMAGIC_API UCGF_Damage : public UElemagicGameplayAbility
@@ -57,8 +56,28 @@ public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CGF_Damage")
     FGameplayTag AbilityAttackTag;
 
+    // === Combo ===
+
+    // Combo 窗口开始时间（归一化 0.0~1.0），此时间后按键触发下一段。≤0 = 无 combo
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combo")
+    float ComboWindowStart = 0.f;
+
+    // Combo 链的下一段技能类（为空 = 终结技 / 无 combo）
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combo")
+    TSubclassOf<class UCGF_Damage> NextComboAbilityClass;
+
+    // Combo 窗口监听的输入 Tag（默认空 = 取 AbilityTags 的第一个 Tag）
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combo")
+    FGameplayTag ComboInputTag;
+
 private:
     UHitboxManager* GetHitboxManager() const;
 
+    void OpenComboWindow();
+    void TryActivateNextCombo();
+
     FTimerHandle AttackEndTimer;
+    FTimerHandle ComboWindowTimer;
+
+    bool bComboWindowOpened = false;
 };

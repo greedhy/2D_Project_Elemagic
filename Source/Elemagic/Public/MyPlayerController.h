@@ -22,34 +22,46 @@ struct FInputActionValue;
 UCLASS()
 class ELEMAGIC_API AMyPlayerController : public APlayerController
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	AMyPlayerController();
+    AMyPlayerController();
+
+    // Combo 输入缓冲
+    bool HasBufferedComboInput() const { return BufferedInputTag.IsValid(); }
+    bool ConsumeBufferedComboInput(const FGameplayTag& ExpectedTag);
 
 protected:
-	virtual void BeginPlay() override;
-	virtual void SetupInputComponent() override;
+    virtual void BeginPlay() override;
+    virtual void SetupInputComponent() override;
 
 private:
-	UPROPERTY(EditDefaultsOnly, Category = "Elemagic|Input")
-	TObjectPtr<UInputMappingContext> PlayerMappingContext;
+    UPROPERTY(EditDefaultsOnly, Category = "Elemagic|Input")
+    TObjectPtr<UInputMappingContext> PlayerMappingContext;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Elemagic|Input")
-	TObjectPtr<UInputAction> MoveAction;
+    UPROPERTY(EditDefaultsOnly, Category = "Elemagic|Input")
+    TObjectPtr<UInputAction> MoveAction;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Elemagic|Input")
-	TObjectPtr<UInputAction> JumpAction;
+    UPROPERTY(EditDefaultsOnly, Category = "Elemagic|Input")
+    TObjectPtr<UInputAction> JumpAction;
 
-	// GameplayTag -> InputAction 映射资源(例如 IA_Attack -> Ability.Attack)。
-	UPROPERTY(EditDefaultsOnly, Category = "Elemagic|Input")
-	TObjectPtr<UEleInputConfig> InputConfig;
+    // GameplayTag -> InputAction 映射资源(例如 IA_Attack_Light -> Ability.Attack.Light)。
+    UPROPERTY(EditDefaultsOnly, Category = "Elemagic|Input")
+    TObjectPtr<UEleInputConfig> InputConfig;
 
-	void Move(const FInputActionValue& Value);
-	void JumpPressed();
-	void JumpReleased();
+    void Move(const FInputActionValue& Value);
+    void JumpPressed();
+    void JumpReleased();
 
-	void AbilityInputTagPressed(FGameplayTag InputTag);
-	void AbilityInputTagReleased(FGameplayTag InputTag);
-	void AbilityInputTagHeld(FGameplayTag InputTag);
+    void AbilityInputTagPressed(FGameplayTag InputTag);
+    void AbilityInputTagReleased(FGameplayTag InputTag);
+    void AbilityInputTagHeld(FGameplayTag InputTag);
+
+    // Combo 输入缓冲
+    FGameplayTag BufferedInputTag;
+    float BufferedInputExpiryTime = 0.f;
+    static constexpr float ComboBufferWindow = 0.3f;
+
+    bool IsComboWindowOpen() const;
+    void ClearBufferedInput();
 };
