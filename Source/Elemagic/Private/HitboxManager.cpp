@@ -10,6 +10,7 @@
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemGlobals.h"
 #include "GameplayEffect.h"
+#include "Engine/World.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -141,6 +142,12 @@ void UHitboxManager::ProcessFrameConfig(const FAttackFrameConfig& Config)
 void UHitboxManager::OnAttackHitboxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
     UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+    // 仅服务端执行伤害判定 — 客户端物理世界不同步
+    if (!GetOwner() || !GetOwner()->HasAuthority())
+    {
+        return;
+    }
+
     if (!bActive || !OtherActor || !CurrentDamageEffectClass)
     {
         return;
