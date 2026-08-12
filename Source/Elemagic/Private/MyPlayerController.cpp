@@ -96,29 +96,21 @@ void AMyPlayerController::JumpReleased()
 
 void AMyPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 {
-    UE_LOG(LogTemp, Log, TEXT("[Combo] InputPressed: %s"), *InputTag.ToString());
-
     if (const IAbilitySystemInterface* ASI = Cast<IAbilitySystemInterface>(GetPawn()))
     {
         if (UAbilitySystemComponent* ASC = ASI->GetAbilitySystemComponent())
         {
-            const bool bComboOpen = IsComboWindowOpen();
-            UE_LOG(LogTemp, Log, TEXT("[Combo] ComboWindowOpen=%d"), bComboOpen);
-
-            if (bComboOpen)
+            // Combo window 内按键 → 缓冲而不激活
+            if (IsComboWindowOpen())
             {
                 BufferedInputTag = InputTag;
                 BufferedInputExpiryTime = GetWorld()
                     ? GetWorld()->GetTimeSeconds() + ComboBufferWindow
                     : 0.f;
-                UE_LOG(LogTemp, Log, TEXT("[Combo] Buffered input: %s (expires in %.2fs)"),
-                    *InputTag.ToString(), ComboBufferWindow);
                 return;
             }
 
-            const int32 Count = ASC->TryActivateAbilitiesByTag(FGameplayTagContainer(InputTag));
-            UE_LOG(LogTemp, Log, TEXT("[Combo] TryActivateAbilitiesByTag(%s) -> %d"),
-                *InputTag.ToString(), Count);
+            ASC->TryActivateAbilitiesByTag(FGameplayTagContainer(InputTag));
         }
     }
 }
@@ -132,8 +124,7 @@ bool AMyPlayerController::IsComboWindowOpen() const
     {
         if (UAbilitySystemComponent* ASC = ASI->GetAbilitySystemComponent())
         {
-            const bool bHasTag = ASC->HasMatchingGameplayTag(ElemagicGameplayTags::Combo_WindowOpen);
-            return bHasTag;
+            return ASC->HasMatchingGameplayTag(ElemagicGameplayTags::Combo_WindowOpen);
         }
     }
     return false;
