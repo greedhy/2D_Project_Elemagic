@@ -58,6 +58,15 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Elemagic|Animation")
 	TObjectPtr<UPaperFlipbook> DashFlipbook;
 
+	// 受击专属 Flipbook，有资源前可复用 IdleFlipbook
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Elemagic|Animation")
+	TObjectPtr<UPaperFlipbook> HurtFlipbook;
+
+	// 受击无敌帧时长（秒）。0 = 无 iFrame（默认），>0 = 受击后短暂无敌。
+	// 玩家/Boss/小怪各自在 BP 中独立配置。
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Elemagic|Combat")
+	float HurtIFrameDuration = 0.f;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Elemagic|Combat")
 	TObjectPtr<UBoxComponent> AttackHitbox;
 
@@ -81,8 +90,12 @@ protected:
 	void Die();
 	virtual void Die_Implementation();
 
+public:
 	void UpdateAnimation();
 	void UpdateFacing(float MoveDirectionX);
+
+	// 受击无敌帧入口：加 State_Invulnerable Tag，Duration 秒后移除
+	void StartHurtIFrame(float Duration);
 
 private:
 	bool bFacingRight = true;

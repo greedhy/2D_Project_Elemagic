@@ -9,6 +9,7 @@
 #include "PaperFlipbookComponent.h"
 #include "PaperFlipbook.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "TimerManager.h"
 
 ACharacterBase::ACharacterBase()
 {
@@ -152,6 +153,17 @@ void ACharacterBase::UpdateAnimation()
 		return;
 	}
 
+	// 受击动画优先级最高 — 播放 HurtFlipbook（有则用，无则跳过）
+	const bool bIsHurt = AbilitySystemComponent && AbilitySystemComponent->HasMatchingGameplayTag(ElemagicGameplayTags::State_Hurt);
+	if (bIsHurt)
+	{
+		if (HurtFlipbook && SpriteComp->GetFlipbook() != HurtFlipbook)
+		{
+			SpriteComp->SetFlipbook(HurtFlipbook);
+		}
+		return;
+	}
+
 	// 攻击中不覆盖动画 — CGF_Damage 控制 Flipbook 播放
 	const bool bIsAttacking = AbilitySystemComponent && AbilitySystemComponent->HasMatchingGameplayTag(ElemagicGameplayTags::State_Attacking);
 	if (bIsAttacking)
@@ -186,4 +198,21 @@ void ACharacterBase::UpdateFacing(float MoveDirectionX)
 		Scale.X = bFacingRight ? FMath::Abs(Scale.X) : -FMath::Abs(Scale.X);
 		SpriteComp->SetRelativeScale3D(Scale);
 	}
+}
+
+void ACharacterBase::StartHurtIFrame(float Duration)
+{
+	if (!AbilitySystemComponent) return;
+	AbilitySystemComponent->AddLooseGameplayTag(ElemagicGameplayTags::State_Invulnerable);
+
+	FTimerHandle Timer;
+	GetWorld()->GetTimerManager().SetTimer(Timer,
+		[this]()
+		{
+			if (AbilitySystemComponent)
+			{
+				AbilitySystemComponent->RemoveLooseGameplayTag(ElemagicGameplayTags::State_Invulnerable);
+			}
+		},
+		Duration, false);
 }

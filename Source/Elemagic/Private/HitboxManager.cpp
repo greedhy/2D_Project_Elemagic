@@ -2,8 +2,10 @@
 
 #include "HitboxManager.h"
 #include "AttackFrameData.h"
+#include "CharacterBase.h"
 #include "ElemagicGameplayTags.h"
 #include "CharacterAttributeSetBase.h"
+#include "PaperFlipbook.h"
 #include "Components/BoxComponent.h"
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemGlobals.h"
@@ -185,6 +187,12 @@ void UHitboxManager::ApplyDamage(AActor* Target, float DamageMultiplier)
     }
     const float FinalDamage = AttackPower * DamageMultiplier;
 
+    // 无敌拦截：目标有 State_Invulnerable 时跳过伤害
+    if (TargetASC->HasMatchingGameplayTag(ElemagicGameplayTags::State_Invulnerable))
+    {
+        return;
+    }
+
     // 源 ASC 创建 GE Spec,通过 SetByCaller 传递伤害值
     FGameplayEffectSpecHandle SpecHandle = SourceASC->MakeOutgoingSpec(
         CurrentDamageEffectClass, 1.f, SourceASC->MakeEffectContext());
@@ -195,6 +203,18 @@ void UHitboxManager::ApplyDamage(AActor* Target, float DamageMultiplier)
         TargetASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 
         OnAttackHit.Broadcast(Target, FinalDamage);
+    }
+
+    // 给目标添加受击状态
+    TargetASC->AddLooseGameplayTag(ElemagicGameplayTags::State_Hurt);
+
+    // 可选 iFrame：仅当目标角色配置了 HurtIFrameDuration > 0 时启用
+    if (ACharacterBase* TargetCharBase = Cast<ACharacterBase>(Target))
+    {
+        if (TargetCharBase->HurtIFrameDuration > 0.f)
+        {
+            TargetCharBase->StartHurtIFrame(TargetCharBase->HurtIFrameDuration);
+        }
     }
 
     // 施加击退:最终击退 = BaseImpulse + 当前帧 HitImpulse
@@ -210,5 +230,28 @@ void UHitboxManager::ApplyDamage(AActor* Target, float DamageMultiplier)
                 MoveComp->Velocity += FVector(FinalImpulse.X * DirectionSign, 0.f, FinalImpulse.Y);
             }
         }
+    }
+
+    // 受击动画播完后移除 State_Hurt
+    if (ACharacterBase* TargetCharBase = Cast<ACharacterBase>(Target))
+    {
+        const float HurtAnimDuration = TargetCharBase->HurtFlipbook
+            ? TargetCharBase->HurtFlipbook->GetTotalDuration()
+            : 0.2f;
+
+        FTimerHandle HurtEndTimer;
+        GetWorld()->GetTimerManager().SetTimer(HurtEndTimer,
+            [TargetASC]()
+            {
+                if (TargetASC)
+                {
+                    TargetASC->RemoveLooseGameplayTag(ElemagicGameplayTags::State_Hurt);
+                }
+            },
+            HurtAnimDuration, false);
+    }
+    else
+    {
+        TargetASC->RemoveLooseGameplayTag(ElemagicGameplayTags::State_Hurt);
     }
 }
