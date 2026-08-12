@@ -60,8 +60,8 @@ bool FCGFDamageDefaultsTest::RunTest(const FString& Parameters)
         return false;
     }
 
-    TestFalse(TEXT("Framework CDO should NOT have Ability.Attack tag (set by subclass)"),
-        CDO->GetAssetTags().HasTagExact(ElemagicGameplayTags::Ability_Attack));
+    TestFalse(TEXT("Framework CDO should NOT have Ability.Attack.Light tag (set by subclass)"),
+        CDO->GetAssetTags().HasTagExact(ElemagicGameplayTags::Ability_Attack_Light));
 
     return true;
 }

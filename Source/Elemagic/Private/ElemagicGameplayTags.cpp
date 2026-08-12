@@ -4,7 +4,8 @@
 
 namespace ElemagicGameplayTags
 {
-	UE_DEFINE_GAMEPLAY_TAG(Ability_Attack, "Ability.Attack");
+	UE_DEFINE_GAMEPLAY_TAG(Ability_Attack_Light, "Ability.Attack.Light");
+	UE_DEFINE_GAMEPLAY_TAG(Ability_Attack_Heavy, "Ability.Attack.Heavy");
 	UE_DEFINE_GAMEPLAY_TAG(Ability_Jump, "Ability.Jump");
 
 	UE_DEFINE_GAMEPLAY_TAG(State_Dead, "State.Dead");
@@ -23,4 +24,7 @@ namespace ElemagicGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Event_Attack_DisableHitbox, "Event.Attack.DisableHitbox");
 	UE_DEFINE_GAMEPLAY_TAG(Event_Attack_ResetHitTargets, "Event.Attack.ResetHitTargets");
 	UE_DEFINE_GAMEPLAY_TAG(Event_Attack_EndAttack, "Event.Attack.EndAttack");
+
+	UE_DEFINE_GAMEPLAY_TAG(State_Hurt, "State.Hurt");
+	UE_DEFINE_GAMEPLAY_TAG(State_Knockback, "State.Knockback");
 }
