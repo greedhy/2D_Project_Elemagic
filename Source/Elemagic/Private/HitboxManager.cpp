@@ -3,6 +3,7 @@
 #include "HitboxManager.h"
 #include "AttackFrameData.h"
 #include "CharacterBase.h"
+#include "ElemagicDamageStatics.h"
 #include "ElemagicGameplayTags.h"
 #include "CharacterAttributeSetBase.h"
 #include "PaperFlipbook.h"
@@ -177,88 +178,25 @@ void UHitboxManager::OnAttackHitboxOverlap(UPrimitiveComponent* OverlappedCompon
 
 void UHitboxManager::ApplyDamage(AActor* Target, float DamageMultiplier)
 {
-    UAbilitySystemComponent* SourceASC = GetOwner()
-        ? GetOwner()->FindComponentByClass<UAbilitySystemComponent>()
-        : nullptr;
-    UAbilitySystemComponent* TargetASC = UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(Target);
-    if (!SourceASC || !TargetASC)
-    {
-        return;
-    }
+	// 按源角色朝向方向确定击退水平方向符号
+	const float DirectionSign = (GetOwner() && GetOwner()->GetActorForwardVector().X > 0.f) ? 1.f : -1.f;
 
-    // 从源角色属性集读 AttackPower,计算最终伤害
-    float AttackPower = 0.f;
-    if (const UCharacterAttributeSetBase* AttrSet = SourceASC->GetSet<UCharacterAttributeSetBase>())
-    {
-        AttackPower = AttrSet->GetAttackPower();
-    }
-    const float FinalDamage = AttackPower * DamageMultiplier;
+	// 最终击退 = BaseImpulse + 当前帧 HitImpulse
+	const FVector2D FinalImpulse = CurrentBaseImpulse + CurrentHitImpulse;
 
-    // 无敌拦截：目标有 State_Invulnerable 时跳过伤害
-    if (TargetASC->HasMatchingGameplayTag(ElemagicGameplayTags::State_Invulnerable))
-    {
-        return;
-    }
+	// 委托给共享静态工具（提取为独立函数供 ProjectileBase 复用）
+	const float FinalDamage = UElemagicDamageStatics::ApplyDamageToTarget(
+		GetOwner(),
+		Target,
+		CurrentDamageEffectClass,
+		DamageMultiplier,
+		FinalImpulse,
+		DirectionSign
+	);
 
-    // 源 ASC 创建 GE Spec,通过 SetByCaller 传递伤害值
-    FGameplayEffectSpecHandle SpecHandle = SourceASC->MakeOutgoingSpec(
-        CurrentDamageEffectClass, 1.f, SourceASC->MakeEffectContext());
-
-    if (SpecHandle.IsValid())
-    {
-        SpecHandle.Data->SetSetByCallerMagnitude(ElemagicGameplayTags::Data_Damage, FinalDamage);
-        TargetASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
-
-        OnAttackHit.Broadcast(Target, FinalDamage);
-    }
-
-    // 给目标添加受击状态
-    TargetASC->AddLooseGameplayTag(ElemagicGameplayTags::State_Hurt);
-
-    // 可选 iFrame：仅当目标角色配置了 HurtIFrameDuration > 0 时启用
-    if (ACharacterBase* TargetCharBase = Cast<ACharacterBase>(Target))
-    {
-        if (TargetCharBase->HurtIFrameDuration > 0.f)
-        {
-            TargetCharBase->StartHurtIFrame(TargetCharBase->HurtIFrameDuration);
-        }
-    }
-
-    // 施加击退:最终击退 = BaseImpulse + 当前帧 HitImpulse
-    const FVector2D FinalImpulse = CurrentBaseImpulse + CurrentHitImpulse;
-    if (!FinalImpulse.IsNearlyZero() && Target)
-    {
-        if (ACharacter* TargetChar = Cast<ACharacter>(Target))
-        {
-            if (UCharacterMovementComponent* MoveComp = TargetChar->GetCharacterMovement())
-            {
-                // 按源角色朝向方向施加击退
-                const float DirectionSign = (GetOwner() && GetOwner()->GetActorForwardVector().X > 0.f) ? 1.f : -1.f;
-                MoveComp->Velocity += FVector(FinalImpulse.X * DirectionSign, 0.f, FinalImpulse.Y);
-            }
-        }
-    }
-
-    // 受击动画播完后移除 State_Hurt
-    if (ACharacterBase* TargetCharBase = Cast<ACharacterBase>(Target))
-    {
-        const float HurtAnimDuration = TargetCharBase->HurtFlipbook
-            ? TargetCharBase->HurtFlipbook->GetTotalDuration()
-            : 0.2f;
-
-        FTimerHandle HurtEndTimer;
-        GetWorld()->GetTimerManager().SetTimer(HurtEndTimer,
-            [TargetASC]()
-            {
-                if (TargetASC)
-                {
-                    TargetASC->RemoveLooseGameplayTag(ElemagicGameplayTags::State_Hurt);
-                }
-            },
-            HurtAnimDuration, false);
-    }
-    else
-    {
-        TargetASC->RemoveLooseGameplayTag(ElemagicGameplayTags::State_Hurt);
-    }
+	// 广播命中事件
+	if (FinalDamage >= 0.f)
+	{
+		OnAttackHit.Broadcast(Target, FinalDamage);
+	}
 }

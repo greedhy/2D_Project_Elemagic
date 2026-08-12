@@ -7,6 +7,7 @@ namespace ElemagicGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Ability_Attack_Light, "Ability.Attack.Light");
 	UE_DEFINE_GAMEPLAY_TAG(Ability_Attack_Heavy, "Ability.Attack.Heavy");
 	UE_DEFINE_GAMEPLAY_TAG(Ability_Jump, "Ability.Jump");
+	UE_DEFINE_GAMEPLAY_TAG(Ability_Attack_Projectile, "Ability.Attack.Projectile");
 
 	UE_DEFINE_GAMEPLAY_TAG(State_Dead, "State.Dead");
 	UE_DEFINE_GAMEPLAY_TAG(State_Attacking, "State.Attacking");
