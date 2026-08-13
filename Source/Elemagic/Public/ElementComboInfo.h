@@ -12,16 +12,16 @@ class UTexture2D;
 
 /**
  * 元素组合表的一行：3 个元素 → 一个技能。
- * Elements 是集合语义（顺序无关，不区分重复元素）。
+ * Elements 是多重集语义（顺序无关，允许重复元素，如 {Fire,Fire,Fire}）。
  */
 USTRUCT(BlueprintType)
 struct FElementComboEntry
 {
 	GENERATED_BODY()
 
-	// 正好 3 个元素 Tag（顺序无关）
+	// 正好 3 个元素 Tag（顺序无关，允许重复）
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combo")
-	FGameplayTagContainer Elements;
+	TArray<FGameplayTag> Elements;
 
 	// 合成得到的技能类
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combo")
@@ -50,9 +50,9 @@ class ELEMAGIC_API UElementComboInfo : public UDataAsset
 	GENERATED_BODY()
 
 public:
-	// 按元素集合查找组合（顺序无关 + 数量守卫）。找不到返回 nullptr。
+	// 按元素多重集查找组合（顺序无关 + 计数一致）。找不到返回 nullptr。
 	// 注意：返回 USTRUCT 指针，故不暴露给蓝图（仅供 C++ 内部调用）。
-	const FElementComboEntry* FindCombo(const FGameplayTagContainer& Elements) const;
+	const FElementComboEntry* FindCombo(const TArray<FGameplayTag>& Elements) const;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Combo")
 	TArray<FElementComboEntry> Combos;

@@ -126,13 +126,7 @@ bool UElementSystemComponent::CanSynthesize() const
 		return false;
 	}
 
-	FGameplayTagContainer Container;
-	for (const FGameplayTag& Tag : Loadout)
-	{
-		Container.AddTag(Tag);
-	}
-
-	return ComboInfo->FindCombo(Container) != nullptr;
+	return ComboInfo->FindCombo(Loadout) != nullptr;
 }
 
 bool UElementSystemComponent::Synthesize()
@@ -148,13 +142,7 @@ bool UElementSystemComponent::Synthesize()
 		return false; // 技能栏满
 	}
 
-	FGameplayTagContainer Container;
-	for (const FGameplayTag& Tag : Loadout)
-	{
-		Container.AddTag(Tag);
-	}
-
-	const FElementComboEntry* Combo = ComboInfo->FindCombo(Container);
+	const FElementComboEntry* Combo = ComboInfo->FindCombo(Loadout);
 	if (!Combo || !Combo->ResultAbility)
 	{
 		return false;
