@@ -1,0 +1,59 @@
+{
+  "schema": "somol.somolmcp.public_dag.v1",
+  "id": "scene_delivery_receipt",
+  "version": "1.0.0",
+  "domain": "level",
+  "title": {
+    "zh_CN": "场景交付收据",
+    "en_US": "Scene delivery receipt"
+  },
+  "description": {
+    "zh_CN": "读取 Actor、采集编辑器截图、保存关卡，并用回读证据完成场景交付。",
+    "en_US": "Read actors, capture editor evidence, save the level, and close delivery with readback."
+  },
+  "execution": {
+    "fail_closed": true,
+    "target_binding_required_for_writes": true,
+    "preserve_receipts": true
+  },
+  "nodes": [
+    {
+      "id": "actors",
+      "depends_on": [],
+      "tools": [
+        "actor_list"
+      ],
+      "purpose_zh_CN": "读取当前场景内容"
+    },
+    {
+      "id": "screenshot",
+      "depends_on": [
+        "actors"
+      ],
+      "tools": [
+        "editor_get_screenshot"
+      ],
+      "purpose_zh_CN": "采集视口/编辑器证据"
+    },
+    {
+      "id": "save",
+      "depends_on": [
+        "screenshot"
+      ],
+      "tools": [
+        "world_save_current_level"
+      ],
+      "purpose_zh_CN": "保存关卡"
+    },
+    {
+      "id": "verify",
+      "depends_on": [
+        "save"
+      ],
+      "tools": [
+        "actor_list"
+      ],
+      "purpose_zh_CN": "保存后再次回读"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "schema": "somol.somolmcp.public_dag.v1",
+  "id": "umg_compile_visual_qa",
+  "version": "1.0.0",
+  "domain": "umg",
+  "title": {
+    "zh_CN": "UMG 编译与视觉验收",
+    "en_US": "UMG compile and visual QA"
+  },
+  "description": {
+    "zh_CN": "编译 Widget Blueprint、验证工具集收据并用编辑器截图进行视觉验收。",
+    "en_US": "Compile the Widget Blueprint, validate its receipt, and capture editor evidence."
+  },
+  "execution": {
+    "fail_closed": true,
+    "target_binding_required_for_writes": true,
+    "preserve_receipts": true
+  },
+  "nodes": [
+    {
+      "id": "compile",
+      "depends_on": [],
+      "tools": [
+        "umg_widget_blueprint_compile_v2"
+      ],
+      "purpose_zh_CN": "编译 Widget Blueprint"
+    },
+    {
+      "id": "receipt",
+      "depends_on": [
+        "compile"
+      ],
+      "tools": [
+        "umg_toolset_receipt_validate"
+      ],
+      "purpose_zh_CN": "验证树、绑定和编译证据"
+    },
+    {
+      "id": "screenshot",
+      "depends_on": [
+        "receipt"
+      ],
+      "tools": [
+        "editor_get_screenshot"
+      ],
+      "purpose_zh_CN": "采集当前编辑器窗口证据"
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+    "FileVersion":  3,
+    "Version":  31305,
+    "VersionName":  "3.13.5",
+    "FriendlyName":  "SOMOLMCP",
+    "Description":  "MCP server for Unreal Editor automation (SOMOLMCP standalone product).",
+    "Category":  "Developer",
+    "CreatedBy":  "SOMOLMCP",
+    "CreatedByURL":  "",
+    "DocsURL":  "",
+    "MarketplaceURL":  "",
+    "SupportURL":  "",
+    "EngineVersion":  "5.8.0",
+    "CanContainContent":  false,
+    "Installed":  true,
+    "Modules":  [
+                    {
+                        "Name":  "SOMOLMCP",
+                        "Type":  "Editor",
+                        "LoadingPhase":  "PostDefault",
+                        "PlatformAllowList":  [
+                                                  "Win64"
+                                              ]
+                    }
+                ],
+    "Plugins":  [
+                    {
+                        "Name":  "EditorScriptingUtilities",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "ProceduralMeshComponent",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "RigVM",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "GeometryProcessing",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "GeometryScripting",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "Fracture",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "MeshPainting",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "MeshModelingToolset",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "Niagara",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "Metasound",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "LevelSequenceEditor",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "SequencerScripting",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "ControlRig",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "ControlRigPhysics",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "ControlRigDynamics",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "DirectMeshControl",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "PCG",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "MeshPartition",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "MeshTerrainMode",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "MeshPartitionWater",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "PCGMeshPartitionInterop",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "ProceduralVegetationEditor",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "Water",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "EnhancedInput",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "IKRig",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "GameplayAbilities",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "GameplayTagsEditor",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "ImgMedia",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "MovieRenderPipeline",
+                        "Enabled":  true
+                    }
+                ]
+}

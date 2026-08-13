@@ -1,0 +1,49 @@
+{
+  "schema": "somol.somolmcp.public_dag.v1",
+  "id": "editor_modal_recovery",
+  "version": "1.0.0",
+  "domain": "editor",
+  "title": {
+    "zh_CN": "弹窗阻塞恢复",
+    "en_US": "Editor modal recovery"
+  },
+  "description": {
+    "zh_CN": "连接无进度时只读探测弹窗，执行安全关闭动作并重新读取编辑器状态。",
+    "en_US": "Probe modal state on no-progress, apply only safe dismiss actions, and read editor state again."
+  },
+  "execution": {
+    "fail_closed": true,
+    "target_binding_required_for_writes": true,
+    "preserve_receipts": true
+  },
+  "nodes": [
+    {
+      "id": "watchdog",
+      "depends_on": [],
+      "tools": [
+        "editor_dialog_watchdog_tick"
+      ],
+      "purpose_zh_CN": "Dry Run 探测阻塞窗口"
+    },
+    {
+      "id": "recover",
+      "depends_on": [
+        "watchdog"
+      ],
+      "tools": [
+        "editor_dialog_watchdog_tick"
+      ],
+      "purpose_zh_CN": "仅允许 Close/Cancel/No/Skip Recovery"
+    },
+    {
+      "id": "readback",
+      "depends_on": [
+        "recover"
+      ],
+      "tools": [
+        "actor_list"
+      ],
+      "purpose_zh_CN": "验证编辑器恢复响应"
+    }
+  ]
+}

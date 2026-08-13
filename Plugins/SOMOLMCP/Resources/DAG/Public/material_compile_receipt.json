@@ -1,0 +1,59 @@
+{
+  "schema": "somol.somolmcp.public_dag.v1",
+  "id": "material_compile_receipt",
+  "version": "1.0.0",
+  "domain": "material",
+  "title": {
+    "zh_CN": "材质重编译与验收",
+    "en_US": "Material compile and acceptance"
+  },
+  "description": {
+    "zh_CN": "读取材质图、执行重编译、读取统计并验证交付收据。",
+    "en_US": "Inspect the material graph, recompile, read statistics, and validate the delivery receipt."
+  },
+  "execution": {
+    "fail_closed": true,
+    "target_binding_required_for_writes": true,
+    "preserve_receipts": true
+  },
+  "nodes": [
+    {
+      "id": "inspect",
+      "depends_on": [],
+      "tools": [
+        "material_inspect"
+      ],
+      "purpose_zh_CN": "读取表达式、参数与连接"
+    },
+    {
+      "id": "compile",
+      "depends_on": [
+        "inspect"
+      ],
+      "tools": [
+        "material_recompile"
+      ],
+      "purpose_zh_CN": "重编译材质"
+    },
+    {
+      "id": "stats",
+      "depends_on": [
+        "compile"
+      ],
+      "tools": [
+        "material_get_statistics"
+      ],
+      "purpose_zh_CN": "读取指令和采样统计"
+    },
+    {
+      "id": "receipt",
+      "depends_on": [
+        "stats"
+      ],
+      "tools": [
+        "material_validation_receipt_validate"
+      ],
+      "purpose_zh_CN": "验收结果"
+    }
+  ]
+}

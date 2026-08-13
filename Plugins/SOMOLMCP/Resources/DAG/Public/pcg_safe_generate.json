@@ -1,0 +1,89 @@
+{
+  "schema": "somol.somolmcp.public_dag.v1",
+  "id": "pcg_safe_generate",
+  "version": "1.0.0",
+  "domain": "pcg",
+  "title": {
+    "zh_CN": "PCG 安全生成",
+    "en_US": "Safe PCG generation"
+  },
+  "description": {
+    "zh_CN": "目录确认后依次执行图校验、Dry Run、异步生成、状态轮询、生成 Actor 健康审计和图解释。",
+    "en_US": "Catalog, validate, dry-run, generate asynchronously, poll, audit generated actors, and explain the graph."
+  },
+  "execution": {
+    "fail_closed": true,
+    "target_binding_required_for_writes": true,
+    "preserve_receipts": true
+  },
+  "nodes": [
+    {
+      "id": "catalog",
+      "depends_on": [],
+      "tools": [
+        "pcg_node_catalog_lookup"
+      ],
+      "purpose_zh_CN": "确认节点类与 Pin 合同"
+    },
+    {
+      "id": "validate",
+      "depends_on": [
+        "catalog"
+      ],
+      "tools": [
+        "pcg_graph_validate"
+      ],
+      "purpose_zh_CN": "阻止坏 Pin、悬空节点和循环"
+    },
+    {
+      "id": "dry_run",
+      "depends_on": [
+        "validate"
+      ],
+      "tools": [
+        "pcg_dry_run"
+      ],
+      "purpose_zh_CN": "估算点数和预算"
+    },
+    {
+      "id": "generate",
+      "depends_on": [
+        "dry_run"
+      ],
+      "tools": [
+        "pcg_generate_async"
+      ],
+      "purpose_zh_CN": "提交长任务"
+    },
+    {
+      "id": "poll",
+      "depends_on": [
+        "generate"
+      ],
+      "tools": [
+        "pcg_tile_generation_status"
+      ],
+      "purpose_zh_CN": "轮询而不把长任务误判超时"
+    },
+    {
+      "id": "health",
+      "depends_on": [
+        "poll"
+      ],
+      "tools": [
+        "pcg_generated_actor_health_audit"
+      ],
+      "purpose_zh_CN": "验证真实生成结果"
+    },
+    {
+      "id": "explain",
+      "depends_on": [
+        "health"
+      ],
+      "tools": [
+        "pcg_graph_explain"
+      ],
+      "purpose_zh_CN": "输出可审计链路"
+    }
+  ]
+}

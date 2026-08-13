@@ -1,0 +1,79 @@
+{
+  "schema": "somol.somolmcp.public_dag.v1",
+  "id": "terrain_create_mode_guard",
+  "version": "1.0.0",
+  "domain": "terrain",
+  "title": {
+    "zh_CN": "地形创建与模式恢复",
+    "en_US": "Terrain creation with mode recovery"
+  },
+  "description": {
+    "zh_CN": "创建前切回选择模式并检查现有 Landscape，按规格校验后创建，验收边界并恢复选择模式。",
+    "en_US": "Return to selection mode, inspect existing Landscape, validate/create from spec, read bounds, and restore selection mode."
+  },
+  "execution": {
+    "fail_closed": true,
+    "target_binding_required_for_writes": true,
+    "preserve_receipts": true
+  },
+  "nodes": [
+    {
+      "id": "select_mode",
+      "depends_on": [],
+      "tools": [
+        "editor_ui_activate_mode"
+      ],
+      "purpose_zh_CN": "切换选择模式"
+    },
+    {
+      "id": "probe",
+      "depends_on": [
+        "select_mode"
+      ],
+      "tools": [
+        "landscape_actor_list_lite"
+      ],
+      "purpose_zh_CN": "避免重复地形"
+    },
+    {
+      "id": "validate",
+      "depends_on": [
+        "probe"
+      ],
+      "tools": [
+        "terrain_spec_validate"
+      ],
+      "purpose_zh_CN": "校验尺寸、组件和高度"
+    },
+    {
+      "id": "create",
+      "depends_on": [
+        "validate"
+      ],
+      "tools": [
+        "terrain_landscape_create_from_spec"
+      ],
+      "purpose_zh_CN": "创建地形"
+    },
+    {
+      "id": "readback",
+      "depends_on": [
+        "create"
+      ],
+      "tools": [
+        "actor_get_detailed_bounds"
+      ],
+      "purpose_zh_CN": "读取真实边界"
+    },
+    {
+      "id": "restore",
+      "depends_on": [
+        "readback"
+      ],
+      "tools": [
+        "editor_ui_activate_mode"
+      ],
+      "purpose_zh_CN": "返回选择模式"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "schema": "somol.somolmcp.public_dag.v1",
+  "id": "niagara_hlsl_compile",
+  "version": "1.0.0",
+  "domain": "niagara",
+  "title": {
+    "zh_CN": "Niagara/HLSL 安全编译",
+    "en_US": "Niagara/HLSL safe compile"
+  },
+  "description": {
+    "zh_CN": "先验证 Custom HLSL，再编译 Niagara System、读取诊断并验证工具集收据。",
+    "en_US": "Validate Custom HLSL, compile the Niagara System, read diagnostics, and validate the receipt."
+  },
+  "execution": {
+    "fail_closed": true,
+    "target_binding_required_for_writes": true,
+    "preserve_receipts": true
+  },
+  "nodes": [
+    {
+      "id": "hlsl",
+      "depends_on": [],
+      "tools": [
+        "niagara_hlsl_validate"
+      ],
+      "purpose_zh_CN": "校验 HLSL 与参数合同"
+    },
+    {
+      "id": "compile",
+      "depends_on": [
+        "hlsl"
+      ],
+      "tools": [
+        "niagara_compile_system"
+      ],
+      "purpose_zh_CN": "编译系统"
+    },
+    {
+      "id": "diagnostics",
+      "depends_on": [
+        "compile"
+      ],
+      "tools": [
+        "niagara_compile_diagnostics"
+      ],
+      "purpose_zh_CN": "读取真实错误"
+    },
+    {
+      "id": "receipt",
+      "depends_on": [
+        "diagnostics"
+      ],
+      "tools": [
+        "niagara_toolset_receipt_validate"
+      ],
+      "purpose_zh_CN": "交付门禁"
+    }
+  ]
+}

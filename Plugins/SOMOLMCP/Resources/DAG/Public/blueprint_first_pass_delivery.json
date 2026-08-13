@@ -1,0 +1,69 @@
+{
+  "schema": "somol.somolmcp.public_dag.v1",
+  "id": "blueprint_first_pass_delivery",
+  "version": "1.0.0",
+  "domain": "blueprint",
+  "title": {
+    "zh_CN": "蓝图首轮正确交付",
+    "en_US": "Blueprint first-pass delivery"
+  },
+  "description": {
+    "zh_CN": "创建前执行图合同门禁，写入后编译并读取诊断；失败进入修复门禁，成功后保存。",
+    "en_US": "Gate the graph contract before mutation, compile and inspect diagnostics, repair if necessary, then save."
+  },
+  "execution": {
+    "fail_closed": true,
+    "target_binding_required_for_writes": true,
+    "preserve_receipts": true
+  },
+  "nodes": [
+    {
+      "id": "gate",
+      "depends_on": [],
+      "tools": [
+        "blueprint_first_pass_creation_contract_gate"
+      ],
+      "purpose_zh_CN": "校验父类、类型、节点、Pin 与连线计划"
+    },
+    {
+      "id": "compile",
+      "depends_on": [
+        "gate"
+      ],
+      "tools": [
+        "blueprint_compile"
+      ],
+      "purpose_zh_CN": "编译目标蓝图"
+    },
+    {
+      "id": "diagnostics",
+      "depends_on": [
+        "compile"
+      ],
+      "tools": [
+        "blueprint_compile_diagnostics"
+      ],
+      "purpose_zh_CN": "读取真实编译错误"
+    },
+    {
+      "id": "repair",
+      "depends_on": [
+        "diagnostics"
+      ],
+      "tools": [
+        "blueprint_repair_compile_gate"
+      ],
+      "purpose_zh_CN": "仅按诊断进入修复路径"
+    },
+    {
+      "id": "save",
+      "depends_on": [
+        "repair"
+      ],
+      "tools": [
+        "asset_save"
+      ],
+      "purpose_zh_CN": "保存通过编译的资产"
+    }
+  ]
+}

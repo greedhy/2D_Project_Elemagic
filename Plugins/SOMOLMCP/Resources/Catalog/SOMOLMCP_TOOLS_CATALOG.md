@@ -1,0 +1,3140 @@
+# SOMOLMCP 5.8.1 Tool Catalog
+
+Packaged tool registrations: **3130**. Live verified: **3130**. Compiled and pending refreshed live verification: **0**. Live source: `docs/somolmcp_fab_standalone_live_tool_snapshot_31305_20260811.json`. Runtime `tools/list` remains authoritative.
+
+- `ability_system_component_inspect` [live verified] - Inspect AbilitySystemComponent on actor.
+- `abp_add_state` [live verified] - [ALIAS] Add state to animation blueprint. Use 'anim_blueprint_add_state' with asset_path, state_name, state_machine_name.
+- `actor_align` [live verified] - Align actors along X, Y, or Z axis. Mode: center (default), min, max.
+- `actor_attach` [live verified] - Attach one actor to another while preserving world transform.
+- `actor_clear_folder` [live verified] - Clear the folder path for an actor.
+- `actor_collision_check` [live verified] - Check for overlapping/penetrating actors. Reports pairs with penetration depth. Optionally auto-nudges apart.
+- `actor_component_list` [live verified] - List all components on an actor with class and properties.
+- `actor_delete` [live verified] - [ALIAS] Delete actor(s). Delegates to actor_destroy.
+- `actor_destroy` [live verified] - Destroy an actor by label, name or path.
+- `actor_distribute` [live verified] - Distribute actors evenly along X, Y, or Z axis.
+- `actor_duplicate` [live verified] - Duplicate an actor with an optional offset.
+- `actor_get_detailed_bounds` [live verified] - Get detailed spatial info for a scene actor: transform, world/local bounds, collision primitives (boxes, spheres, capsules), and sockets.
+- `actor_get_properties_batch` [live verified] - Read multiple properties on multiple actors in a SINGLE game-thread enter. Pass `items: [{name, properties: ["location"|"rotation"|"scale"|"hidden"|"tags", ...]}, ...]`. Returns `results: [{name, ok, props?, error?}]`. Per-item failure does not abort the batch. Max 1000 items per call. Unknown property names yield `"not_supported"` for that key.
+- `actor_get_state` [live verified] - Get detailed state of an actor: transform (location/rotation/scale), bounding box, mobility, visibility. Call this BEFORE any spatial operation (move/align/connect/snap) to know the actor's current position.
+- `actor_get_transform` [live verified] - [ALIAS] Get actor transform. Delegates to actor_set_transform (returns current transform).
+- `actor_group` [live verified] - [ALIAS] Group selected actors. Delegates to actor_group_selected.
+- `actor_group_add` [live verified] - Concrete P2 actor group add. Defaults to dry-run; set execute=true to add actors to an existing AGroupActor.
+- `actor_group_create` [live verified] - Concrete P2 actor group create. Defaults to dry-run; set execute=true to group level actors by exact name, label, path, or current selection.
+- `actor_group_remove` [live verified] - Concrete P2 actor group remove. Defaults to dry-run; set execute=true to remove actors from their parent group or a specified AGroupActor.
+- `actor_group_selected` [live verified] - Group the current selected actors in the viewport.
+- `actor_group_ungroup` [live verified] - Concrete P2 actor group ungroup. Defaults to dry-run; set execute=true to disband a group or groups containing supplied actors.
+- `actor_list` [live verified] - List all actors in the current editor world. Use include_transform=true to get position/rotation/scale for spatial operations.
+- `actor_mirror` [live verified] - Mirror actors around a pivot point on X, Y, or Z axis.
+- `actor_place_on_ground` [live verified] - Snap actors to ground surface via line trace. Prevents floating/clipping. Use on selected or named actors.
+- `actor_select` [live verified] - Select a set of actors in the editor.
+- `actor_set_folder` [live verified] - Set the folder path for an actor.
+- `actor_set_properties` [live verified] - Apply reflected property overrides to an actor. For scale, use actor_set_transform instead. Supports component paths: 'ComponentName.PropertyName' (e.g. 'HeterogeneousVolumeComponent.OverrideMaterials' with an array of material asset paths).
+- `actor_set_properties_batch` [live verified] - Write multiple properties on multiple actors in a SINGLE game-thread enter. Pass `items: [{name, properties: {location?: [x,y,z], rotation?: [p,y,r], scale?: [x,y,z], hidden?: bool, tags?: [str,...]}}, ...]`. Returns `results: [{name, ok, error?}]`. Per-item failure does not abort the batch. Marks each modified actor's package dirty. Max 1000 items per call.
+- `actor_set_transform` [live verified] - Apply a world transform to an actor.
+- `actor_set_visibility_batch` [live verified] - Toggle the in-game hidden flag on multiple actors in a SINGLE game-thread enter. Pass `items: [{name, hidden: bool}, ...]`. Returns `results: [{name, ok, error?}]`. Marks each modified actor's package dirty. Max 1000 items per call.
+- `actor_snap_align` [live verified] - Align actors: grid snap, align to axis, distribute evenly, circle, or zero-origin. Handles rotation alignment.
+- `actor_snap_to_floor` [live verified] - Snap actors to the floor (ground surface below them).
+- `actor_spawn` [live verified] - Spawn an actor from a class path or asset path.
+- `actor_spawn_batch_lite` [live verified] - Spawn multiple actors in a SINGLE game-thread enter. Pass `items: [{class_path: "/Script/Engine.StaticMeshActor", location?: [x,y,z], rotation?: [p,y,r], name?: "..."}, ...]`. Returns `results: [{ok, name?, internal_name?, error?}]`. Per-item failure (e.g. bad class_path) does not abort the batch. Max 1000 items per call.
+- `actor_ungroup` [live verified] - [ALIAS] Ungroup selected actors. Delegates to actor_ungroup_selected.
+- `actor_ungroup_selected` [live verified] - Ungroup the current selected actors in the viewport.
+- `ai_controller_list` [live verified] - List all AIController-derived classes available in the project.
+- `ai_graph_receipt_validate` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `ai_perception_add_component` [live verified] - ai_perception_add_component authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `ai_perception_bind_stimuli_source` [live verified] - ai_perception_bind_stimuli_source authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `ai_perception_configure_sense` [live verified] - ai_perception_configure_sense authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `ai_perception_contract_status` [live verified] - Read-only AI Perception capability probe and contract anchor for perception component, sense config, and stimuli source authoring.
+- `ai_run_behavior_tree` [live verified] - Start a Behavior Tree on a Pawn/Character that already has an AIController. Optionally sets an initial Vector blackboard key value.
+- `android_58_package_validate` [live verified] - UE 5.8 platform_mobile validate bridge, capability, contract, and receipt tool.
+- `android_58_sdk_profile_validate` [live verified] - UE 5.8 platform_mobile validate bridge, capability, contract, and receipt tool.
+- `android_58_target_profile_apply` [live verified] - UE 5.8 platform_mobile profile_apply bridge, capability, contract, and receipt tool.
+- `anim_blueprint_add_blend_node` [live verified] - Add a blend-related node to an animation blueprint graph.
+- `anim_blueprint_add_slot_node` [live verified] - Add a slot-related node to an animation blueprint graph.
+- `anim_blueprint_add_state` [live verified] - Add a state to an animation blueprint state machine.
+- `anim_blueprint_add_state_machine` [live verified] - Add a state machine to an animation blueprint.
+- `anim_blueprint_add_transition` [live verified] - Add a transition between two states.
+- `anim_blueprint_get_transition_graph` [live verified] - Get the transition graph for a transition.
+- `anim_blueprint_list_state_machines` [live verified] - List state machines in an animation blueprint.
+- `anim_blueprint_list_states` [live verified] - List states in an animation blueprint state machine.
+- `anim_blueprint_list_transitions` [live verified] - List transitions in an animation blueprint state machine.
+- `anim_blueprint_remove_state` [live verified] - Remove a state from an animation blueprint state machine.
+- `anim_blueprint_remove_transition` [live verified] - Remove a transition between two states.
+- `anim_blueprint_rename_state` [live verified] - Rename a state in an animation blueprint state machine.
+- `anim_blueprint_set_state_position` [live verified] - Set the editor position of a state node.
+- `anim_blueprint_set_transition_properties` [live verified] - Set common properties on a transition.
+- `anim_bp_add_conduit` [live verified] - Add a conduit (multi-way transition branch) to a state machine. Conduits allow routing transitions through a single evaluation point.
+- `anim_bp_add_state` [live verified] - Native C++ compatibility name for anim_blueprint_add_state. Add a state to an animation blueprint state machine.
+- `anim_bp_add_transition` [live verified] - Native C++ compatibility name for anim_blueprint_add_transition. Add a transition between two states.
+- `anim_bp_create_state_machine` [live verified] - Native C++ compatibility name for anim_blueprint_add_state_machine. Add a state machine to an animation blueprint.
+- `anim_bp_get_all_state_machines` [live verified] - List all state machines in an Animation Blueprint.
+- `anim_bp_get_state_machine_info` [live verified] - Get complete state machine structure: all states, transitions, entry state, and their properties.
+- `anim_bp_list_states` [live verified] - Native C++ compatibility name for anim_blueprint_list_states. List states in an animation blueprint state machine.
+- `anim_bp_remove_state` [live verified] - Native C++ compatibility name for anim_blueprint_remove_state. Remove a state from an animation blueprint state machine.
+- `anim_bp_set_entry_state` [live verified] - Set the default entry state for a state machine by connecting the entry node to the specified state.
+- `anim_bp_set_state_details` [live verified] - Set properties on a state node in an AnimBP state machine: always-reset-on-entry flag.
+- `anim_instance_curve_inspect` [live verified] - Read typed active attribute, morph-target, or material curves and live values.
+- `anim_instance_notify_inspect` [live verified] - Read current notify queue counts and typed active NotifyState events, including Motion Warping windows.
+- `anim_instance_state_machine_inspect` [live verified] - Read live AnimBP state machines, current state, elapsed time, weights, and active transitions.
+- `anim_instance_sync_group_inspect` [live verified] - Read all compiled Sync Groups and current marker positions from the live AnimInstance.
+- `anim_montage_list_sections` [live verified] - Native C++ compatibility name for animation_montage_inspect. Inspect Animation Montage: slots, sections, notifies.
+- `animation_add_curve` [live verified] - Add a float curve to an animation sequence.
+- `animation_add_float_curve_key` [live verified] - Add a float curve key to an animation sequence.
+- `animation_add_notify` [live verified] - Add an animation notify event to an animation sequence.
+- `animation_add_notify_state` [live verified] - Add an animation notify state to an animation sequence.
+- `animation_add_notify_track` [live verified] - Add a notify track to an animation sequence.
+- `animation_add_sync_marker` [live verified] - Add a sync marker to an animation sequence.
+- `animation_add_transform_curve_key` [live verified] - Add a transform curve key to an animation sequence.
+- `animation_add_vector_curve_key` [live verified] - Add a vector curve key to an animation sequence.
+- `animation_additive_configure_native` [live verified] - Configure additive type and base-pose type.
+- `animation_analyze` [live verified] - Analyze an animation sequence: duration, frame count/rate, notifies, curves, skeleton binding.
+- `animation_batch_edit` [live verified] - Run multiple animation edit operations in sequence. Each operation requires {tool, arguments}.
+- `animation_compression_apply_native` [live verified] - Apply native animation compression.
+- `animation_compression_set_native` [live verified] - Set bone/curve compression settings.
+- `animation_create_montage` [live verified] - Create an AnimMontage from an AnimSequence. Montages are used for animation blending, slot assignment, and root motion.
+- `animation_crop_native` [live verified] - Crop animation data to a verified frame range.
+- `animation_get_float_curve_keys` [live verified] - Get float curve keys from an animation sequence.
+- `animation_get_float_curve_value` [live verified] - Evaluate a float curve at a given time.
+- `animation_get_transform_curve_keys` [live verified] - Get transform curve keys from an animation sequence.
+- `animation_get_vector_curve_keys` [live verified] - Get vector curve keys from an animation sequence.
+- `animation_insert_bone_track` [live verified] - Insert a bone track into an animation sequence.
+- `animation_list_notifies` [live verified] - List notify events on an animation sequence.
+- `animation_list_notify_tracks` [live verified] - List notify tracks on an animation sequence.
+- `animation_list_sync_markers` [live verified] - List sync markers on an animation sequence.
+- `animation_mirror_native` [live verified] - Mirror animation through a specialized native adapter; currently fail-closed.
+- `animation_mixer_bake` [live verified] - UE 5.8 animation_mixer bake bridge, capability, contract, and receipt tool.
+- `animation_mixer_blend_mask_bind` [live verified] - UE 5.8 animation_mixer blend_mask bridge, capability, contract, and receipt tool.
+- `animation_mixer_compile_validate` [live verified] - UE 5.8 animation_mixer validate bridge, capability, contract, and receipt tool.
+- `animation_mixer_create` [live verified] - UE 5.8 animation_mixer create bridge, capability, contract, and receipt tool.
+- `animation_mixer_layer_add` [live verified] - UE 5.8 animation_mixer layer_add bridge, capability, contract, and receipt tool.
+- `animation_mixer_layer_remove` [live verified] - UE 5.8 animation_mixer layer_remove bridge, capability, contract, and receipt tool.
+- `animation_mixer_layer_update` [live verified] - UE 5.8 animation_mixer layer_update bridge, capability, contract, and receipt tool.
+- `animation_mixer_modifier_add` [live verified] - UE 5.8 animation_mixer modifier bridge, capability, contract, and receipt tool.
+- `animation_mixer_preview_receipt` [live verified] - UE 5.8 animation_mixer validate bridge, capability, contract, and receipt tool.
+- `animation_mixer_transition_set` [live verified] - UE 5.8 animation_mixer transition bridge, capability, contract, and receipt tool.
+- `animation_montage_inspect` [live verified] - Inspect Animation Montage: slots, sections, notifies.
+- `animation_remove_bone_track` [live verified] - Remove a bone track from an animation sequence.
+- `animation_remove_curve` [live verified] - Remove a curve from an animation sequence.
+- `animation_remove_float_curve_key` [live verified] - Remove one key from a float animation curve.
+- `animation_remove_notifies_by_name` [live verified] - Remove notify events by name from an animation sequence.
+- `animation_remove_notifies_by_track` [live verified] - Remove notify events by track from an animation sequence.
+- `animation_remove_notify_by_guid` [live verified] - Remove a notify event or notify state by stable guid.
+- `animation_remove_notify_track` [live verified] - Remove a notify track from an animation sequence.
+- `animation_rename_curve` [live verified] - Rename an animation curve through the data controller.
+- `animation_resample_native` [live verified] - Resample animation data to a new frame rate.
+- `animation_root_motion_inspect_native` [live verified] - Read root-motion settings.
+- `animation_root_motion_set_native` [live verified] - Set root-motion mode and lock settings.
+- `animation_set_float_curve_keys` [live verified] - Replace all keys on a float animation curve.
+- `animation_set_sequence_duration` [live verified] - Set the frame rate and frame count of an animation sequence.
+- `animation_set_skeleton` [live verified] - Assign a skeleton to an animation sequence.
+- `animation_set_transform_curve_keys` [live verified] - Replace all keys on a transform animation curve.
+- `animation_set_vector_curve_keys` [live verified] - Replace all keys on a vector animation curve.
+- `animation_time_stretch_native` [live verified] - Set time-stretch rate scale with readback.
+- `animation_update_notify` [live verified] - Update a notify event or notify state by stable guid.
+- `animbp_add_blendspace_node` [live verified] - Add a UAnimGraphNode_BlendSpacePlayer inside the named state's anim graph and wire it to the result node.
+- `animbp_add_state` [live verified] - Add a UAnimStateNode to the named state machine's internal graph.
+- `animbp_add_transition` [live verified] - Create a UAnimStateTransitionNode wiring two states with optional crossfade duration.
+- `animbp_cached_pose_add_native` [live verified] - Add a cached-pose node.
+- `animbp_cached_pose_rename_native` [live verified] - Rename a cached pose through a specialized native adapter; currently fail-closed.
+- `animbp_create_state_machine` [live verified] - Create a new UAnimGraphNode_StateMachine in the AnimGraph root of an AnimBlueprint.
+- `animbp_inspect_transition_rule_graph` [live verified] - Read-only inspect an AnimBP transition rule graph and report complex-rule readiness without mutating the asset.
+- `animbp_layer_add_native` [live verified] - Add an animation layer through a specialized native adapter; currently fail-closed.
+- `animbp_layer_remove_native` [live verified] - Remove an animation layer through a specialized native adapter; currently fail-closed.
+- `animbp_layer_weight_set_native` [live verified] - Set a named layer weight through a specialized native adapter; currently fail-closed.
+- `animbp_linked_graph_add_native` [live verified] - Add a linked-graph node.
+- `animbp_linked_graph_bind_native` [live verified] - Bind a linked graph through a specialized native adapter; currently fail-closed.
+- `animbp_linked_layer_add_native` [live verified] - Add a linked animation-layer node.
+- `animbp_list_states` [live verified] - Enumerate all state machines (or a specific one) with their states and transitions in an AnimBlueprint.
+- `animbp_set_transition_rule` [live verified] - Set the transition rule for a state-machine transition. Supported rule_type: 'always', 'time_remaining_lt', 'sync_between_markers', 'distance_gt', constant boolean expressions, and simple numeric-and-bool expressions such as Speed > 150 && bIsGrounded. Accepts aliases (e.g. time, sync, distance, bool, compare_int) and delivers compile/readback/rollback receipts.
+- `animbp_state_alias_add_native` [live verified] - Add a state-alias graph node.
+- `animbp_state_alias_bind_native` [live verified] - Bind state aliases through a specialized native adapter; currently fail-closed.
+- `animbp_state_machine_compile_receipt_native` [live verified] - Compile an AnimBP and return compiler diagnostics and status.
+- `animbp_sync_group_inspect_native` [live verified] - Inspect sync-group metadata through a specialized native adapter; currently fail-closed.
+- `animbp_sync_group_set_native` [live verified] - Set sync-group semantics through a specialized native adapter; currently fail-closed.
+- `animbp_transition_blend_profile_set_native` [live verified] - Set a transition blend profile through a specialized native adapter; currently fail-closed.
+- `animbp_transition_interrupt_rule_set_native` [live verified] - Set a transition interruption rule through a specialized native adapter; currently fail-closed.
+- `animbp_transition_priority_set_native` [live verified] - Set transition priority through a specialized native adapter; currently fail-closed.
+- `animnext_compile_validate_native` [live verified] - Compile AnimNext only when a native boolean result is exposed; otherwise fail-closed.
+- `animnext_connect_pins_native` [live verified] - Connect and read back AnimNext pins through URigVMController.
+- `animnext_graph_compile_validate` [live verified] - Validate AnimNext graph compile receipt or return compile requirements.
+- `animnext_graph_create_native` [live verified] - Create and verify a native AnimNext/UAF module asset through its factory.
+- `animnext_graph_entries_list` [live verified] - List/read AnimNext graph entry and template class availability.
+- `animnext_graph_entry_add` [live verified] - Plan AnimNext graph entry insertion.
+- `animnext_graph_inspect_native` [live verified] - Inspect an AnimNext graph through its native controller; currently fail-closed.
+- `animnext_parameter_schema_get` [live verified] - Read/plan AnimNext parameter and variable schema.
+- `animnext_pose_graph_snapshot` [live verified] - Read AnimNext pose graph snapshot contract.
+- `animnext_unit_node_add_native` [live verified] - Add and read back an AnimNext RigVM unit node through URigVMController.
+- `animnext_variable_add_native` [live verified] - Add an AnimNext variable through its native controller; currently fail-closed.
+- `animnext_variable_set_default_native` [live verified] - Set an AnimNext variable default through its native controller; currently fail-closed.
+- `animnext_variable_set_plan` [live verified] - Plan AnimNext variable update.
+- `architecture_assembly_execute` [live verified] - Execute a modular building assembly plan by spawning StaticMesh module actors with readback receipts.
+- `architecture_assembly_plan_build` [live verified] - Build a modular building assembly plan with room/floor/module/socket/transform receipts.
+- `architecture_assembly_readback` [live verified] - Read back assembled building actor/component/socket transform evidence.
+- `architecture_city_batch_plan` [live verified] - Split a village, town, city, or metropolis settlement plan into safe MCP execution batches with per-batch assembly, collision, nav, and follow-up gates.
+- `architecture_city_scale_gate_validate` [live verified] - Fail-closed configurable production-scale acceptance gate for large city generation; the target count is a minimum proof threshold, never a global city-size limit.
+- `architecture_collision_audit` [live verified] - Audit assembled building collision for blocked entrances, invisible walls, overlap, and traversal clearance.
+- `architecture_collision_contract_validate` [live verified] - Validate a modular architecture StaticMesh against collision, doorway, and traversal clearance contract fields.
+- `architecture_collision_generate` [live verified] - Generate or repair aggregate component collision for an assembled modular building.
+- `architecture_deployment_metadata_apply` [live verified] - Apply architecture deployment metadata to assembled actors: deployment/district/runtime-grid tags and optional HLODLayer readback.
+- `architecture_hlod_build_dispatch` [live verified] - Dispatch architecture HLOD generation/rebuild through World Partition console commands and return async receipt evidence.
+- `architecture_interior_nav_build` [live verified] - Build an interior navigation graph/navmesh contract for rooms, floors, stairs, bridges, and wall walks; execute=true updates nav relevance and dirties navigation.
+- `architecture_kit_coverage_audit` [live verified] - Audit whether a modular architecture kit covers required semantic module kinds.
+- `architecture_kit_manifest_generate` [live verified] - Generate a deterministic modular architecture kit manifest from style analysis: module descriptors, dimensions, sockets, assembly templates, collision/nav/LOD/HLOD flags.
+- `architecture_kit_manifest_validate` [live verified] - Validate every module descriptor in a ModularKitManifest against loaded StaticMesh asset, material, socket, and collision evidence.
+- `architecture_modular_assembly_plan` [live verified] - Convert settlement/building footprint contracts into executable modular building module transforms.
+- `architecture_module_dag_generate` [live verified] - Generate Creation Center module-production DAG tasks from a modular architecture kit manifest.
+- `architecture_module_validate` [live verified] - Validate one modular architecture StaticMesh for bounds, LOD, material slots, sockets, and simple collision.
+- `architecture_navlink_generate` [live verified] - Generate NavLinkProxy actors for stairs, ramps, ladders, elevators, drawbridges, and gates.
+- `architecture_navmesh_path_sample` [live verified] - Sample real UE NavigationSystem paths between architecture entrances, rooms, bridges, or gate nodes.
+- `architecture_production_gate_validate` [live verified] - Fail-closed final gate for modular architecture production receipts: assembly, collision, reachability, nav, DataLayer, HLOD, save, reload, and screenshot evidence.
+- `architecture_reachability_audit` [live verified] - Audit road-to-entrance, entrance-to-room, and floor-to-floor reachability for assembled architecture.
+- `architecture_reference_candidates_generate` [live verified] - Generate the fail-closed 4-up reference-image candidate prompt contract for text-only architecture kit creation.
+- `architecture_reference_input_classify` [live verified] - Classify text/image/document user input for Reference-to-Kit architecture generation. Text-only input requires exactly four reference candidates and user selection; user images become primary references.
+- `architecture_reference_set_build` [live verified] - Build a selected architecture reference set from user images or selected 4-up candidates before style analysis and kit generation.
+- `architecture_reference_style_analyze` [live verified] - Analyze selected architecture references into style_id, tags, silhouette, roof language, wall language, palette, and modularizable elements.
+- `architecture_settlement_footprint_audit` [live verified] - Audit settlement building footprints for missing coordinates, invalid sizes, overlaps, and spacing conflicts before city batch writes.
+- `architecture_socket_contract_validate` [live verified] - Validate required modular architecture sockets against a StaticMesh.
+- `architecture_staticmesh_collision_repair` [live verified] - Repair architecture module UStaticMesh assets by writing simple collision shapes with readback receipts.
+- `asset_analyze` [live verified] - Analyze an Unreal Engine asset in depth. Returns detailed metadata including class info, file size on disk, property breakdown (vertices/triangles for meshes, resolution for textures, etc.), references, and dependents. This provides comprehensive information about an asset for decision-making.
+- `asset_analyze_related` [live verified] - Analyze an asset's dependency graph: direct dependencies grouped by type, referencers, and relation graph for smart copy/move.
+- `asset_batch_import_task_plan` [live verified] - Concrete P2 batch import planner. Builds validated UAssetImportTask-style rows without importing. Use before asset_import_task_execute_safe.
+- `asset_batch_operation` [live verified] - Batch copy, move, or delete assets. Optionally include related (dependency) assets. Supports dry_run preview.
+- `asset_batch_query` [live verified] - Query detailed information for multiple assets at once. Returns a table with name, class, file size, and type for each asset. Ideal for auditing content folders, finding large assets, or inventory management.
+- `asset_collection_add_items` [live verified] - Concrete P2 asset collection add. Defaults to dry-run; set execute=true to mutate collection membership.
+- `asset_collection_create` [live verified] - Concrete P2 asset collection create. Defaults to dry-run; set execute=true to create a Local/Private/Shared static collection.
+- `asset_collection_remove_items` [live verified] - Concrete P2 asset collection remove. Defaults to dry-run; set execute=true to mutate collection membership.
+- `asset_compare` [live verified] - Compare two Unreal Engine assets side by side. Returns property differences (class, size, vertices, resolution, etc.) and thumbnail images for visual comparison. Ideal for comparing LOD variants, material versions, mesh iterations, or similar assets.
+- `asset_consolidate_plan` [live verified] - Concrete P2 asset consolidate planner. Read-only impact plan for replacing source assets with a target asset; does not mutate assets.
+- `asset_create` [live verified] - Create an asset with an explicit asset class and factory class.
+- `asset_cross_project_asset_family_validate` [live verified] - Validate coherent material, animation, Niagara, PCG, UMG, audio, and data asset families.
+- `asset_cross_project_bundle_export_execute` [live verified] - Export migration files into an immutable staged bundle; defaults to dry-run.
+- `asset_cross_project_bundle_manifest_build` [live verified] - Build and optionally persist an immutable migration bundle manifest.
+- `asset_cross_project_capabilities` [live verified] - Report native C++ cross-project migration, staging, queue, target handoff, and receipt capabilities.
+- `asset_cross_project_checkpoint_get` [live verified] - Return or initialize a resumable cross-project migration checkpoint.
+- `asset_cross_project_compile_validate_batch` [live verified] - Batch migration acceptance gate for Blueprint, material, Niagara, UMG, animation, and PCG compile validation.
+- `asset_cross_project_conflict_resolution_plan` [live verified] - Plan block, skip, overwrite, or reuse-identical conflict handling.
+- `asset_cross_project_conflict_scan` [live verified] - Scan target files for path, size, and content-hash conflicts.
+- `asset_cross_project_delta_sync_execute` [live verified] - Execute the target-routed portion of an incremental migration through the queue contract.
+- `asset_cross_project_delta_sync_plan` [live verified] - Compare source and target hashes and plan an incremental migration.
+- `asset_cross_project_dependency_closure` [live verified] - Resolve the recursive Asset Registry dependency closure for cross-project migration.
+- `asset_cross_project_external_package_closure` [live verified] - Identify World Partition ExternalActors and ExternalObjects packages in the migration closure.
+- `asset_cross_project_migration_plan` [live verified] - Build a deterministic cross-project asset migration plan with dependency, conflict, and byte estimates.
+- `asset_cross_project_missing_reference_scan` [live verified] - Validate migrated files and route missing-reference inspection through target-side Asset Registry tools.
+- `asset_cross_project_package_file_manifest` [live verified] - Map migration packages to source files, target files, size, hash, and conflict state.
+- `asset_cross_project_package_load_validate` [live verified] - Validate migrated target packages by file identity and target-side availability.
+- `asset_cross_project_pair_validate` [live verified] - Fail-closed validation for a source/target Unreal project pair.
+- `asset_cross_project_path_remap_plan` [live verified] - Plan package-aware source to target path mappings; defaults to preserving package paths.
+- `asset_cross_project_plugin_dependency_audit` [live verified] - Audit plugin, engine, and non-/Game package dependencies before migration.
+- `asset_cross_project_receipt_validate` [live verified] - Validate final cross-project file hashes and acceptance evidence before source cleanup.
+- `asset_cross_project_registry_refresh` [live verified] - Refresh the target Asset Registry for committed migration files.
+- `asset_cross_project_resume_plan` [live verified] - Build an idempotent resume plan from the current migration checkpoint.
+- `asset_cross_project_rollback_execute` [live verified] - Restore target files from migration-scoped backups; defaults to dry-run.
+- `asset_cross_project_source_cleanup_execute` [live verified] - Gate source cleanup behind an accepted target receipt; delegates deletion to safe asset tools.
+- `asset_cross_project_target_import_execute` [live verified] - Commit staged assets from the target project's MCP instance with hash verification.
+- `asset_cross_project_target_import_plan` [live verified] - Build the target-side import and source-control handoff plan.
+- `asset_cross_project_target_resolve` [live verified] - Resolve source and target Unreal project directories into guarded project and Content roots.
+- `asset_cross_project_transfer_stage_execute` [live verified] - Stage migration files under the target project's Saved directory; defaults to dry-run.
+- `asset_cross_project_world_partition_validate` [live verified] - Validate maps, ExternalActors, ExternalObjects, Data Layers, and World Partition migration evidence.
+- `asset_delete` [live verified] - Delete an asset package.
+- `asset_dependencies` [live verified] - Collect direct dependencies for an asset.
+- `asset_dependency_graph` [live verified] - Generate an asset dependency graph in Mermaid or DOT format for visualization.
+- `asset_dependency_graph_v2` [live verified] - Concrete P2 dependency graph reader. Returns Asset Registry dependencies and optional referencers for an asset, with package rows resolved back to asset data when possible.
+- `asset_duplicate` [live verified] - Duplicate an asset package.
+- `asset_duplicate_v2` [live verified] - Concrete P2 safe asset duplicate. Defaults to dry-run; set execute=true to duplicate through EditorAssetSubsystem, verify Asset Registry readback, and optionally save.
+- `asset_editor_close_v2` [live verified] - Concrete P2 asset editor close. Defaults to dry-run; set execute=true to close all editor instances for the target asset, optionally saving first.
+- `asset_editor_compile_active` [live verified] - Concrete P2 asset editor compile active. Defaults to dry-run; set execute=true to compile a target Blueprint or currently open Blueprint assets.
+- `asset_editor_dirty_state` [live verified] - Concrete P2 asset dirty-state reader. Resolves an asset and reports whether its loaded package is dirty, so scheduler/QA lanes can decide whether a save or rollback gate is required.
+- `asset_editor_focus_v2` [live verified] - Concrete P2 asset editor focus. Defaults to dry-run; set execute=true to focus an already open editor, optionally opening it if missing.
+- `asset_editor_open_v2` [live verified] - Concrete P2 asset editor open. Defaults to dry-run; set execute=true to open the asset editor and verify an editor instance is present.
+- `asset_editor_save_safe` [live verified] - Concrete P2 safe asset save. Defaults to dry-run; set execute=true to save the target asset and verify it remains loadable.
+- `asset_find_references` [live verified] - Find all assets that reference (depend on) or are referenced by (dependencies of) a given asset. Essential for understanding asset relationships, finding broken references, or preparing for asset deletion (checking what would be affected).
+- `asset_fix_redirectors` [live verified] - Walk every UObjectRedirector under path_filter (default '/Game') and flatten it via IAssetTools::FixupReferencers. Returns {found, fixed, failed:[...]}.
+- `asset_get_metadata` [live verified] - Get comprehensive metadata for an asset: class, path, tags, dependencies count, reference count, file size, and other asset registry data.
+- `asset_get_thumbnail` [live verified] - Get the thumbnail/preview image of an Unreal Engine asset as a base64-encoded PNG. This allows the AI to visually analyze the asset's appearance. Works with StaticMesh, SkeletalMesh, Material, Texture, Blueprint, and other asset types.
+- `asset_import` [live verified] - Import one asset file through UE AssetTools. This native single-file entry point mirrors import_asset and returns imported object paths.
+- `asset_import_receipt_validate` [live verified] - Concrete P2 import receipt validator. Checks imported paths against Asset Registry and optional source files on disk.
+- `asset_import_task_execute_safe` [live verified] - Concrete P2 safe batch import executor. Defaults to dry-run; set execute=true to run UAssetImportTask imports after source and destination validation.
+- `asset_ingest_from_disk` [live verified] - Import one disk file through UE AssetTools and return native object/package readback.
+- `asset_list` [live verified] - List assets under a content directory.
+- `asset_make_directory` [live verified] - Create a content directory.
+- `asset_metadata_bulk_apply` [live verified] - Concrete P2 bulk asset metadata writer. Defaults to dry-run; set execute=true to apply per-asset metadata patches and optionally save.
+- `asset_metadata_get_v2` [live verified] - Concrete P2 asset metadata reader. Resolves an asset through the Asset Registry and returns object path, package, class path, tags, family, and load/dirty hints. Accepts asset_path or target_asset.
+- `asset_metadata_set_v2` [live verified] - Concrete P2 asset metadata writer. Defaults to dry-run; set execute=true to set/remove UPackage.FMetaData entries on an asset and optionally save.
+- `asset_move_v2` [live verified] - Concrete P2 safe asset move. Defaults to dry-run; set execute=true to move to destination_folder or destination_asset_path and verify Asset Registry readback.
+- `asset_open_editor` [live verified] - Open an asset in the relevant editor.
+- `asset_query` [live verified] - Query assets by package path and class path. For exact readback, pass asset_path; an empty exact result is a business failure.
+- `asset_query_batch_paths` [live verified] - Asset-registry existence + class lookup for a batch of object paths in a SINGLE pass. Pass `paths: ["/Game/Foo", ...]`. Returns `results: [{path, exists, class?, error?}]`. Max 1000 paths per call.
+- `asset_recognition_profile` [live verified] - Build an Agent-facing recognition profile for a single UE asset. Resolves package or object paths, classifies the asset family, infers semantic tags and texture roles, summarizes dependencies, flags production/PCG readiness risks, and returns recommended next MCP tools. Use this before PCG scattering, material wiring, animation binding, generated-asset deployment, or large-scene content planning.
+- `asset_redirectors_fixup_v2` [live verified] - Concrete P2 redirector fixup. Defaults to dry-run; set execute=true to call AssetTools.FixupReferencers for redirectors under path_filter.
+- `asset_referencers_list_v2` [live verified] - Concrete P2 referencer reader. Returns packages and resolved assets that reference the requested asset.
+- `asset_rename` [live verified] - Rename or move an asset package.
+- `asset_rename_safe` [live verified] - Rename an asset with reference tracking. UE automatically updates internal references, and this tool reports what was updated. Use this instead of file-system renames to avoid broken references.
+- `asset_rename_v2` [live verified] - Concrete P2 safe asset rename. Defaults to dry-run; set execute=true to rename through EditorAssetSubsystem and verify source/destination Asset Registry state.
+- `asset_replace_references` [live verified] - Replace references from one asset to another (P2-4). With dry_run=true (default) only enumerates candidate referencers. With dry_run=false, calls ObjectTools::ConsolidateObjects to redirect every reference of from_path → to_path. Returns {candidates, replaced_count, failed:[...]}.
+- `asset_save` [live verified] - Save an asset package.
+- `asset_search` [live verified] - Search assets by tokens across NAME + CLASS + PATH + Asset Registry TAG VALUES (e.g. materials used, source import path, dimensions, gameplay tags). Case-insensitive, multi-token, relevance-ranked — far stronger than a filename substring. Optional class_name/path filters narrow the set; match_all requires every token; search_tags toggles tag-value matching.
+- `asset_smart_search` [live verified] - Search assets using natural language keywords with fuzzy matching. Supports Chinese/English terms, multiple tokens (space-separated), and semantic class mapping (e.g. 'cartoon tree', 'character', 'weapon'). Use this instead of asset_search for user-facing queries. Set include_thumbnails=true to embed PNG thumbnail images for each result.
+- `audio_asset_inspect` [live verified] - Inspect SoundWave/SoundCue properties.
+- `audio_asset_loop_point_audit` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_asset_loudness_analyze` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_attenuation_create` [live verified] - Create Sound Attenuation asset.
+- `audio_capture_config_create` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_capture_record_plan` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_concurrency_create` [live verified] - Create Sound Concurrency asset.
+- `audio_create_cue` [live verified] - [ALIAS] Create a sound cue. Use 'audio_create_sound_cue' with 'package_path' and 'asset_name'.
+- `audio_create_sound_cue` [live verified] - Create a sound cue asset optionally seeded with a sound wave.
+- `audio_gameplay_volume_create` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_import_sound` [live verified] - Import one sound file into the content browser.
+- `audio_insights_anomaly_audit` [live verified] - UE 5.8 audio audit bridge, capability, contract, and receipt tool.
+- `audio_insights_report_export` [live verified] - UE 5.8 audio export bridge, capability, contract, and receipt tool.
+- `audio_insights_session_start` [live verified] - UE 5.8 audio session_start bridge, capability, contract, and receipt tool.
+- `audio_insights_session_stop` [live verified] - UE 5.8 audio session_stop bridge, capability, contract, and receipt tool.
+- `audio_insights_trace_snapshot` [live verified] - UE 5.8 audio readback bridge, capability, contract, and receipt tool.
+- `audio_metasound_build_asset` [live verified] - Native C++ compatibility name for metasound_compile. Build and overwrite a MetaSound through the editor builder, register it with the frontend, save, and verify readback.
+- `audio_metasound_set_input_default` [live verified] - Native C++ compatibility name for metasound_set_input_default. Set a Bool, Int32, Float, or String graph input default, overwrite the MetaSound, save it, and verify readback.
+- `audio_mixer_snapshot` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_modulation_bus_create` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_modulation_bus_inspect` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_modulation_parameter_create` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_modulation_patch_plan` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_place_ambient_sound` [live verified] - Place a sound asset into the world as an ambient sound actor.
+- `audio_receipt_validate` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_set_attenuation` [live verified] - Bind and verify a SoundAttenuation asset on a SoundBase asset.
+- `audio_set_concurrency` [live verified] - Bind and verify a SoundConcurrency asset on a SoundBase asset.
+- `audio_set_sound_class` [live verified] - Bind and verify a SoundClass asset on a SoundBase asset.
+- `audio_sound_class_create` [live verified] - Create Sound Class asset.
+- `audio_sound_class_list` [live verified] - List SoundClass assets natively under a content path.
+- `audio_sound_class_set_properties` [live verified] - Set and read back core SoundClass properties natively.
+- `audio_sound_mix_create` [live verified] - Create Sound Mix asset.
+- `audio_sound_mix_list` [live verified] - List SoundMix assets natively under a content path.
+- `audio_sound_mix_set_properties` [live verified] - Set and save SoundMix properties natively.
+- `audio_soundscape_list` [live verified] - List audio sources in level.
+- `audio_soundscape_palette_plan` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_spatialization_config_plan` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_submix_effect_chain_inspect` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_submix_effect_chain_set_plan` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_submix_list` [live verified] - List SoundSubmix assets natively under a content path.
+- `audio_submix_set_parent` [live verified] - Set, save, and read back a native SoundSubmix parent relationship.
+- `audio_submix_set_properties` [live verified] - Set and save SoundSubmix properties natively.
+- `audio_subtitle_asset_create` [live verified] - UE 5.8 audio asset_create bridge, capability, contract, and receipt tool.
+- `audio_subtitle_entry_add` [live verified] - UE 5.8 audio entry_add bridge, capability, contract, and receipt tool.
+- `audio_subtitle_entry_update` [live verified] - UE 5.8 audio entry_update bridge, capability, contract, and receipt tool.
+- `audio_subtitle_runtime_preview` [live verified] - UE 5.8 audio preview bridge, capability, contract, and receipt tool.
+- `audio_subtitle_timing_validate` [live verified] - UE 5.8 audio validate bridge, capability, contract, and receipt tool.
+- `audio_synesthesia_analysis_run` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_synesthesia_analyzer_create` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `audio_widget_meter_create_plan` [live verified] - P2 audio_production_wrappers wrapper for audio_author.
+- `authoring_asset_save_reload` [live verified] - Native C++ cross-domain authoring QA/delivery gate: authoring_asset_save_reload
+- `authoring_compile_diagnostics` [live verified] - Native C++ cross-domain authoring QA/delivery gate: authoring_compile_diagnostics
+- `authoring_delivery_gate` [live verified] - Native C++ cross-domain authoring QA/delivery gate: authoring_delivery_gate
+- `authoring_diff_report` [live verified] - Native C++ cross-domain authoring QA/delivery gate: authoring_diff_report
+- `authoring_preflight_gate` [live verified] - Native C++ cross-domain authoring QA/delivery gate: authoring_preflight_gate
+- `authoring_receipt_envelope` [live verified] - Native C++ cross-domain authoring QA/delivery gate: authoring_receipt_envelope
+- `authoring_runtime_smoke_get` [live verified] - Native C++ cross-domain authoring QA/delivery gate: authoring_runtime_smoke_get
+- `authoring_runtime_smoke_submit` [live verified] - Native C++ cross-domain authoring QA/delivery gate: authoring_runtime_smoke_submit
+- `authoring_schema_validate` [live verified] - Native C++ cross-domain authoring QA/delivery gate: authoring_schema_validate
+- `authoring_target_snapshot` [live verified] - Native C++ cross-domain authoring QA/delivery gate: authoring_target_snapshot
+- `authoring_transaction_begin` [live verified] - Native C++ cross-domain authoring QA/delivery gate: authoring_transaction_begin
+- `authoring_transaction_commit` [live verified] - Native C++ cross-domain authoring QA/delivery gate: authoring_transaction_commit
+- `authoring_transaction_rollback` [live verified] - Native C++ cross-domain authoring QA/delivery gate: authoring_transaction_rollback
+- `authoring_visual_qa_capture` [live verified] - Native C++ cross-domain authoring QA/delivery gate: authoring_visual_qa_capture
+- `automation_controller_rpc_cancel` [live verified] - P3 rpcbase_automation_controller_rpc wrapper for qa_inspector.
+- `automation_controller_rpc_result_snapshot` [live verified] - P3 rpcbase_automation_controller_rpc wrapper for qa_inspector.
+- `automation_controller_rpc_run_plan` [live verified] - P3 rpcbase_automation_controller_rpc wrapper for qa_inspector.
+- `automation_controller_rpc_status` [live verified] - P3 rpcbase_automation_controller_rpc wrapper for qa_inspector.
+- `automation_discover_tests` [live verified] - P0 automation_toolset wrapper: Discover automation tests.
+- `automation_get_results` [live verified] - P0 automation_toolset wrapper: Get automation test results.
+- `automation_get_status` [live verified] - P0 automation_toolset wrapper: Get automation run status.
+- `automation_list_tests` [live verified] - P0 automation_toolset wrapper: List automation tests.
+- `automation_run_tests` [live verified] - P0 automation_toolset wrapper: Run selected automation tests.
+- `automation_stop_tests` [live verified] - P0 automation_toolset wrapper: Stop automation test run.
+- `automation_test_catalog_probe` [live verified] - Probe AutomationLibrary test catalog APIs for unattended QA routing.
+- `automation_test_run_plan` [live verified] - Plan unattended automation-test execution with report artifacts and failure routing.
+- `avalanche_asset_probe` [live verified] - Scan content for Avalanche/Motion Design assets, scenes, tags, and transitions.
+- `avalanche_remote_control_bridge_plan` [live verified] - Plan Avalanche and Remote Control bridge wiring for live adjustable generated broadcast scenes.
+- `axf_import_settings_get` [live verified] - UE 5.8 rendering transaction: axf_import_settings_get
+- `axf_import_settings_set` [live verified] - UE 5.8 rendering transaction: axf_import_settings_set
+- `axf_interchange_import` [live verified] - UE 5.8 rendering transaction: axf_interchange_import
+- `axf_render_qa_capture` [live verified] - UE 5.8 rendering transaction: axf_render_qa_capture
+- `axf_substrate_compile_validate` [live verified] - UE 5.8 rendering transaction: axf_substrate_compile_validate
+- `axf_substrate_material_convert` [live verified] - UE 5.8 rendering transaction: axf_substrate_material_convert
+- `axf_substrate_material_inspect` [live verified] - UE 5.8 rendering transaction: axf_substrate_material_inspect
+- `axf_texture_dependency_readback` [live verified] - UE 5.8 rendering transaction: axf_texture_dependency_readback
+- `batch_asset_thumbnails` [live verified] - Render thumbnails for up to 50 Unreal asset paths in one call. Returns per-item success/error receipts plus MCP image content for each rendered PNG.
+- `behavior_tree_asset_create_v2` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `behavior_tree_blackboard_bind` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `behavior_tree_decorator_attach_plan` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `behavior_tree_inspect_v2` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `behavior_tree_node_add_plan` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `behavior_tree_node_catalog` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `behavior_tree_node_remove_plan` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `behavior_tree_node_update_plan` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `behavior_tree_service_attach_plan` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `behavior_tree_task_blueprint_create` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `behaviortree_add_decorator` [live verified] - Add a decorator to a child slot in a Behavior Tree root composite.
+- `behaviortree_add_service` [live verified] - Add a service to the Behavior Tree root composite node.
+- `behaviortree_add_task` [live verified] - Add a task node to a Behavior Tree root composite by class name.
+- `behaviortree_batch_edit` [live verified] - Run multiple behaviortree_* operations in sequence. Each entry: {tool, arguments}. Tools must start with 'behaviortree_'.
+- `behaviortree_connect_nodes` [live verified] - Set the Blackboard for a Behavior Tree and optionally change root composite type (Selector/Sequence).
+- `behaviortree_create` [live verified] - Create a new Behavior Tree asset with optional Blackboard reference.
+- `behaviortree_list_nodes` [live verified] - List all nodes in a Behavior Tree compiled structure (composites, tasks, decorators, services).
+- `blackboard_add_key` [live verified] - Add a key to a Blackboard Data asset. Types: Bool, Int, Float, String, Name, Vector, Rotator, Object, Class, Enum.
+- `blackboard_asset_create_v2` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `blackboard_create` [live verified] - Create a new Blackboard Data asset for Behavior Trees.
+- `blackboard_key_add_v2` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `blackboard_key_remove_v2` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `blackboard_key_update_v2` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `blackboard_keys_list_v2` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `blackboard_list_keys` [live verified] - List all keys in a Blackboard Data asset including inherited keys.
+- `blendspace_sample_add_native` [live verified] - Add and verify a BlendSpace sample.
+- `blendspace_sample_list_native` [live verified] - Read BlendSpace samples.
+- `blendspace_sample_remove_native` [live verified] - Remove and verify a BlendSpace sample.
+- `blendspace_sample_update_native` [live verified] - Move and verify a BlendSpace sample.
+- `blendspace_samples_snap_to_grid_native` [live verified] - Snap BlendSpace samples to the configured grid.
+- `blendspace_samples_validate_native` [live verified] - Validate sample assets, values, and overlap.
+- `blueprint_action_catalog` [live verified] - Query Unreal's Blueprint Action Database for graph-compatible node actions. Returns stable action ids, node classes, owners, menu metadata, and template pin schemas so any public K2 action can be planned without guessing node names.
+- `blueprint_add_branch_node` [live verified] - Add a branch node to a blueprint graph.
+- `blueprint_add_break_struct_node` [live verified] - Add a break-struct node to a blueprint graph.
+- `blueprint_add_comment_node` [live verified] - Add a comment node to a blueprint graph.
+- `blueprint_add_component` [live verified] - Add a component (SCS node) to a Blueprint. Optionally attach to a parent node and apply a transform.
+- `blueprint_add_components_from_actor` [live verified] - Copy actor components into a blueprint as SCS nodes.
+- `blueprint_add_custom_event_node` [live verified] - Add a custom event node to a blueprint graph.
+- `blueprint_add_delegate_node` [live verified] - Add a delegate bind/unbind/clear/call node for an event dispatcher.
+- `blueprint_add_dynamic_cast_node` [live verified] - Add a dynamic cast node to a blueprint graph.
+- `blueprint_add_event_node` [live verified] - Add a parent-class event node (UK2Node_Event) like ReceiveBeginPlay, ReceiveTick, ReceiveActorBeginOverlap, ReceiveHit, or any BlueprintImplementableEvent on the parent class.
+- `blueprint_add_for_each_loop_node` [live verified] - Add a ForEachLoop macro node (StandardMacros.ForEachLoop) to a blueprint graph.
+- `blueprint_add_for_loop_node` [live verified] - Add a ForLoop macro node (StandardMacros.ForLoop) to a blueprint graph.
+- `blueprint_add_function_call_node` [live verified] - Add a function call node to a blueprint graph.
+- `blueprint_add_function_graph` [live verified] - Add a new function graph to a blueprint.
+- `blueprint_add_knot_node` [live verified] - Add a reroute knot node to a blueprint graph.
+- `blueprint_add_local_variable` [live verified] - Add a local variable to a blueprint function graph.
+- `blueprint_add_macro_instance_node` [live verified] - Add a macro instance node to a blueprint graph.
+- `blueprint_add_make_struct_node` [live verified] - Add a make-struct node to a blueprint graph.
+- `blueprint_add_member_variable` [live verified] - Add a member variable to a Blueprint.
+- `blueprint_add_node` [live verified] - Generic K2 node creation dispatcher for function_call and print_string nodes.
+- `blueprint_add_print_string_node` [live verified] - Add a Kismet PrintString call node and verify the InString data pin exists.
+- `blueprint_add_select_node` [live verified] - Add a Select node (UK2Node_Select) with the given index pin type (int|bool|string|float).
+- `blueprint_add_sequence_node` [live verified] - Add an execution sequence node to a blueprint graph.
+- `blueprint_add_signature_pin` [live verified] - Add an input or output pin to a function entry or custom event node.
+- `blueprint_add_switch_enum_node` [live verified] - Add a Switch on Enum node (UK2Node_SwitchEnum) bound to a UEnum at the given path.
+- `blueprint_add_switch_int_node` [live verified] - Add a Switch on Int node (UK2Node_SwitchInteger) to a blueprint graph.
+- `blueprint_add_timeline` [live verified] - Add a timeline node to a blueprint.
+- `blueprint_add_variable_get_node` [live verified] - Add a variable getter node to a blueprint graph.
+- `blueprint_add_variable_set_node` [live verified] - Add a variable setter node to a blueprint graph.
+- `blueprint_add_while_loop_node` [live verified] - Add a WhileLoop macro node (StandardMacros.WhileLoop) to a blueprint graph.
+- `blueprint_analyze_graph` [live verified] - Analyze a blueprint graph's execution flow: list all nodes with their pins, connections, and topology. Optionally filter by graph_name.
+- `blueprint_asset_factory_create` [live verified] - Create a verified Blueprint asset through the correct Unreal factory: normal class, interface, function library, macro library, Animation Blueprint, Widget Blueprint, Editor Utility Blueprint, or Editor Utility Widget. Saves, reloads, compiles, and returns an asset-kind receipt.
+- `blueprint_batch_edit` [live verified] - Run multiple blueprint_* operations in sequence. Each entry: {tool, arguments}. Tools must start with 'blueprint_'.
+- `blueprint_break_pin_links` [live verified] - Break all links from a pin in a blueprint graph.
+- `blueprint_break_single_pin_link` [live verified] - Break one specific pin link in a blueprint graph.
+- `blueprint_change_local_variable_type` [live verified] - Change the type of a local variable on a blueprint function graph.
+- `blueprint_change_member_variable_type` [live verified] - Change the type of a member variable on a blueprint.
+- `blueprint_collapse_nodes_to_function` [live verified] - Collapse selected blueprint nodes to a function.
+- `blueprint_collapse_nodes_to_macro` [live verified] - Collapse selected blueprint nodes to a macro.
+- `blueprint_compile` [live verified] - Compile a Blueprint asset.
+- `blueprint_compile_diagnostics` [live verified] - Compile or inspect a Blueprint and return compiler log diagnostics with graph/node/pin repair hints.
+- `blueprint_connect_pins` [live verified] - Connect two pins in a blueprint graph.
+- `blueprint_create` [live verified] - Create a Blueprint asset with a specified parent class.
+- `blueprint_create_event_dispatcher` [live verified] - Create an event dispatcher on a blueprint.
+- `blueprint_create_from_actor` [live verified] - Create a blueprint from a placed actor.
+- `blueprint_debug_get_call_stack` [live verified] - Get the current Blueprint execution call stack. Only available when PIE is paused at a breakpoint.
+- `blueprint_debug_get_watches` [live verified] - Get all watched pins and their current debug values. Values are available when PIE is paused at a breakpoint.
+- `blueprint_debug_list_breakpoints` [live verified] - List all breakpoints in a Blueprint, or all breakpoints across all loaded Blueprints if no asset_path is specified.
+- `blueprint_debug_pause` [live verified] - Pause the currently running PIE session.
+- `blueprint_debug_play` [live verified] - Start a Play In Editor (PIE) session. Supports PIE, Simulate In Editor (SIE), and standalone modes.
+- `blueprint_debug_remove_breakpoint` [live verified] - Remove a breakpoint from a Blueprint node.
+- `blueprint_debug_resume` [live verified] - Resume a paused PIE session.
+- `blueprint_debug_set_breakpoint` [live verified] - Set a breakpoint on a specific node in a Blueprint graph. The breakpoint will pause execution when the node is reached during PIE.
+- `blueprint_debug_step_into` [live verified] - Step into the next Blueprint node execution. Requires PIE to be paused at a breakpoint.
+- `blueprint_debug_step_out` [live verified] - Step out of the current Blueprint function. Requires PIE to be paused at a breakpoint.
+- `blueprint_debug_step_over` [live verified] - Step over to the next Blueprint node. Requires PIE to be paused at a breakpoint.
+- `blueprint_debug_stop` [live verified] - Stop the currently running PIE/SIE session.
+- `blueprint_debug_toggle_breakpoint` [live verified] - Toggle (enable/disable) an existing breakpoint on a Blueprint node.
+- `blueprint_debug_watch_pin` [live verified] - Add a pin to the Blueprint debug watch list. Watched pins show their runtime values during PIE debugging.
+- `blueprint_delete_node` [live verified] - Delete a node from a blueprint graph.
+- `blueprint_export_nodes_t3d` [live verified] - Export Blueprint graph nodes as UE copy/T3D text. Supports all_nodes or node_guids/node_names filters.
+- `blueprint_finalize_function_graph` [live verified] - Ensure a function graph has a FunctionResult terminator and connect FunctionEntry exec to it when the entry is otherwise unlinked.
+- `blueprint_find_nodes` [live verified] - Find Blueprint nodes by text, class, target function, or pin name across all graphs.
+- `blueprint_first_pass_creation_contract_gate` [live verified] - Dry-run validate a Blueprint creation plan before the first write. Fails closed if asset path, parent class, variables, functions, nodes, links, or pin types are incomplete, so Agents cannot create a bad Blueprint and repair it later.
+- `blueprint_function_catalog_lookup` [live verified] - Look up callable functions on a class by exact or loose display/name match.
+- `blueprint_get_execution_flow` [live verified] - Trace compact Blueprint execution paths along exec pins from entry nodes or a selected start node.
+- `blueprint_get_function_details` [live verified] - Get detailed information about a specific function graph in a Blueprint, including its signature pins and node count.
+- `blueprint_get_node_details` [live verified] - Add an arbitrary blueprint graph node by class.
+- `blueprint_get_nodes` [live verified] - Get all nodes from a Blueprint's EventGraph and function graphs. Returns node names, classes, positions, and pin information for each graph.
+- `blueprint_get_variable_details` [live verified] - Get detailed information about a specific member variable in a Blueprint, including its type, default value, replication, and metadata.
+- `blueprint_get_variables` [live verified] - Get all variables and components from a Blueprint. Returns variable names, types, editability, and component classes.
+- `blueprint_graph_explain` [live verified] - Explain a Blueprint graph with compact node summary, entry nodes, execution paths, and truncation notes.
+- `blueprint_harvest_from_actors` [live verified] - Harvest components from actors into a new blueprint.
+- `blueprint_implement_interface` [live verified] - Implement a new interface on a blueprint.
+- `blueprint_import_nodes_t3d` [live verified] - Import UE copy/T3D Blueprint node text into a Blueprint graph. Optional pos_x/pos_y recenters the imported nodes.
+- `blueprint_inspect_call_function_node` [live verified] - Inspect a K2 call-function node, including its stale or resolved member binding.
+- `blueprint_inspect_delegate_node` [live verified] - Inspect an existing multicast delegate node, including its resolved dispatcher property and signature.
+- `blueprint_inspect_macro_instances` [live verified] - Inspect macro instance nodes and report unresolved macro graph bindings.
+- `blueprint_inspect_summary` [live verified] - Summary of Blueprint: parent class, graphs, variables, components.
+- `blueprint_inspect_variable_node` [live verified] - Inspect a K2 variable get/set node, including its stale or resolved property binding.
+- `blueprint_list_components` [live verified] - List all SCS components on a Blueprint with class, parent, and a 5-10 item property summary.
+- `blueprint_list_event_dispatchers` [live verified] - List event dispatchers defined on a blueprint.
+- `blueprint_list_graphs` [live verified] - List all graphs in a blueprint asset.
+- `blueprint_list_nodes` [live verified] - List nodes in a blueprint graph or in all blueprint graphs.
+- `blueprint_list_signature_pins` [live verified] - List editable signature pins on a function entry or custom event node.
+- `blueprint_migration_repair_plan` [live verified] - Inspect a migrated Blueprint for stale unknown type pins, one-way links, parent-class state, and compile status. Returns a dry-run repair plan for Agent/Hermes routing.
+- `blueprint_move_node` [live verified] - Move a node in a blueprint graph.
+- `blueprint_promote_pin_to_local_variable` [live verified] - Promote a blueprint pin to a local variable.
+- `blueprint_promote_pin_to_member_variable` [live verified] - Promote a blueprint pin to a member variable.
+- `blueprint_read` [live verified] - Read comprehensive information about a Blueprint asset including parent class, variables, functions, interfaces, components, and graphs.
+- `blueprint_read_graph_summary` [live verified] - Read a low-token summary of one or all Blueprint graphs: compact nodes, exec pins, and exec links.
+- `blueprint_rebind_call_function_node` [live verified] - Rebind an existing K2 call-function node to a resolved function and reconstruct its pins.
+- `blueprint_rebind_delegate_node` [live verified] - Rebind an existing multicast delegate node to an event dispatcher property on a class, preserving compatible pins where UE can remap them.
+- `blueprint_rebind_macro_instance` [live verified] - Rebind an existing macro instance node to a same-blueprint or external macro graph.
+- `blueprint_rebind_switch_enum` [live verified] - Rebind an existing enum switch node to a resolved enum asset.
+- `blueprint_rebind_variable_node` [live verified] - Rebind an existing K2 variable get/set node to a resolved property and reconstruct its pins.
+- `blueprint_rebuild_member_variable` [live verified] - Atomically ensure or rebuild a Blueprint member variable with a requested type, then optionally refresh, compile, and save.
+- `blueprint_recombine_pin` [live verified] - Recombine a previously split blueprint pin.
+- `blueprint_refresh_all_nodes` [live verified] - Refresh all K2 nodes in a Blueprint, then optionally compile and save. Useful for migrated assets with stale pins, unknown structs, or reconstructed nodes.
+- `blueprint_refresh_editors` [live verified] - Refresh open editors for a blueprint.
+- `blueprint_remove_component` [live verified] - Remove a component (SCS node) from a Blueprint by name.
+- `blueprint_remove_event_dispatcher` [live verified] - Remove an event dispatcher from a blueprint.
+- `blueprint_remove_function_graph` [live verified] - Remove a function graph from a blueprint.
+- `blueprint_remove_interface` [live verified] - Remove an implemented interface from a blueprint.
+- `blueprint_remove_member_variable` [live verified] - Remove a member variable from a blueprint.
+- `blueprint_remove_signature_pin` [live verified] - Remove a user-defined pin from a function entry or custom event node.
+- `blueprint_rename_event_dispatcher` [live verified] - Rename an event dispatcher on a blueprint.
+- `blueprint_rename_graph` [live verified] - Rename a graph in a blueprint.
+- `blueprint_rename_local_variable` [live verified] - Rename a local variable on a blueprint function graph.
+- `blueprint_rename_member_variable` [live verified] - Rename a member variable on a blueprint.
+- `blueprint_reorder_graph` [live verified] - Move a graph to a new order index inside a blueprint.
+- `blueprint_reorder_signature_pin` [live verified] - Reorder a function entry or custom event user-defined pin.
+- `blueprint_repair_compile_gate` [live verified] - Run a safe deterministic Blueprint repair pass: dialog-safe refresh, compile diagnostics, repair issue scan, optional save only when zero errors remain.
+- `blueprint_reparent` [live verified] - Reparent a blueprint to a new parent class.
+- `blueprint_reset_pin_default` [live verified] - Reset a blueprint pin to its autogenerated default value.
+- `blueprint_retype_signature_pin` [live verified] - Retype an existing user-defined function entry or custom event signature pin, preserving the pin name and direction.
+- `blueprint_safe_patch` [live verified] - Validate and optionally apply a constrained Blueprint component patch. dry_run defaults to true; only whitelisted component write tools are allowed.
+- `blueprint_scan_bad_struct_pins` [live verified] - Scan a Blueprint for bad/stale struct pins, GetDataTableRow blank table pins, and empty function graph terminators.
+- `blueprint_set_component_property` [live verified] - Set a reflected Blueprint component-template property from typed JSON. Supports arrays, sets, maps, object/soft references, structs, enums, and scalar properties; validates before the transaction and returns post-apply readback.
+- `blueprint_set_enum_pin_type_and_default` [live verified] - Retype a byte pin to an enum-backed pin and optionally set its default value.
+- `blueprint_set_function_metadata` [live verified] - Set category and descriptive metadata on a blueprint function graph.
+- `blueprint_set_getdatatable_node_table` [live verified] - Transactionally set a GetDataTableRow node DataTable default object, validate row struct/row name, refresh node pins, and optionally compile.
+- `blueprint_set_local_variable_default` [live verified] - Set the default value of a local variable on a blueprint function graph.
+- `blueprint_set_node_pin_type` [live verified] - Retype a data pin on an existing K2 node. This is intended for migrated wildcard/unknown struct pins such as Select, Knot, GetArrayItem, and CallArrayFunction.
+- `blueprint_set_pin_default_object` [live verified] - Set or clear the default object of a blueprint object pin, for example DataTable pins on GetDataTableRow.
+- `blueprint_set_pin_default_value` [live verified] - Set the default value of a blueprint pin.
+- `blueprint_set_signature_pin_default` [live verified] - Set the default value on a function entry or custom event user-defined pin.
+- `blueprint_set_struct_node_type` [live verified] - Retype an existing make-struct or break-struct node to a resolved struct asset. graph_name may be supplied when migrated assets contain duplicate node GUIDs.
+- `blueprint_set_variable_category` [live verified] - Set category on a member or local blueprint variable.
+- `blueprint_set_variable_flags` [live verified] - Set common member variable flags on a blueprint.
+- `blueprint_set_variable_metadata` [live verified] - Set metadata on a member or local blueprint variable.
+- `blueprint_spawn_action_node` [live verified] - Spawn any graph-compatible Blueprint action by the stable action_id returned from blueprint_action_catalog. The action is compatibility-filtered, transaction protected, reconstructed, compiled, and read back before success.
+- `blueprint_split_pin` [live verified] - Split a struct pin on a blueprint node.
+- `bridge_passability_audit` [live verified] - Audit wood, drawbridge, and stone bridge visual/collision/nav continuity.
+- `brush_falloff_curve_set` [live verified] - Set normalized falloff samples on a shared brush profile.
+- `brush_filter_create` [live verified] - Create a typed range filter attached to a brush profile.
+- `brush_filter_update` [live verified] - Update range or enabled state on a shared brush filter.
+- `brush_mask_bind` [live verified] - Bind or clear a /Game mask asset path on a brush profile.
+- `brush_operation_receipt_validate` [live verified] - Validate that a domain writer really mutated and read back the exact brush target.
+- `brush_operation_snapshot` [live verified] - Create an immutable state hash snapshot for a brush stroke before a domain write.
+- `brush_pressure_curve_set` [live verified] - Set normalized pressure-to-strength samples on a shared brush profile.
+- `brush_profile_create` [live verified] - Create a shared native brush profile used by domain writers.
+- `brush_profile_delete` [live verified] - Delete an unused shared brush profile; active strokes fail closed.
+- `brush_profile_inspect` [live verified] - Inspect a shared brush profile and active-stroke usage.
+- `brush_profile_update` [live verified] - Update radius, strength, spacing, name, or falloff on a shared brush profile.
+- `brush_stroke_append_points` [live verified] - Append validated world-space points to a recording brush stroke.
+- `brush_stroke_begin` [live verified] - Begin a target-bound brush stroke. This records intent and does not mutate the target asset.
+- `brush_stroke_cancel` [live verified] - Cancel a recording brush stroke without touching its target.
+- `brush_stroke_commit` [live verified] - Finalize a stroke only after a domain writer supplies a successful mutation and readback receipt.
+- `brush_stroke_preview` [live verified] - Read a bounded preview of a brush stroke without mutating UE state.
+- `brush_surface_project` [live verified] - Project recording stroke points onto real editor-world collision using native line traces.
+- `brush_symmetry_set` [live verified] - Set X/Y/Z symmetry flags on a shared brush profile.
+- `bsp_brush_create` [live verified] - Create an additive or subtractive native ABrush from one of UE's nine editor brush builders. Editor-only, transactional, typed and fail-closed.
+- `bsp_brush_inspect` [live verified] - Losslessly inspect a native BSP brush, builder metadata, transform, CSG properties and topology identity without mutation.
+- `bsp_brush_properties_set` [live verified] - Set brush CSG flags, runtime solidity policy, display properties and brush order (first/last).
+- `bsp_brush_update` [live verified] - Patch typed editable parameters on a brush's original native builder and deterministically rebuild its UModel.
+- `bsp_convert_to_static_mesh` [live verified] - Convert one native BSP brush to a persistent Static Mesh asset; source retention and actor replacement are explicit.
+- `bsp_csg_apply` [live verified] - Set an existing native brush to additive or subtractive CSG and rebuild affected BSP.
+- `bsp_rebuild_validate` [live verified] - Rebuild altered BSP and return bounded native brush/Map Check diagnostics without accepting invalid geometry.
+- `bsp_scene_inspect` [live verified] - Enumerate all native non-volume CSG brushes in the explicit editor world without mutation.
+- `bsp_surface_inspect` [live verified] - Inspect all source FPoly surfaces, materials, texture vectors, flags, links and vertices without mutation.
+- `bsp_surface_material_set` [live verified] - Assign or clear a material on explicit native source BSP surfaces with write-after-read verification.
+- `bsp_surface_select` [live verified] - Transactionally replace or modify native source-surface selection through PF_Selected.
+- `bsp_surface_uv_set` [live verified] - Set explicit TextureU, TextureV and optional Base vectors on native source BSP surfaces.
+- `bsp_surface_uv_transform` [live verified] - Pan, scale and rotate native BSP TextureU/TextureV vectors transactionally.
+- `bsp_topology_edit` [live verified] - Transactionally edit a source BSP polygon vertex, split an edge, remove a vertex, or reverse a face using an optimistic topology-hash guard.
+- `bsp_topology_inspect` [live verified] - Inspect source BSP polygon/vertex/edge topology with deterministic local-space edge identities.
+- `bt_template_apply_combat` [live verified] - Compose a combat sub-tree on an existing BehaviorTree. Root selector: Flee (low health) / Attack (in range) / Chase. Each branch decorated with appropriate Blackboard checks.
+- `bt_template_apply_patrol` [live verified] - Compose a 'patrol' sub-tree on an existing BehaviorTree. Root selector with two branches: chase TargetActor (MoveTo) OR sequence(SetHomeLocation → MoveTo Home → Wait).
+- `bt_template_list_available` [live verified] - List built-in BT templates and their requirements (BB keys, args). Useful for AI discovery.
+- `build_lighting` [live verified] - Native C++ compatibility name for editor_build_lighting. Trigger editor static-lighting build with selectable quality. Use dry_run=true to preview.
+- `build_navigation` [live verified] - Native C++ compatibility name for editor_build_navigation. Trigger editor navigation/navmesh rebuild for the current level.
+- `camera_anim_create` [live verified] - Create a LevelSequence asset for camera animation. (UE 5.7: replaces UCameraAnim with LevelSequence.)
+- `camera_anim_delete` [live verified] - Delete a LevelSequence camera animation asset.
+- `camera_anim_get` [live verified] - Get detailed information about a camera animation (LevelSequence) asset.
+- `camera_anim_list` [live verified] - List all LevelSequence camera animation assets in the project.
+- `camera_anim_play` [live verified] - Play a LevelSequence (camera animation) in the editor viewport.
+- `camera_anim_set_keys` [live verified] - Add camera cut sections to a LevelSequence at specified times. Each key defines a camera cut point.
+- `camera_anim_stop` [live verified] - Stop all playing LevelSequence animations.
+- `camera_attach_to_rig` [live verified] - Attach a camera actor to a rig actor.
+- `camera_calibration_capability_probe` [live verified] - Probe UE 5.7+ Camera Calibration availability for lens files, nodal offsets, and virtual camera matching.
+- `camera_calibration_lens_file_probe` [live verified] - Scan content for Camera Calibration LensFile and calibration-related assets.
+- `camera_create` [live verified] - Create a camera actor or cine camera actor.
+- `camera_get_cine_settings` [live verified] - Get current settings from a cine camera actor.
+- `camera_pilot` [live verified] - Pilot a camera or actor in the active level viewport.
+- `camera_rig_create` [live verified] - Create a camera rig actor.
+- `camera_rig_set_crane` [live verified] - Set common camera crane rig settings.
+- `camera_rig_set_rail` [live verified] - Set common camera rail rig settings.
+- `camera_set_blendables` [live verified] - Set camera blendable assets through editor APIs.
+- `camera_set_cine_filmback` [live verified] - Set filmback dimensions or crop on a cine camera.
+- `camera_set_cine_focus` [live verified] - Set manual or tracking focus settings on a cine camera.
+- `camera_set_cine_lens` [live verified] - Set focal length, aperture, or lens limits on a cine camera.
+- `camera_set_crop_preset` [live verified] - Apply a crop preset to a cine camera.
+- `camera_set_filmback_preset` [live verified] - Apply a filmback preset to a cine camera.
+- `camera_set_lens_preset` [live verified] - Apply a lens preset to a cine camera.
+- `camera_set_lookat_tracking` [live verified] - Configure look-at tracking on a cine camera actor.
+- `camera_set_post_process` [live verified] - Set post process blend weight or selected post process settings on a camera component.
+- `camera_set_projection` [live verified] - Set generic camera component projection settings.
+- `camera_track_spline_create` [live verified] - Create a spline-based camera motion track actor in the level.
+- `camera_track_spline_delete` [live verified] - Delete a camera track spline actor from the level.
+- `camera_track_spline_list` [live verified] - List all camera track spline actors and their control points in the current level.
+- `camera_track_spline_set_points` [live verified] - Set spline control points on a camera track spline.
+- `capture_ingest_receipt_validate` [live verified] - P3 media_codecs_capture_baseline wrapper for media_author.
+- `chaos_58_feature_delta_report` [live verified] - UE 5.8 chaos_58 feature_delta_report bridge, capability, contract, and receipt tool.
+- `chaos_cache_58_create` [live verified] - UE 5.8 chaos_58 cache_create bridge, capability, contract, and receipt tool.
+- `chaos_cache_58_playback_validate` [live verified] - UE 5.8 chaos_58 playback_validate bridge, capability, contract, and receipt tool.
+- `chaos_cache_58_record` [live verified] - UE 5.8 chaos_58 cache_record bridge, capability, contract, and receipt tool.
+- `chaos_cache_authoring_receipt_validate` [live verified] - Validate saved/read-back evidence from a native Chaos Cache authoring operation.
+- `chaos_cache_collection_native_create` [live verified] - Create a native UE 5.8 Chaos Cache Collection without replacing existing content; save and read it back.
+- `chaos_cache_collection_native_inspect` [live verified] - Inspect a UE 5.8 Chaos Cache Collection, interpolation policy, embedded caches, and native class identity.
+- `chaos_cache_entry_native_ensure` [live verified] - Ensure one named native UChaosCache exists inside a collection, then save and verify the embedded-object readback.
+- `chaos_cache_interpolation_native_set` [live verified] - Set a Chaos Cache Collection interpolation mode using its native reflected enum; save and verify readback.
+- `chaos_cache_manager_native_bind` [live verified] - Bind a Chaos Cache Collection to an explicitly targeted ChaosCacheManager Actor; save the level and read back the binding.
+- `chaos_cache_manager_native_configure` [live verified] - Configure native ChaosCacheManager mode, start policy, and time with explicit confirmation and level readback.
+- `chaos_cache_observed_component_native_bind` [live verified] - Bind one explicitly targeted primitive component to a ChaosCacheManager through the native BlueprintCallable API.
+- `chaos_cloth_58_settings_patch` [live verified] - UE 5.8 chaos_58 cloth_settings_patch bridge, capability, contract, and receipt tool.
+- `chaos_cloth_58_simulation_validate` [live verified] - UE 5.8 chaos_58 cloth_simulation_validate bridge, capability, contract, and receipt tool.
+- `chaos_dataflow_58_compile_validate` [live verified] - UE 5.8 chaos_58 compile_validate bridge, capability, contract, and receipt tool.
+- `chaos_dataflow_58_graph_mutate` [live verified] - UE 5.8 chaos_58 graph_mutate bridge, capability, contract, and receipt tool.
+- `chaos_dataflow_58_node_catalog` [live verified] - UE 5.8 chaos_58 node_catalog bridge, capability, contract, and receipt tool.
+- `chaos_dataflow_asset_native_create` [live verified] - Create and configure a native UE 5.8 Dataflow asset without replacement; save and verify graph readback.
+- `chaos_dataflow_asset_native_inspect` [live verified] - Inspect native Dataflow type, reference, variables, graph nodes, pins, and connection counts.
+- `chaos_dataflow_authoring_receipt_validate` [live verified] - Validate native Dataflow creation or compile/evaluation evidence before downstream Chaos authoring continues.
+- `chaos_dataflow_evaluate_compile_diagnostics` [live verified] - Evaluate a native Dataflow graph against an explicitly bound target, save both assets, and return compile/evaluation diagnostics.
+- `chaos_destruction_58_live_validate` [live verified] - UE 5.8 chaos_58 live_validate bridge, capability, contract, and receipt tool.
+- `chaos_destruction_58_settings_patch` [live verified] - UE 5.8 chaos_58 settings_patch bridge, capability, contract, and receipt tool.
+- `chaos_flesh_58_settings_patch` [live verified] - UE 5.8 chaos_58 flesh_settings_patch bridge, capability, contract, and receipt tool.
+- `chaos_flesh_58_simulation_validate` [live verified] - UE 5.8 chaos_58 flesh_simulation_validate bridge, capability, contract, and receipt tool.
+- `chaos_hair_58_settings_patch` [live verified] - UE 5.8 chaos_58 hair_settings_patch bridge, capability, contract, and receipt tool.
+- `chaos_hair_58_simulation_validate` [live verified] - UE 5.8 chaos_58 hair_simulation_validate bridge, capability, contract, and receipt tool.
+- `chaos_modular_vehicle_58_configure` [live verified] - UE 5.8 chaos_58 vehicle_configure bridge, capability, contract, and receipt tool.
+- `chaos_modular_vehicle_58_runtime_validate` [live verified] - UE 5.8 chaos_58 vehicle_runtime_validate bridge, capability, contract, and receipt tool.
+- `chaos_visual_debugger_capture_start` [live verified] - UE 5.8 chaos_58 capture_start bridge, capability, contract, and receipt tool.
+- `chaos_visual_debugger_capture_stop` [live verified] - UE 5.8 chaos_58 capture_stop bridge, capability, contract, and receipt tool.
+- `chaos_visual_debugger_snapshot` [live verified] - UE 5.8 chaos_58 snapshot bridge, capability, contract, and receipt tool.
+- `character_action_control` [live verified] - Control SingleNode or Montage play, stop, pause, resume, seek, rate, loop, and sections with live readback.
+- `character_action_state_inspect` [live verified] - Read active Montage instance identity, section, position, weight, blend, rate, stop state, and root-motion state.
+- `character_animation_assign` [live verified] - Assign or clear SingleNode, AnimBP, asset, and post-process classes with explicit world selection, transaction, and before/after readback.
+- `character_animation_auto_bind` [live verified] - Auto-bind animation to a spawned character: finds matching AnimSequence, creates AnimBP with state machine, assigns to actor. One-step solution for making characters move.
+- `character_animation_effective_inspect` [live verified] - Resolve effective component/AnimBP/SingleNode/Montage/post-process contributors plus actual LevelSequence binding, skeletal track, active section, mapped animation time, and live-player frame provenance.
+- `character_animation_inspect` [live verified] - Read authored and live character animation mode, classes, assets, playback, world, driver, and network role.
+- `character_animation_list` [live verified] - List all AnimSequence assets compatible with a given skeleton. Returns asset paths, durations, frame counts. Useful for finding animations to assign to humanoid characters.
+- `character_bind_animation` [live verified] - One-click animation binding pipeline: creates an AnimBP with a state machine, adds an idle state with the specified animation, and optionally assigns it to a SkeletalMeshActor. Returns the paths of all created assets.
+- `character_identify` [live verified] - Scan a directory for SkeletalMesh assets and identify humanoid characters by analyzing bone structure. Returns asset paths, bone counts, and humanoid confidence scores.
+- `character_montage_control` [live verified] - Control Montage play/blend/section/rate/position/loop and return the current FAnimMontageInstance state.
+- `character_motion_warping_inspect` [live verified] - Read real MotionWarpingComponent WarpTargets plus active Motion Warping notify windows.
+- `character_motion_warping_target_set` [live verified] - Upsert or remove a real MotionWarpingComponent target through reflected native UFunctions with before/after state.
+- `character_root_motion_inspect` [live verified] - Read RootMotion mode, active root-motion Montage, movement consumer, sources, and network authority without consuming pending delta.
+- `character_root_motion_set` [live verified] - Set RootMotion extraction mode with authority check and direct readback.
+- `character_setup_full` [live verified] - One-click full character setup: load mesh, validate animation, create AnimBP, spawn character on ground with collision avoidance. Returns setup info and next steps.
+- `chooser_asset_probe` [live verified] - Scan content for Chooser table/assets for animation and gameplay selection routing.
+- `chooser_capability_probe` [live verified] - Probe UE 5.7+ Chooser availability for animation/gameplay selection tables.
+- `chooser_table_plan` [live verified] - Plan Chooser table authoring for role, weapon, locomotion, animation, or gameplay selection.
+- `class_hierarchy` [live verified] - Get the inheritance hierarchy tree for a given class.
+- `class_list` [live verified] - List UClasses in the project, optionally filtered by parent class.
+- `cloth_asset_inspect` [live verified] - Inspect Chaos cloth asset, component, and editor class gates.
+- `cloth_collection_schema_inspect` [live verified] - Inspect cloth collection schema contract.
+- `cloth_collision_config_get` [live verified] - Read cloth collision config snapshot.
+- `cloth_collision_config_set` [live verified] - Plan cloth collision config update.
+- `cloth_create_from_section` [live verified] - Create a new clothing asset from a SkeletalMesh LOD section. Best-effort wrapper around USkeletalMeshComponent::CreateClothingAssetFromSection — returns NOT_AVAILABLE if the editor helper is not present in this build.
+- `cloth_dataflow_compile_validate` [live verified] - Validate cloth Dataflow compile receipt.
+- `cloth_dataflow_graph_create` [live verified] - Plan cloth Dataflow graph creation.
+- `cloth_dataflow_node_add` [live verified] - Plan cloth Dataflow node insertion.
+- `cloth_fabric_params_get` [live verified] - Read/plan cloth fabric parameter snapshot.
+- `cloth_fabric_params_set` [live verified] - Plan cloth fabric parameter update.
+- `cloth_inspect` [live verified] - Read-only inspection of clothing assets attached to a USkeletalMesh: names, LOD count, vertex / fixed-vertex counts, and active simulation backend.
+- `cloth_lod_section_bind` [live verified] - Plan cloth LOD/section binding.
+- `cloth_material_binding_audit` [live verified] - Audit cloth material bindings.
+- `cloth_render_pattern_list` [live verified] - List/plan cloth render pattern readback.
+- `cloth_seams_inspect` [live verified] - Inspect cloth seams and sewing constraints.
+- `cloth_set_simulation_enabled` [live verified] - Toggle ChaosCloth simulation on a SkeletalMeshComponent. Returns NOT_IMPLEMENTED if the runtime API is missing.
+- `cloth_set_wind` [live verified] - Apply wind velocity (cm/s) to a cloth-enabled SkeletalMeshComponent. Returns NOT_IMPLEMENTED if SetWindVelocity-equivalent is missing.
+- `cloth_sim_params_snapshot` [live verified] - Read cloth simulation parameter snapshot.
+- `cloth_sim_pattern_list` [live verified] - List/plan cloth simulation pattern readback.
+- `cloth_sim_preview_receipt` [live verified] - Validate cloth simulation preview receipt.
+- `cloth_status` [live verified] - Diagnostic snapshot: cloth subsystem availability, currently simulating components count, optional per-actor probe. Always succeeds.
+- `cloth_weightmap_audit_v2` [live verified] - Audit cloth weightmaps.
+- `cloth_weightmap_paint_plan` [live verified] - Plan Dataflow cloth weightmap paint/update.
+- `collision_channel_create` [live verified] - Create a custom collision channel by writing to DefaultEngine.ini. Requires editor restart.
+- `collision_channels_list` [live verified] - List all collision channels (trace and object) configured in the project.
+- `collision_preset_configure` [live verified] - Set collision response for an actor's root component to a named preset.
+- `collision_presets_list` [live verified] - List all collision presets/profiles.
+- `commonui_activatable_widget_create` [live verified] - Plan CommonActivatableWidget Blueprint creation.
+- `commonui_asset_probe` [live verified] - Scan content for CommonUI widgets, activatable widgets, and input/data assets.
+- `commonui_border_style_inspect` [live verified] - Inspect a CommonBorderStyle asset or return border style class probes.
+- `commonui_button_style_inspect` [live verified] - Inspect a CommonButtonStyle asset or return style class probes.
+- `commonui_capability_probe` [live verified] - Probe UE 5.7+ CommonUI availability for production-grade UI widgets and input routing.
+- `commonui_carousel_configure` [live verified] - Plan CommonWidgetCarousel child setup and navigation receipts.
+- `commonui_input_action_bind` [live verified] - Plan CommonUI input action binding and routing receipts.
+- `commonui_input_router_snapshot` [live verified] - Read CommonUI input routing class availability and handoff hints.
+- `commonui_menu_stack_plan` [live verified] - Plan CommonActivatableWidget menu stack flow.
+- `commonui_platform_traits_audit` [live verified] - Audit CommonUI platform trait readiness and class availability.
+- `commonui_preview_receipt` [live verified] - Validate CommonUI preview/screenshot evidence.
+- `commonui_receipt_validate` [live verified] - Validate CommonUI production receipt before delivery.
+- `commonui_style_asset_create` [live verified] - Plan CommonUI style asset creation.
+- `commonui_tab_list_configure` [live verified] - Plan CommonTabListWidgetBase entries, buttons, and activation receipts.
+- `commonui_text_style_inspect` [live verified] - Inspect a CommonTextStyle asset or return text style class probes.
+- `commonui_video_player_configure` [live verified] - Plan CommonVideoPlayer media binding and preview receipts.
+- `commonui_widget_classes_list` [live verified] - Concrete CommonUI class catalog and availability probe.
+- `commonui_widget_compile_validate` [live verified] - Validate CommonUI widget compile receipt or return compile requirements.
+- `commonui_widget_plan` [live verified] - Plan CommonUI widget/menu-stack authoring with input routing and UMG preview gates.
+- `composure_comp_create` [live verified] - UE 5.8 composure comp_create bridge, capability, contract, and receipt tool.
+- `composure_keyer_configure` [live verified] - UE 5.8 composure keyer_configure bridge, capability, contract, and receipt tool.
+- `composure_layer_add` [live verified] - UE 5.8 composure layer_add bridge, capability, contract, and receipt tool.
+- `composure_preview_capture` [live verified] - UE 5.8 composure preview_capture bridge, capability, contract, and receipt tool.
+- `console_exec` [live verified] - Execute a console command via registered IConsoleCommandExecutor implementations.
+- `content_browser_context_action_execute` [live verified] - UE 5.8 editor_ux context_action bridge, capability, contract, and receipt tool.
+- `content_bundle_activate_editing` [live verified] - Activate content bundle editing.
+- `content_bundle_deactivate_editing` [live verified] - Deactivate current content bundle editing.
+- `content_bundle_deselect_actors` [live verified] - Deselect actors belonging to a content bundle.
+- `content_bundle_inject_base_content` [live verified] - Inject base content for a content bundle.
+- `content_bundle_reference_all_actors` [live verified] - Reference all actors in a content bundle.
+- `content_bundle_remove_content` [live verified] - Remove content from a content bundle.
+- `content_bundle_select_actors` [live verified] - Select actors belonging to a content bundle.
+- `content_bundle_unreference_all_actors` [live verified] - Unreference all actors in a content bundle.
+- `control_rig_asset_create_v3` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_asset_inspect_v3` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_bake_to_anim_sequence_v3` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_bake_to_control_rig_v3` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_bone_add_v2` [live verified] - P0 control_rig wrapper: Add ControlRig bone.
+- `control_rig_bone_chain_add` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_compile_receipt_native` [live verified] - Compile ControlRig/RigVM and return compiler diagnostics and status.
+- `control_rig_compile_validate` [live verified] - P0 control_rig wrapper: Compile/validate ControlRig asset.
+- `control_rig_control_add_v2` [live verified] - P0 control_rig wrapper: Add ControlRig control.
+- `control_rig_control_limits_set` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_control_shape_set` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_controller_link_add` [live verified] - P0 control_rig wrapper: Add ControlRig controller link.
+- `control_rig_create` [live verified] - Create a Control Rig Blueprint asset.
+- `control_rig_debug_breakpoint_add_native` [live verified] - Add a RigVM breakpoint through a native debug controller; currently fail-closed.
+- `control_rig_debug_breakpoint_clear_native` [live verified] - Clear RigVM breakpoints through a native debug controller; currently fail-closed.
+- `control_rig_debug_breakpoint_remove_native` [live verified] - Remove a RigVM breakpoint through a native debug controller; currently fail-closed.
+- `control_rig_debug_draw_snapshot` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_debug_watch_add_native` [live verified] - Add a RigVM watched pin through a native debug controller; currently fail-closed.
+- `control_rig_debug_watch_remove_native` [live verified] - Remove a RigVM watched pin through a native debug controller; currently fail-closed.
+- `control_rig_describe` [live verified] - Describe a Control Rig Blueprint asset.
+- `control_rig_fk_ik_switch_plan` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_function_library_import` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_graph_add_link` [live verified] - Add a link between two pins in the Control Rig VM graph.
+- `control_rig_graph_add_template_node` [live verified] - Add a template node to the Control Rig VM graph.
+- `control_rig_graph_add_unit_node` [live verified] - Add a unit node to the Control Rig VM graph by struct path.
+- `control_rig_graph_add_variable_node` [live verified] - Add a variable node to the Control Rig VM graph.
+- `control_rig_graph_comment_add` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_graph_diff` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_graph_layout_plan` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_graph_list_links` [live verified] - List links (connections) between pins in the Control Rig VM graph.
+- `control_rig_graph_list_nodes` [live verified] - List nodes in the Control Rig VM graph.
+- `control_rig_graph_node_add_v3` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_graph_node_remove_v3` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_graph_pin_schema` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_graph_pins_connect_v3` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_graph_pins_disconnect_v3` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_graph_remove_node` [live verified] - Remove a node from the Control Rig VM graph.
+- `control_rig_graph_set_pin_default` [live verified] - Set the default value of a pin in the Control Rig VM graph.
+- `control_rig_graph_snapshot` [live verified] - P0 control_rig wrapper: Snapshot ControlRig graph.
+- `control_rig_graph_unit_catalog` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_graph_variable_add` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_graph_variable_set` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_hierarchy_inspect_v2` [live verified] - P0 control_rig wrapper: Inspect ControlRig hierarchy.
+- `control_rig_hierarchy_snapshot_v3` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_ik_setup_plan` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_import_bones_from_mesh` [live verified] - Import bones from a skeletal mesh into a Control Rig Blueprint.
+- `control_rig_inspect` [live verified] - Inspect Control Rig: controls, bones, hierarchy.
+- `control_rig_list_elements` [live verified] - List hierarchy elements in a Control Rig Blueprint.
+- `control_rig_metadata_get` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_metadata_set` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_mirror_apply_plan` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_mirror_settings_get` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_modular_rig_bridge_plan` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_null_add_v2` [live verified] - P0 control_rig wrapper: Add ControlRig null.
+- `control_rig_parent_set_v3` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_particle_dynamics_configure` [live verified] - UE 5.8 Control Rig Dynamics particle graph transaction: control_rig_particle_dynamics_configure
+- `control_rig_particle_dynamics_node_add` [live verified] - UE 5.8 Control Rig Dynamics particle graph transaction: control_rig_particle_dynamics_node_add
+- `control_rig_particle_dynamics_validate` [live verified] - UE 5.8 Control Rig Dynamics particle graph transaction: control_rig_particle_dynamics_validate
+- `control_rig_physics_capability_probe` [live verified] - UE 5.8 Control Rig Physics graph transaction: control_rig_physics_capability_probe
+- `control_rig_physics_compile_validate` [live verified] - UE 5.8 Control Rig Physics graph transaction: control_rig_physics_compile_validate
+- `control_rig_physics_force_add` [live verified] - UE 5.8 Control Rig Physics graph transaction: control_rig_physics_force_add
+- `control_rig_physics_force_animate` [live verified] - UE 5.8 Control Rig Physics graph transaction: control_rig_physics_force_animate
+- `control_rig_physics_force_remove` [live verified] - UE 5.8 Control Rig Physics graph transaction: control_rig_physics_force_remove
+- `control_rig_physics_force_update` [live verified] - UE 5.8 Control Rig Physics graph transaction: control_rig_physics_force_update
+- `control_rig_physics_layer_configure` [live verified] - UE 5.8 Control Rig Physics graph transaction: control_rig_physics_layer_configure
+- `control_rig_physics_preview_receipt` [live verified] - UE 5.8 Control Rig Physics graph transaction: control_rig_physics_preview_receipt
+- `control_rig_pose_asset_apply` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_pose_asset_capture` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_pose_bake` [live verified] - P0 control_rig wrapper: Bake ControlRig pose.
+- `control_rig_pose_library_create` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_preview_mesh_set` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_receipt_validate` [live verified] - P0 control_rig wrapper: Validate ControlRig receipt.
+- `control_rig_receipt_validate_v3` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_recompile` [live verified] - Request recompile of a Control Rig Blueprint.
+- `control_rig_request_init` [live verified] - Request Control Rig initialization.
+- `control_rig_retarget_plan` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_rollback_plan` [live verified] - P0 control_rig wrapper: Build ControlRig rollback plan.
+- `control_rig_rollback_plan_v3` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_selection_set_create` [live verified] - P0 control_rig wrapper: Create ControlRig selection set.
+- `control_rig_sequencer_actor_transforms_sample` [live verified] - Sample an actor's world transform across many frames of a Level Sequence in ONE game-thread entry. This is how motion is read out of a sequence for analysis, retargeting or validation — sampling frame by frame would cost one entry per frame against a small concurrent job budget.
+- `control_rig_sequencer_binding_create_v3` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_sequencer_binding_list` [live verified] - List the Control Rigs a Level Sequence drives, with their track names. Call this first: the other sequencer rig tools address a rig by the name reported here, and nothing else exposes which rigs a sequence actually contains.
+- `control_rig_sequencer_control_key_batch` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_sequencer_key_add` [live verified] - P0 control_rig wrapper: Add Sequencer key for ControlRig channel.
+- `control_rig_sequencer_tween` [live verified] - Blend a Control Rig's selected controls toward their neighbouring keys. tween_value runs -1 to 1: negative pulls toward the previous key, positive toward the next, 0 leaves the pose unchanged. Operates on the current control selection, so select controls in the editor first.
+- `control_rig_sequencer_visible_rigs_list` [live verified] - List the Control Rigs currently visible to the editor's Sequencer. Unlike control_rig_sequencer_binding_list this reflects live editor state rather than a sequence asset, so it is the way to confirm a rig is actually loaded before operating on it.
+- `control_rig_set_preview_mesh` [live verified] - Set the preview skeletal mesh for a Control Rig Blueprint.
+- `control_rig_snapper_plan` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_space_add_v3` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_template_apply_plan` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_template_create_from_skeletal_mesh` [live verified] - Create a template-style Control Rig Blueprint from a skeletal mesh (pure C++).
+- `control_rig_test_pose_reset_native` [live verified] - Reset a ControlRig test pose through a specialized native adapter; currently fail-closed.
+- `control_rig_test_pose_set_native` [live verified] - Set a ControlRig test pose through a specialized native adapter; currently fail-closed.
+- `control_rig_tween_keys_apply` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_update_control_settings` [live verified] - Update control settings (control_type, display_name, etc.) for a Control Rig control.
+- `control_rig_validation_report_v3` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_vm_bytecode_snapshot` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `control_rig_vm_compile_v3` [live verified] - P2 control_rig_broad_toolset wrapper for animation_author.
+- `conversation_graph_create` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `conversation_graph_inspect` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `conversation_link_add_plan` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `conversation_node_add_plan` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `cook_pipeline_clean` [live verified] - Remove the project's cooked output for a target platform (<Project>/Saved/Cooked/<platform>/). Returns cleaned + freed_mb.
+- `cook_pipeline_dependency_graph` [live verified] - BFS the AssetRegistry dependency graph rooted at asset_path up to max_depth (default 3, capped at 16). Returns nodes, edges, total_nodes, max_depth_reached. Safety cap: 5000 unique nodes.
+- `cook_pipeline_set_chunk_assignment` [live verified] - Best-effort: append/update entries in [ChunkAssignment] inside <Project>/Config/DefaultGame.ini mapping each asset_path to chunk_id. Returns updated_count + ini_path. Note: the cook itself still uses AssetManager/PrimaryDataAsset rules — these entries are an INI-level record consumed by external tooling / future cook hooks.
+- `cook_pipeline_size_report` [live verified] - Walk the cooked output directory for a platform, group files by extension, and report the top-25 largest individual files (top_offenders).
+- `cook_pipeline_validate_assets` [live verified] - Walk the AssetRegistry under an optional /Game subpath, checking outgoing dependencies for missing references and listing redirector packages with no incoming referencers. Returns counts plus first-N samples.
+- `cook_status` [live verified] - Query a cook_target / package_build job by job_id. Returns status (running/succeeded/failed), elapsed time, exit code, and the last 50 log lines.
+- `cook_target` [live verified] - Spawn UAT BuildCookRun (Cook + Pak) for the given target platform. Returns immediately with a job_id; poll cook_status to track progress.
+- `curve_add_key` [live verified] - Add a key to a curve asset. For UCurveFloat, supply 'value'. For UCurveLinearColor, supply any subset of 'r','g','b','a' (missing channels are skipped). Optional 'interp' is 'linear' (default), 'cubic', or 'constant'.
+- `curve_create` [live verified] - Create a new UCurveFloat or UCurveLinearColor asset at the given path. The new curve has zero keys.
+- `curve_inspect` [live verified] - Inspect a curve asset: returns curve_type, key_count, and the list of keys. For UCurveLinearColor, each key's 'value' is an object {r,g,b,a} merged across channels by index.
+- `curve_remove_key` [live verified] - Remove a key from a curve asset by 'key_index' (preferred) or by 'time' (nearest key within +/- 0.001s). For UCurveLinearColor, the remove targets all four channels at the matched index/time.
+- `curve_set_interpolation` [live verified] - Set the interp mode on a single key (key_index) or on ALL keys (omit key_index). For UCurveLinearColor, all four channels are updated.
+- `curvetable_read` [live verified] - Read curve data from a CurveTable asset.
+- `data_layer_asset_create` [live verified] - Create a data layer asset.
+- `data_layer_assign_actor` [live verified] - Assign an actor to a data layer.
+- `data_layer_batch_set_loaded_in_editor` [live verified] - Batch update loaded-in-editor state on data layers.
+- `data_layer_batch_set_visibility` [live verified] - Batch update visibility on data layers.
+- `data_layer_instance_create` [live verified] - Create a data layer instance in the current editor world.
+- `data_layer_instance_delete` [live verified] - Delete a data layer instance.
+- `data_layer_instance_list` [live verified] - List data layer instances in the current editor world.
+- `data_layer_instance_rename` [live verified] - Rename a data layer instance.
+- `data_layer_instance_set_loaded_in_editor` [live verified] - Set whether a data layer instance is loaded in the editor world.
+- `data_layer_instance_set_visibility` [live verified] - Set editor visibility on a data layer instance.
+- `data_layer_list_actors` [live verified] - List actors assigned to a data layer.
+- `data_layer_remove_actor` [live verified] - Remove an actor from a data layer.
+- `data_registry_capability_probe` [live verified] - Probe UE 5.7+ Data Registry availability for structured gameplay/content lookup tables.
+- `data_registry_lookup_plan` [live verified] - Plan Data Registry item lookup and source wiring for gameplay/content data retrieval.
+- `data_registry_source_probe` [live verified] - Scan content for Data Registry assets, sources, and table-backed gameplay data.
+- `data_validation_asset_status_plan` [live verified] - Plan a fail-closed asset validation gate for delivery manifests before save/build handoff.
+- `data_validation_capability_probe` [live verified] - Probe UE 5.7+ Data Validation availability for asset QA gates before MCP delivery.
+- `data_validation_run_assets` [live verified] - Run or dry-run UE Data Validation over explicit asset paths and return a structured QA receipt.
+- `data_validation_run_folder` [live verified] - Enumerate a content folder for UE Data Validation and emit a chunkable validation receipt.
+- `dataasset_create` [live verified] - Create a new UDataAsset (P2-5). data_class accepts a short name ('PrimaryDataAsset'/'DataAsset'), a script path ('/Script/Engine.PrimaryDataAsset'), or a Blueprint-generated class path ('/Game/Schemas/DA_HeroStatsBase.DA_HeroStatsBase_C'). Returns {asset_path, class}.
+- `dataasset_get_property` [live verified] - Read UPROPERTY value(s) from a UDataAsset (P2-5). If property_name is given, return that one. Otherwise return ALL properties marked CPF_Edit. Returns {property: {...}} or {properties: [...]}.
+- `dataasset_set_property` [live verified] - Set a single UPROPERTY on a UDataAsset by name (P2-5). value is any JSON; it is stringified and applied via FProperty::ImportText_Direct. For struct/array properties, supply UE text format (e.g. '(X=1,Y=2,Z=3)' or '("a","b")') as a string. Returns {property, old_value, new_value}.
+- `dataflow_comment_add` [live verified] - P0 dataflow_toolset wrapper: Add dataflow comment.
+- `dataflow_comment_remove` [live verified] - P0 dataflow_toolset wrapper: Remove dataflow comment.
+- `dataflow_graph_create` [live verified] - P0 dataflow_toolset wrapper: Create dataflow graph asset.
+- `dataflow_graph_structure` [live verified] - P0 dataflow_toolset wrapper: Read dataflow graph structure.
+- `dataflow_node_add` [live verified] - P0 dataflow_toolset wrapper: Add dataflow node.
+- `dataflow_node_info` [live verified] - P0 dataflow_toolset wrapper: Read dataflow node info.
+- `dataflow_node_remove` [live verified] - P0 dataflow_toolset wrapper: Remove dataflow node.
+- `dataflow_node_reposition` [live verified] - P0 dataflow_toolset wrapper: Reposition dataflow node.
+- `dataflow_node_schema` [live verified] - P0 dataflow_toolset wrapper: Read dataflow node schema.
+- `dataflow_node_types_list` [live verified] - P0 dataflow_toolset wrapper: List dataflow node types.
+- `dataflow_node_update` [live verified] - P0 dataflow_toolset wrapper: Update dataflow node.
+- `dataflow_pins_connect` [live verified] - P0 dataflow_toolset wrapper: Connect dataflow pins.
+- `dataflow_pins_disconnect` [live verified] - P0 dataflow_toolset wrapper: Disconnect dataflow pins.
+- `dataflow_variable_add` [live verified] - P0 dataflow_toolset wrapper: Add dataflow variable.
+- `dataflow_variable_remove` [live verified] - P0 dataflow_toolset wrapper: Remove dataflow variable.
+- `dataflow_variable_set` [live verified] - P0 dataflow_toolset wrapper: Set dataflow variable.
+- `dataflow_variables_list` [live verified] - P0 dataflow_toolset wrapper: List dataflow variables.
+- `datasmith_usd_capability_probe` [live verified] - Probe UE 5.7+ Datasmith and USD importer availability for external DCC/scene ingest.
+- `datasmith_usd_import_plan` [live verified] - Plan Datasmith/USD scene ingest with hierarchy, material, and dependency receipts.
+- `datatable_add_row` [live verified] - Add a new row to a DataTable. Values are provided as string key-value pairs matching property names.
+- `datatable_create` [live verified] - Create a new DataTable asset with a specified row struct type.
+- `datatable_delete_row` [live verified] - Delete a row from a DataTable by name.
+- `datatable_export_csv` [live verified] - Export a DataTable to CSV format string.
+- `datatable_export_json` [live verified] - Export a DataTable to JSON format.
+- `datatable_get_row` [live verified] - Read a specific row from a DataTable as JSON.
+- `datatable_get_schema` [live verified] - Get the row struct schema (property names, types, defaults) for a DataTable.
+- `datatable_import_csv` [live verified] - Import CSV data into a DataTable. Creates new rows or updates existing ones.
+- `datatable_import_json` [live verified] - Import JSON data into a DataTable. Creates new rows or updates existing ones.
+- `datatable_list_rows` [live verified] - List all row names in a DataTable.
+- `datatable_update_row` [live verified] - Update property values on an existing DataTable row.
+- `debug_get_callstack` [live verified] - [ALIAS] Get debug callstack. Use 'blueprint_debug_get_call_stack'.
+- `debug_get_watched_values` [live verified] - [ALIAS] Get watched values. Use 'blueprint_debug_get_watches'.
+- `debug_list_breakpoints` [live verified] - [ALIAS] List breakpoints. Use 'blueprint_debug_list_breakpoints'.
+- `debug_set_breakpoint` [live verified] - [ALIAS] Set breakpoint. Use 'blueprint_debug_set_breakpoint' with asset_path and node_name.
+- `derived_data_build_cancel` [live verified] - P3 derived_data_build_controller wrapper for devops_author.
+- `derived_data_build_controller_probe` [live verified] - P3 derived_data_build_controller wrapper for devops_author.
+- `derived_data_build_queue_snapshot` [live verified] - P3 derived_data_build_controller wrapper for devops_author.
+- `derived_data_build_receipt_validate` [live verified] - P3 derived_data_build_controller wrapper for devops_author.
+- `derived_data_build_request_create` [live verified] - P3 derived_data_build_controller wrapper for devops_author.
+- `derived_data_build_status_get` [live verified] - P3 derived_data_build_controller wrapper for devops_author.
+- `desktop_capture_session_cancel` [live verified] - Cancel a desktop capture session and delete only its owned partial output.
+- `desktop_capture_session_start` [live verified] - Start a native continuous H.264/MP4 desktop capture session under the project Saved directory.
+- `desktop_capture_session_status_get` [live verified] - Read live frame, duration, drop and output statistics for a desktop capture session.
+- `desktop_capture_session_stop` [live verified] - Request graceful MP4 finalization for an active desktop capture session.
+- `desktop_capture_source_list` [live verified] - Enumerate opaque Win64 desktop/window capture sources without exposing native handles.
+- `destruction_field_create` [live verified] - Author native destruction field (strain/force/velocity/sleep/disable) on a spawned FieldSystem actor with target binding, transaction, level save, runtime readback and cleanup receipt.
+- `details_panel_favorite_add` [live verified] - UE 5.8 editor_ux favorite_add bridge, capability, contract, and receipt tool.
+- `details_panel_favorite_remove` [live verified] - UE 5.8 editor_ux favorite_remove bridge, capability, contract, and receipt tool.
+- `details_panel_favorites_list` [live verified] - UE 5.8 editor_ux favorites_list bridge, capability, contract, and receipt tool.
+- `direct_mesh_control_bake_to_sequence` [live verified] - UE 5.8 Direct Mesh Control fail-closed authoring transaction: direct_mesh_control_bake_to_sequence
+- `direct_mesh_control_compile_validate` [live verified] - UE 5.8 Direct Mesh Control fail-closed authoring transaction: direct_mesh_control_compile_validate
+- `direct_mesh_control_create` [live verified] - UE 5.8 Direct Mesh Control fail-closed authoring transaction: direct_mesh_control_create
+- `direct_mesh_control_element_bind` [live verified] - UE 5.8 Direct Mesh Control fail-closed authoring transaction: direct_mesh_control_element_bind
+- `direct_mesh_control_transform_set` [live verified] - UE 5.8 Direct Mesh Control fail-closed authoring transaction: direct_mesh_control_transform_set
+- `distance_matching_curve_generate_native` [live verified] - Generate a distance matching float curve.
+- `distance_matching_validate_native` [live verified] - Validate distance matching curve keys.
+- `editor_api_call` [live verified] - Call one function in a plugin API domain. Static functions need no target; instance functions need one, given as an asset path or as a handle returned by an earlier call. Objects returned by a call are registered as handles, which is how you walk from a material model to its slots, layers and stages.
+- `editor_api_call_batch` [live verified] - Run a sequence of plugin API calls in one queue entry. Each entry may reference a handle produced by an earlier entry through $prev, which is what lets a whole object graph walk — model to slot to layer — happen without a round trip per step.
+- `editor_api_catalog` [live verified] - List callable functions in a plugin API domain, with their parameters and whether each is reachable through editor_api_call. Functions taking a live scene object that has no handle are reported callable=false, so an unreachable call is caught while planning instead of mid-wave.
+- `editor_api_domains` [live verified] - List the plugin API domains this editor exposes — DynamicMaterial, ClonerEffector, USD and Datasmith — with how many classes and callable functions each actually has here. A domain whose plugin is disabled reports zero rather than failing, so this is the way to check availability before planning against it.
+- `editor_asset_scripting_receipt_validate` [live verified] - Concrete P2 asset scripting receipt validator. Validates target binding, Asset Registry readback, dirty-state, receipt status, and optional object metadata.
+- `editor_build_ai_data` [live verified] - Build AI agent runtime data that is editor-generated today: currently navigation/navmesh plus an explicit AI receipt.
+- `editor_build_lighting` [live verified] - Trigger editor static-lighting build with selectable quality. Use dry_run=true to preview.
+- `editor_build_navigation` [live verified] - Trigger editor navigation/navmesh rebuild for the current level.
+- `editor_build_pipeline_plan` [live verified] - Return a recommended editor build/cook/package sequence for client-side orchestration.
+- `editor_build_reflection_captures` [live verified] - Trigger editor reflection-capture build/update for the current level.
+- `editor_compile_shaders` [live verified] - Trigger shader recompilation from the editor. scope=Changed is safest; All can be expensive.
+- `editor_dialog_list` [live verified] - List active editor modal dialogs and bounded Slate window/widget summaries.
+- `editor_dialog_policy_set` [live verified] - Set the editor modal dialog handling policy. Stores allow/deny policy for dialog list/respond; live button clicks are handled by editor_dialog_respond.
+- `editor_dialog_respond` [live verified] - Respond to an editor modal dialog by id. Supports dry-run resolution, safe close dispatch, and verified Slate button clicks for cancel/accept/button_text.
+- `editor_dialog_safe_respond` [live verified] - Choose and click the safest response for a blocking editor modal. Compile/PIE/UMG contexts prefer Cancel/Close/No/Don't Save and refuse Run in Editor or destructive buttons.
+- `editor_dialog_watchdog_tick` [live verified] - One-shot unattended modal watchdog: list visible blocking Slate dialogs, choose the safest response, click/close it, and re-list after the action.
+- `editor_dirty_package_list` [live verified] - List dirty UPackage names and safety status before unattended editor operations such as level_load.
+- `editor_get_performance_stats` [live verified] - Get editor performance statistics: frame time, GPU/CPU usage, triangle count, draw calls, etc.
+- `editor_get_screenshot` [live verified] - Compatibility alias for editor_screenshot_viewport. Returns a metadata pointer; callers should invoke editor_screenshot_viewport for the actual image.
+- `editor_get_state` [live verified] - Get comprehensive editor state: selected actors, camera position, editor mode, dirty packages, loaded levels, world partition status.
+- `editor_get_undo_history` [live verified] - Get the current undo/redo history. Shows what transactions are available for undo and redo.
+- `editor_get_warnings` [live verified] - Get current editor warnings, error messages, and notification count. Helps agents understand what went wrong.
+- `editor_gizmo_context_override` [live verified] - UE 5.8 editor_ux context_override bridge, capability, contract, and receipt tool.
+- `editor_gizmo_system_settings_get` [live verified] - UE 5.8 editor_ux settings_get bridge, capability, contract, and receipt tool.
+- `editor_gizmo_system_settings_set` [live verified] - UE 5.8 editor_ux settings_set bridge, capability, contract, and receipt tool.
+- `editor_list_open_editors` [live verified] - List all currently open asset editor windows with their asset paths and editor types.
+- `editor_mode_enter` [live verified] - Activate a named editor mode in the level editor (foliage, landscape, mesh_paint, mesh_modeling, control_rig, or selection). Returns the previously active mode and the now-active mode's display name.
+- `editor_mode_exit` [live verified] - Exit the current non-default editor mode and switch to the given mode (default: 'selection'). Returns the previous mode and the now-active mode.
+- `editor_mode_get_active` [live verified] - List the currently active editor mode(s). Multiple modes may be active simultaneously in UE (e.g. selection + a paint mode). Returns each as both display_name and mode_id.
+- `editor_mode_set_tool` [live verified] - Switch the active sub-tool inside an active editor mode (e.g. landscape sculpt/smooth/flatten/erase, mesh_paint paint). Currently implemented only as a 'selection' mode reset; other mode/tool combos return NOT_IMPLEMENTED until per-mode UInteractiveToolManager wiring lands.
+- `editor_preferences_patch_58` [live verified] - UE 5.8 editor_ux preferences_patch bridge, capability, contract, and receipt tool.
+- `editor_sandbox_session_close` [live verified] - UE 5.8 editor_ux sandbox_close bridge, capability, contract, and receipt tool.
+- `editor_sandbox_session_create` [live verified] - UE 5.8 editor_ux sandbox_create bridge, capability, contract, and receipt tool.
+- `editor_sandbox_session_list` [live verified] - UE 5.8 editor_ux sandbox_list bridge, capability, contract, and receipt tool.
+- `editor_screenshot` [live verified] - [ALIAS] Take editor screenshot. Delegates to screenshot_viewport.
+- `editor_screenshot_active_tab` [live verified] - Capture a screenshot of the currently active/focused editor tab (Blueprint editor, Material editor, etc.).
+- `editor_screenshot_asset_editor` [live verified] - Capture a screenshot of a specific asset's editor window (Blueprint editor, Material editor, etc.). The asset must already be open in an editor.
+- `editor_screenshot_viewport` [live verified] - Capture a screenshot of the active level editor viewport as a PNG image. Returns the image as base64-encoded content that AI can directly analyze visually.
+- `editor_subsystem_call_plan` [live verified] - Concrete P2 editor subsystem call planner. Reflects a subsystem/class function and classifies read/write risk without invoking it.
+- `editor_subsystem_catalog` [live verified] - Concrete P2 editor subsystem catalog. Returns a deterministic catalog of editor subsystems/modules useful to MCP planning, with availability probes for the running editor.
+- `editor_terrain_create` [live verified] - Fully automatically create a landscape/terrain in the editor. This automates the complete 'Landscape > Manage > Create Landscape' workflow. The landscape is created with the specified dimensions and position. Parameters follow UE5 Landscape creation dialog defaults.
+- `editor_terrain_sculpt` [live verified] - FAIL-CLOSED (terrain fix batch 0+1, 2026-07-21): landscape sculpt writing is blocked. Always returns blocked_pending_sculpt_writer - the previous implementation activated Landscape mode and reported success without applying any height modification (fake success). Use landscape_patch_edit_layer_create / landscape_circle_patch_create / mesh_terrain_height_sculpt_apply (planned writers) or world_create_terrain_scene instead. A dedicated sculpt writer may be promoted after live fixture proof.
+- `editor_transaction_snapshot` [live verified] - Concrete P2 editor transaction snapshot. Read-only snapshot of the editor undo/redo buffer for queue checkpoints and rollback planning.
+- `editor_ui_activate_mode` [live verified] - Activate a named editor mode. Supported modes: 'Default' (SelectActor), 'Landscape', 'Foliage', 'Placement', 'MeshPaint', 'MorphTarget', 'Geometry'. This is equivalent to clicking the mode buttons in the editor toolbar.
+- `editor_ui_build_level` [live verified] - Trigger a level build operation. Supports building lighting, geometry, paths, navigation, or all. This is equivalent to clicking the 'Build' menu in the toolbar.
+- `editor_ui_click_widget` [live verified] - Fail-closed semantic click wrapper for a visible enabled unique button-like Slate widget. Defaults to dry_run. Requires allow_click=true for live clicks and refuses ambiguous, hidden, disabled, geometry-less, or dangerous labels.
+- `editor_ui_close_asset` [live verified] - Close the editor window for a specific asset. Optionally save before closing.
+- `editor_ui_content_browser_navigate` [live verified] - Navigate the Content Browser to a specific folder path. This is equivalent to clicking a folder in the Content Browser tree. Also supports syncing to a specific asset.
+- `editor_ui_deactivate_mode` [live verified] - Deactivate the current editor mode and return to the default selection mode. Should be called after finishing landscape/foliage/mesh paint operations.
+- `editor_ui_execute_command` [live verified] - Execute a named UE editor UI command (equivalent to clicking menu items). Use 'editor_ui_list_commands' to discover available command names. Examples: 'LevelEditor.NewLevel', 'LevelEditor.Build.BuildAll', 'MainFrame.SaveAll', 'LevelEditor.OpenLandscapeEditor'.
+- `editor_ui_focus_viewport` [live verified] - Move the level editor viewport camera. Either focus on an actor (frame-fits to bounds) or set camera location+rotation explicitly. After this call the next screenshot will see the new camera. Both modes call FLevelEditorViewportClient directly + force redraw.
+- `editor_ui_get_active_mode` [live verified] - Get the currently active editor mode(s). Returns mode ID and display name.
+- `editor_ui_get_widget_tree` [live verified] - Inspect the Slate widget tree of the currently focused editor window. Useful for understanding the UI hierarchy to identify interactive elements. Returns a flattened list of widgets with type, tag, visibility, and size.
+- `editor_ui_invoke_toolbar_button` [live verified] - Invoke a specific toolbar button action by command name or alias. Common buttons: 'Build.BuildAll' (Build All), 'LevelEditor.Build.BuildGeometry', 'LevelEditor.Build.BuildLighting', 'LevelEditor.Build.BuildPaths', 'LevelEditor.Play.Simulate', 'LevelEditor.Play.StopPlaySession'. Use 'editor_ui_list_toolbar_buttons' to discover available buttons.
+- `editor_ui_list_commands` [live verified] - List registered UE editor UI commands from FInputBindingManager. This is read-only discovery for command labels, descriptions, chords, contexts, and action hints.
+- `editor_ui_list_toolbar_buttons` [live verified] - List visible Slate toolbar/button-like candidates from a focused/main/all editor window. Returns bounds, text, tooltip, enabled/visible/focusable state, and safe action hints. Read-only.
+- `editor_ui_live_coding` [live verified] - Trigger Unreal Engine's Live Coding compilation (equivalent to pressing Ctrl+Alt+F11).
+- `editor_ui_open_asset` [live verified] - Open an asset in its editor window (Blueprint Editor, Material Editor, Texture Editor, etc.). This is equivalent to double-clicking an asset in the Content Browser.
+- `editor_ui_play_in_editor` [live verified] - Start, stop, or pause Play In Editor (PIE) session. This is equivalent to pressing the Play/Stop/Pause buttons in the toolbar.
+- `editor_ui_query_widget` [live verified] - Query Slate widgets by window scope plus type/text/tag/widget_id selector. Returns bounds, text, tooltip, enabled/visible/focusable state, and action hints. Read-only.
+- `editor_ui_save_all` [live verified] - Save all modified assets and the current level. Equivalent to Ctrl+Shift+S or File > Save All. Use after major editing operations to ensure changes are persisted.
+- `editor_ui_select_actors` [live verified] - Select one or more actors in the level editor by label or path. Supports 'add' to add to selection or 'replace' to replace current selection.
+- `editor_ui_set_actor_properties` [live verified] - Set arbitrary properties on an actor (e.g. configuring NavAreaClass, bFixedSize, etc.).
+- `editor_ui_simulate_click` [live verified] - Simulate a mouse click at specific screen coordinates in the UE5 editor. WARNING: This is a low-level fallback. Prefer semantic tools like 'editor_ui_activate_mode' or 'editor_ui_invoke_toolbar_button'. Use 'editor_screenshot_viewport' first to identify coordinates. Coordinates are in screen pixels from top-left corner.
+- `editor_ui_simulate_key` [live verified] - Simulate keyboard key press in the UE5 editor. Useful for triggering keyboard shortcuts like F (focus), Del (delete), Ctrl+Z (undo). Key names follow UE FKey naming: F1-F12, Delete, Enter, Escape, A-Z, Ctrl, Alt, Shift.
+- `editor_ui_spawn_actor` [live verified] - Native C++ compatibility name for actor_spawn. Spawn an actor from a class path or asset path.
+- `editor_ui_spawn_navmesh` [live verified] - Automatically spawn a properly configured NavMeshBoundsVolume that covers the entire map. Required before building paths or exporting NavMesh.
+- `editor_utility_batch_action_plan` [live verified] - Plan Editor Utility based batch actions with target guards, locks, and rollback receipts.
+- `editor_utility_blueprint_run_safe` [live verified] - Concrete P2 Editor Utility Blueprint safe-run. Dry-run by default; execute requires both execute=true and allow_user_script_execution=true.
+- `editor_utility_widget_asset_probe` [live verified] - Scan content for Editor Utility Widget/Blueprint assets that can support batch authoring lanes.
+- `editor_utility_widget_run_safe` [live verified] - Concrete P2 Editor Utility Widget safe-run. Dry-run by default; execute requires both execute=true and allow_user_script_execution=true.
+- `editor_viewport_set_realtime` [live verified] - Set realtime on the active level editor viewport, or on perspective level viewport clients when no active viewport is available, then force redraw.
+- `embody_get_observation` [live verified] - Composite observation snapshot for the embodied agent: player_pos, player_rot, nearby_actors within actors_in_radius cm of the player, optional hp_if_present. screenshot=true requests a viewport screenshot via the existing screenshot tool (returns screenshot_path if available). Returns NOT_AVAILABLE if PIE is not running.
+- `embody_input_axis` [live verified] - Drive an axis input (MoveForward/MoveRight/LookUp/LookRight) into the PIE session for hold_ms milliseconds. Implementation strategy: legacy axis names are translated to representative WASD/Arrow key holds; Enhanced Input UInputAction introspection is not implemented (returns NOT_IMPLEMENTED for unknown axes). For full analog control, use multiple embody_input_press_key calls.
+- `embody_input_press_key` [live verified] - Synthesize a key press into the PIE session. key_name follows UE FKey naming: W, A, S, D, Space, LeftMouseButton, Gamepad_FaceButton_Bottom, etc. duration_ms (default 50) holds the key down before release. Returns NOT_AVAILABLE if PIE is not running, NOT_FOUND if key is unknown.
+- `embody_pie_start` [live verified] - Start a Play In Editor (PIE) session for the embodied loop. Submits the start request, performs a bounded activation probe, and returns success when PIE is already running or when the start request is safely pending without a blocking Slate window.
+- `embody_pie_state` [live verified] - Snapshot of the running PIE session: pie_running, world_path, current_player_pawn (actor_name, location, rotation, hp_if_present), fps, time_seconds. Returns NOT_AVAILABLE error_code when PIE is not running.
+- `embody_pie_stop` [live verified] - Stop the active Play In Editor (PIE) session with a bounded final-state probe.
+- `enhanced_input_blueprint_binding_plan` [live verified] - Plan Enhanced Input action/context binding into Blueprint or C++ gameplay receivers.
+- `enhanced_input_capability_probe` [live verified] - Probe UE 5.7+ Enhanced Input availability for MCP input mapping and player-control authoring.
+- `enum_list` [live verified] - List all UEnum types registered in the engine and project.
+- `enum_values` [live verified] - Get all named values of a specific UEnum.
+- `eqs_add_generator` [live verified] - Add a generator to an EQS query by class name, or list available generators if no class given.
+- `eqs_create` [live verified] - Create a new Environment Query System (EQS) asset.
+- `execute_console_command` [live verified] - Execute a UE console command. This is the most fundamental tool for controlling the engine: stat commands, rendering commands, physics commands, gameplay commands, etc. Examples: 'stat fps', 'r.ScreenPercentage 100', 'pause', 'ghost', 'GodMode', 'obj list class=StaticMeshActor', 'DumpConsoleCommands'.
+- `experimental_tool_promotion_plan` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `experimental_tool_retirement_plan` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `fab_search` [live verified] - Search Epic's Fab marketplace for assets by free-form query. Fails with EPIC_AUTH_NOT_CONFIGURED until Epic OAuth is wired.
+- `fast_geometry_streaming_budget_audit` [live verified] - UE 5.8 fast_geometry_streaming audit bridge, capability, contract, and receipt tool.
+- `fast_geometry_streaming_capability_probe` [live verified] - UE 5.8 fast_geometry_streaming probe bridge, capability, contract, and receipt tool.
+- `fast_geometry_streaming_product_build` [live verified] - UE 5.8 fast_geometry_streaming product_build bridge, capability, contract, and receipt tool.
+- `fast_geometry_streaming_product_inspect` [live verified] - UE 5.8 fast_geometry_streaming inspect bridge, capability, contract, and receipt tool.
+- `fast_geometry_streaming_runtime_load_test` [live verified] - UE 5.8 fast_geometry_streaming runtime_load_test bridge, capability, contract, and receipt tool.
+- `fast_geometry_streaming_runtime_unload_test` [live verified] - UE 5.8 fast_geometry_streaming runtime_unload_test bridge, capability, contract, and receipt tool.
+- `fast_geometry_streaming_settings_get` [live verified] - UE 5.8 fast_geometry_streaming settings_get bridge, capability, contract, and receipt tool.
+- `fast_geometry_streaming_settings_set` [live verified] - UE 5.8 fast_geometry_streaming settings_set bridge, capability, contract, and receipt tool.
+- `fast_geometry_streaming_visual_receipt` [live verified] - UE 5.8 fast_geometry_streaming validate bridge, capability, contract, and receipt tool.
+- `fbx_import_batch_58_validate` [live verified] - UE 5.8 content_pipeline validate bridge, capability, contract, and receipt tool.
+- `fbx_import_performance_capture` [live verified] - UE 5.8 content_pipeline capture bridge, capability, contract, and receipt tool.
+- `fbx_import_performance_report` [live verified] - UE 5.8 content_pipeline report bridge, capability, contract, and receipt tool.
+- `fog_screen_space_scattering_compatibility_audit` [live verified] - UE 5.8 rendering transaction: fog_screen_space_scattering_compatibility_audit
+- `fog_screen_space_scattering_render_qa` [live verified] - UE 5.8 rendering transaction: fog_screen_space_scattering_render_qa
+- `fog_screen_space_scattering_settings_get` [live verified] - UE 5.8 rendering transaction: fog_screen_space_scattering_settings_get
+- `fog_screen_space_scattering_settings_set` [live verified] - UE 5.8 rendering transaction: fog_screen_space_scattering_settings_set
+- `foliage_author_align_to_surface` [live verified] - Project and align foliage instances in a brush region to traced world-static surface normals.
+- `foliage_author_blend_brush` [live verified] - Paint a weighted mixture of multiple FoliageType assets in one deterministic circular brush.
+- `foliage_author_collision_prune` [live verified] - Remove foliage instances overlapping blocking world-dynamic geometry inside an optional brush region.
+- `foliage_author_density_resample` [live verified] - Resample foliage density inside a spherical region to an exact target count with rollback on placement failure.
+- `foliage_author_erase` [live verified] - Erase native foliage instances inside a spherical brush and return exact count readback.
+- `foliage_author_fill` [live verified] - Fill an axis-aligned world region with native foliage using deterministic density and placement filters.
+- `foliage_author_foliage_to_hism` [live verified] - Convert selected/all foliage instances into a native HISM component while preserving world transforms.
+- `foliage_author_foliage_to_ism` [live verified] - Convert selected/all foliage instances into a native ISM component while preserving world transforms.
+- `foliage_author_hism_to_foliage` [live verified] - Convert a named HISM component into native foliage instances with mesh and count validation.
+- `foliage_author_ism_to_foliage` [live verified] - Convert a named non-hierarchical ISM component into native foliage instances with mesh and count validation.
+- `foliage_author_lasso_erase` [live verified] - Erase FoliageType instances whose XY positions lie inside a lasso polygon.
+- `foliage_author_paint` [live verified] - Paint deterministic native foliage instances inside a circular brush with surface, slope, spacing, and collision filters.
+- `foliage_author_polygon_fill` [live verified] - Fill a polygon with deterministic surface-projected foliage and bounded candidate count.
+- `foliage_author_reapply` [live verified] - Reapply enabled FoliageType scale, yaw, alignment, height, slope, spacing, and collision rules to placed instances.
+- `foliage_author_replace_type` [live verified] - Replace source FoliageType instances with another FoliageType while preserving world transforms.
+- `foliage_author_single_add` [live verified] - Add one native foliage instance with explicit transform, optional projection, and placement validation.
+- `foliage_author_single_remove` [live verified] - Remove one foliage instance by stable editor index with bounds validation and count readback.
+- `foliage_author_single_transform` [live verified] - Set one foliage instance world transform and return the persisted transform readback.
+- `foliage_author_smooth` [live verified] - Smooth foliage positions toward their regional centroid with bounded strength and transform readback.
+- `foliage_author_spacing_enforce` [live verified] - Enforce a minimum pairwise foliage spacing by deterministically removing later overlapping instances.
+- `foliage_author_spline_paint` [live verified] - Paint foliage along a polyline/spline corridor using spacing and width controls.
+- `foliage_author_type_get_properties` [live verified] - Read placement, scale, collision, culling, shadow, Nanite-distance, and scalability properties from a FoliageType.
+- `foliage_author_type_set_mesh` [live verified] - Assign a StaticMesh to a mesh-backed FoliageType, notify placed instances, save, and read back the source mesh.
+- `foliage_author_type_set_properties` [live verified] - Write core FoliageType paint and placement properties, notify foliage actors, save, and read back values.
+- `foliage_author_type_set_reapply_settings` [live verified] - Write the complete FoliageType reapply flag set, save, and return flag readback.
+- `foliage_author_type_set_render_properties` [live verified] - Write FoliageType culling, mobility, lighting, shadow, ray tracing, WPO, custom-depth, Nanite-distance, scalability, RVT, and HLOD properties.
+- `foliage_brush_stroke` [live verified] - Paint a continuous stroke of foliage along start->end with brush width and density per m^2.
+- `foliage_instances_paint` [live verified] - Place foliage instances around a location.
+- `foliage_instances_remove` [live verified] - Remove foliage instances in sphere.
+- `foliage_paint_instances` [live verified] - Paint foliage instances at explicit world locations and return the added-count readback.
+- `foliage_query_instances` [live verified] - Query foliage instance transforms inside a world-space AABB and return them as structured readback.
+- `foliage_remove_instances` [live verified] - Remove foliage instances whose location lies inside a world-space AABB and return the removed-count readback.
+- `foliage_set_instance_transforms` [live verified] - Batch-update foliage instance world transforms by index and return the applied-count readback.
+- `foliage_statistics` [live verified] - Foliage stats: types and instance counts.
+- `foliage_type_add` [live verified] - Create FoliageType from StaticMesh.
+- `foliage_type_create` [live verified] - Create a FoliageType asset (optionally bound to a Static Mesh), save it, and verify reload readback.
+- `foliage_type_list` [live verified] - List FoliageType assets in project.
+- `fortress_gate_nav_validate` [live verified] - Validate gate, drawbridge, wall-walk, tower, and open/closed fortress navigation states.
+- `fracture_asset_inspect` [live verified] - Read back Geometry Collection structure, simulation-data state, and visibility after authoring.
+- `fracture_asset_preflight` [live verified] - Validate that a Geometry Collection contains native fractureable geometry and report its current structure.
+- `fracture_auto_cluster_apply` [live verified] - Auto-cluster leaf pieces and verify hierarchy growth.
+- `fracture_bones_merge_apply` [live verified] - Merge selected Geometry Collection bones using the native fracture edit API.
+- `fracture_branch_delete_apply` [live verified] - Delete non-root hierarchy branches with explicit destructive confirmation.
+- `fracture_brick_cut_apply` [live verified] - Apply native Chaos brick-bond fracture with verified persistence and rollback.
+- `fracture_cluster_magnet_apply` [live verified] - Grow selected clusters through connected neighbors.
+- `fracture_cluster_merge_selected_apply` [live verified] - Merge selected Chaos clusters with native hierarchy readback.
+- `fracture_cluster_selected_apply` [live verified] - Create a cluster from explicit transform indices.
+- `fracture_clustered_voronoi_apply` [live verified] - Apply clustered-site Voronoi fracture through the native UE 5.8 Chaos API.
+- `fracture_clustered_voronoi_sites_preview` [live verified] - Preview deterministic clustered Voronoi sites in target collection bounds.
+- `fracture_collection_validate_repair` [live verified] - Run native hierarchy validation/repair and persist deterministic readback.
+- `fracture_collision_samples_resample` [live verified] - Resample Geometry Collection collision particles for selected transforms.
+- `fracture_material_set` [live verified] - Assign a material ID to internal, external, or all selected-bone faces.
+- `fracture_mesh_cutter_apply` [live verified] - Cut a Geometry Collection with a Static Mesh through the native Chaos mesh cutter.
+- `fracture_normals_recompute` [live verified] - Recompute Geometry Collection normals or tangents for selected transforms.
+- `fracture_operation_receipt_validate` [live verified] - Validate a fracture authoring receipt before downstream destruction setup is allowed.
+- `fracture_pattern_bounds_inspect` [live verified] - Inspect Geometry Collection bounds used by native pattern cutters.
+- `fracture_pattern_capabilities_inspect` [live verified] - Inspect the native UE 5.8 Chaos fracture pattern API surface used by SOMOLMCP.
+- `fracture_pattern_leaf_selection_inspect` [live verified] - Return the native Chaos leaf transform selection used by pattern cutters, with bounded index readback.
+- `fracture_pattern_noise_settings_inspect` [live verified] - Validate and report native cut-surface noise settings without mutation.
+- `fracture_pattern_site_budget_validate` [live verified] - Validate a proposed native pattern site count against collection complexity before mutation.
+- `fracture_pattern_topology_inspect` [live verified] - Inspect Geometry Collection transform, geometry, vertex, face, and leaf topology before native fracture authoring.
+- `fracture_plane_cut_apply` [live verified] - Apply native randomized plane cuts with noise, save/readback, receipt, and rollback.
+- `fracture_radial_voronoi_apply` [live verified] - Apply radial-site Voronoi fracture through the native UE 5.8 Chaos API.
+- `fracture_radial_voronoi_sites_preview` [live verified] - Preview deterministic radial Voronoi sites in target collection bounds.
+- `fracture_rebuild_simulation_data` [live verified] - Rebuild Geometry Collection simulation/render data, save it, and verify registry readback.
+- `fracture_selection_by_size` [live verified] - Select leaf transforms by size range.
+- `fracture_selection_by_volume` [live verified] - Select leaf transforms by volume range.
+- `fracture_selection_clusters` [live verified] - Return cluster transforms.
+- `fracture_selection_leaves` [live verified] - Return leaf transforms.
+- `fracture_selection_roots` [live verified] - Return root transforms.
+- `fracture_slice_cut_apply` [live verified] - Apply native orthogonal slice cuts with angular/offset variation and verified rollback.
+- `fracture_split_islands_apply` [live verified] - Split disconnected geometry islands for selected transforms.
+- `fracture_tiny_geometry_fix` [live verified] - Merge tiny Geometry Collection pieces using native proximity-aware repair.
+- `fracture_visibility_set_faces` [live verified] - Set visibility for explicit Geometry Collection face indices.
+- `fracture_visibility_set_transforms` [live verified] - Set face visibility from Geometry Collection transform selection.
+- `fracture_voronoi_apply` [live verified] - Apply native UE 5.8 Chaos uniform Voronoi fracture, rebuild simulation/render data, save, and verify geometry growth.
+- `functional_test_asset_probe` [live verified] - Scan content for Functional Test assets and test-map candidates.
+- `game_feature_actions_get` [live verified] - P0 gameplay wrapper: Read game feature actions.
+- `game_feature_find_data` [live verified] - P0 gameplay wrapper: Find game feature data assets.
+- `game_feature_list` [live verified] - P0 gameplay wrapper: List game feature plugins.
+- `game_feature_plugin_create` [live verified] - P0 gameplay wrapper: Create game feature plugin contract.
+- `gamemode_get_classes` [live verified] - List all GameMode-derived classes available in the project.
+- `gamemode_get_current` [live verified] - Get the current map's default GameMode and its configured classes (PlayerController, Pawn, HUD, etc).
+- `gameplay_ability_create` [live verified] - Create Gameplay Ability blueprint asset.
+- `gameplay_ability_list` [live verified] - List all Gameplay Ability classes/blueprints.
+- `gameplay_cue_create_notify` [live verified] - P0 gameplay wrapper: Create gameplay cue notify asset.
+- `gameplay_cue_list` [live verified] - List Gameplay Cue notifies in project.
+- `gameplay_cue_tags_without_notifies` [live verified] - P0 gameplay wrapper: Find gameplay cue tags missing notifies.
+- `gameplay_effect_configure` [live verified] - Configure GameplayEffect CDO: duration policy and modifiers.
+- `gameplay_effect_create` [live verified] - Create Gameplay Effect blueprint asset.
+- `gameplay_tag_add` [live verified] - Add a new Gameplay Tag to the project.
+- `gameplay_tag_info` [live verified] - P0 gameplay wrapper: Read gameplay tag info.
+- `gameplay_tag_list` [live verified] - List registered Gameplay Tags.
+- `gameplay_tag_referencers` [live verified] - P0 gameplay wrapper: Find gameplay tag referencers.
+- `gameplay_tag_remove` [live verified] - P0 gameplay wrapper: Remove gameplay tag from project config.
+- `gameplay_tag_rename` [live verified] - P0 gameplay wrapper: Rename gameplay tag.
+- `gameplay_tags_list` [live verified] - P0 gameplay wrapper: List gameplay tags.
+- `gas_attribute_add` [live verified] - gas_attribute_add authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `gas_attribute_info` [live verified] - P0 gameplay wrapper: Read GAS attribute info.
+- `gas_attribute_set_create` [live verified] - gas_attribute_set_create authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `gas_attribute_sets_find` [live verified] - P0 gameplay wrapper: Find GAS attribute sets.
+- `gas_attributes_list` [live verified] - P0 gameplay wrapper: List GAS attributes.
+- `gas_contract_status` [live verified] - Read-only GAS capability probe and contract anchor for AttributeSet, GameplayAbility, GameplayEffect, and GameplayCue authoring.
+- `gas_gameplay_cue_create` [live verified] - gas_gameplay_cue_create authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `gas_gameplay_effect_add_modifier` [live verified] - gas_gameplay_effect_add_modifier authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `gas_gameplay_effect_create` [live verified] - gas_gameplay_effect_create authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `gas_gameplay_effect_modifier_add_v2` [live verified] - P0 gameplay wrapper: Add modifier to GameplayEffect.
+- `gas_gameplay_effects_list` [live verified] - P0 gameplay wrapper: List gameplay effects.
+- `gauntlet_perf_session_plan` [live verified] - Plan Gauntlet or automated performance sessions for long-running generated scenes.
+- `geometry_asset_roundtrip_receipt` [live verified] - P0 geometryscript wrapper: Validate dynamic/static mesh roundtrip receipt.
+- `geometry_boolean_v2` [live verified] - P0 geometryscript wrapper: Plan/apply boolean mesh operation with rollback receipt.
+- `geometry_bounds_readback` [live verified] - P0 geometryscript wrapper: Read back mesh bounds after operation.
+- `geometry_collection_create` [live verified] - Create a populated Geometry Collection from a Static Mesh, initialize simulation data, save, and verify readback.
+- `geometry_collection_fracture` [live verified] - Native UE 5.8 Chaos multi-pattern fracture (voronoi/radial/plane/slice/brick/cutter/custom_sites) with bone selection, clustering, collision/damage, internal materials, Chaos Cache and Dataflow hooks, save and readback evidence.
+- `geometry_collection_inspect` [live verified] - Inspect Geometry Collection hierarchy, collision, materials, visibility, damage, simulation and revision readback.
+- `geometry_collision_generate` [live verified] - P0 geometryscript wrapper: Generate mesh collision contract.
+- `geometry_dynamic_mesh_create` [live verified] - P0 geometryscript wrapper: Create a transient/durable dynamic mesh asset contract.
+- `geometry_dynamic_mesh_inspect` [live verified] - P0 geometryscript wrapper: Inspect dynamic mesh bounds, triangles, and attributes.
+- `geometry_dynamic_mesh_load_static_mesh` [live verified] - P0 geometryscript wrapper: Load static mesh geometry into a dynamic mesh work item.
+- `geometry_dynamic_mesh_save_static_mesh` [live verified] - P0 geometryscript wrapper: Save dynamic mesh output into a static mesh asset.
+- `geometry_material_slots_sync` [live verified] - P0 geometryscript wrapper: Sync material slots after mesh operation.
+- `geometry_mesh_open` [live verified] - Load a Static Mesh asset into a dynamic mesh session and return a handle. Every GeometryScripting operation acts on a dynamic mesh, so opening once and reusing the handle avoids re-importing the asset for each step of a chain. Release it with handle_release when the session is done — an open mesh is pinned against GC.
+- `geometry_mesh_query` [live verified] - Measure an open dynamic mesh: counts, bounds, surface area and volume, whether it is closed, open border loops and connected components. Use this to validate a mesh before and after an operation — most GeometryScripting operations report success without saying whether they changed anything.
+- `geometry_mesh_repair_v2` [live verified] - P0 geometryscript wrapper: Repair mesh topology defects.
+- `geometry_mesh_save_to_asset` [live verified] - Write an open dynamic mesh back into a Static Mesh asset. This overwrites the target LOD, so it is the terminal step of a session rather than something to call between operations. The handle stays open afterwards so the session can continue.
+- `geometry_normals_recompute` [live verified] - P0 geometryscript wrapper: Recompute mesh normals/tangents contract.
+- `geometry_op_apply` [live verified] - Run one GeometryScripting operation on an open dynamic mesh. Parameters are passed by their engine names; anything omitted keeps its engine default, and any mesh parameter not named explicitly falls back to the mesh argument. Operations that log errors are reported as failures even though the engine returns no status.
+- `geometry_op_apply_batch` [live verified] - Run a sequence of GeometryScripting operations on an open dynamic mesh in one call. This is the intended way to build a mesh pipeline: the whole chain costs one queue entry instead of one per step, and the mesh is never round-tripped between steps. Each entry may name its own mesh to work across several at once.
+- `geometry_op_catalog` [live verified] - List GeometryScripting operations reachable through geometry_op_apply, with their parameters. Call this before planning a mesh pipeline: it turns 'does this engine version have that operation, and what does it take' from a runtime failure into a planning-time lookup.
+- `geometry_operation_rollback_plan` [live verified] - P0 geometryscript wrapper: Build rollback plan for geometry operation.
+- `geometry_primitive_box` [live verified] - P0 geometryscript wrapper: Generate a box primitive into dynamic mesh pipeline.
+- `geometry_primitive_cylinder` [live verified] - P0 geometryscript wrapper: Generate a cylinder primitive into dynamic mesh pipeline.
+- `geometry_primitive_plane` [live verified] - P0 geometryscript wrapper: Generate a plane primitive into dynamic mesh pipeline.
+- `geometry_primitive_sphere` [live verified] - P0 geometryscript wrapper: Generate a sphere primitive into dynamic mesh pipeline.
+- `geometry_remesh_v2` [live verified] - P0 geometryscript wrapper: Plan/apply remesh operation with quality limits.
+- `geometry_script_auto_uv` [live verified] - Auto-generate XAtlas UVs on a Static Mesh asset with native GeometryScript, save, and verify readback.
+- `geometry_script_boolean` [live verified] - Run a native GeometryScript boolean operation on a Static Mesh asset (union/intersection/subtract), save, and verify readback.
+- `geometry_script_extrude` [live verified] - Extrude a Static Mesh asset along +Z with native GeometryScript, save, and verify readback.
+- `geometry_script_remesh` [live verified] - Uniform-remesh a Static Mesh asset toward a target triangle count with native GeometryScript, save, and verify readback.
+- `geometry_script_repair_mesh` [live verified] - Repair a Static Mesh asset (weld edges, remove degenerates, fill holes, compact) with native GeometryScript, save, and verify readback.
+- `geometry_simplify_v2` [live verified] - P0 geometryscript wrapper: Plan/apply mesh simplification with target triangle count.
+- `geometry_uv_generate` [live verified] - P0 geometryscript wrapper: Generate UVs for dynamic/static mesh asset.
+- `geometry_vertex_color_bake` [live verified] - MP-01 upgrade: native Mesh Paint vertex-color baker with target binding, LOD/channel selection, transaction, save/reload, registry readback and a structured receipt.
+- `handle_inspect` [live verified] - Check whether a handle is still valid and what it points at. Use this before a queued wave that reuses handles from an earlier wave, so a stale handle is caught at planning time rather than mid-wave.
+- `handle_list` [live verified] - List live session handles: what each one points at, where it came from and when it was created. Every handle pins its object against garbage collection, so this is also how a long-running session checks what it is still holding.
+- `handle_release` [live verified] - Release handles so their objects can be garbage collected. Pass a handle, a kind to release a whole family, or all=true to clear everything. Call this between queued waves; handles held for the life of an editor session pin objects indefinitely.
+- `hlod_actor_delta_readback` [live verified] - UE 5.8 hlod readback bridge, capability, contract, and receipt tool.
+- `hlod_build` [live verified] - Build or rebuild HLOD for the current World Partition level. Defaults to dry-run planning; pass execute=true or dry_run=false to dispatch the editor command.
+- `hlod_level_direct_build` [live verified] - UE 5.8 hlod level_direct_build bridge, capability, contract, and receipt tool.
+- `hlod_list` [live verified] - List HLOD layers and their settings in the current level.
+- `hlod_perceptual_difference_settings_get` [live verified] - UE 5.8 hlod settings_get bridge, capability, contract, and receipt tool.
+- `hlod_perceptual_difference_settings_set` [live verified] - UE 5.8 hlod settings_set bridge, capability, contract, and receipt tool.
+- `hlod_selected_region_build` [live verified] - UE 5.8 hlod region_build bridge, capability, contract, and receipt tool.
+- `hlod_selection_build` [live verified] - UE 5.8 hlod selection_build bridge, capability, contract, and receipt tool.
+- `hlod_ux_build_receipt` [live verified] - UE 5.8 hlod validate bridge, capability, contract, and receipt tool.
+- `horde_performance_report_artifact_validate` [live verified] - UE 5.8 horde_performance_report validate bridge, capability, contract, and receipt tool.
+- `horde_performance_report_configure` [live verified] - UE 5.8 horde_performance_report configure bridge, capability, contract, and receipt tool.
+- `horde_performance_report_status_get` [live verified] - UE 5.8 horde_performance_report status_get bridge, capability, contract, and receipt tool.
+- `horde_performance_report_submit` [live verified] - UE 5.8 horde_performance_report submit bridge, capability, contract, and receipt tool.
+- `ik_retargeter_create` [live verified] - Create an IK Retargeter asset.
+- `ik_retargeter_map_chains` [live verified] - Auto-map bone chains in IK Retargeter.
+- `ik_retargeter_set_source` [live verified] - Set source/target IK Rigs on retargeter.
+- `ik_rig_add_chain` [live verified] - Add bone chain to IK Rig.
+- `ik_rig_create` [live verified] - Create an IK Rig Definition asset.
+- `img_media_source_create` [live verified] - Create an ImgMediaSource asset for an OpenEXR/PNG/JPG image sequence directory.
+- `import_asset` [live verified] - Import one or more source files into a destination content path.
+- `import_settings_read` [live verified] - Read import settings for FBX or texture asset.
+- `incremental_cook_artifact_validate` [live verified] - UE 5.8 incremental_cook validate bridge, capability, contract, and receipt tool.
+- `incremental_cook_capability_probe` [live verified] - UE 5.8 incremental_cook probe bridge, capability, contract, and receipt tool.
+- `incremental_cook_changed_package_readback` [live verified] - UE 5.8 incremental_cook readback bridge, capability, contract, and receipt tool.
+- `incremental_cook_settings_get` [live verified] - UE 5.8 incremental_cook settings_get bridge, capability, contract, and receipt tool.
+- `incremental_cook_settings_set` [live verified] - UE 5.8 incremental_cook settings_set bridge, capability, contract, and receipt tool.
+- `incremental_cook_status_get` [live verified] - UE 5.8 incremental_cook status_get bridge, capability, contract, and receipt tool.
+- `incremental_cook_submit` [live verified] - UE 5.8 incremental_cook submit bridge, capability, contract, and receipt tool.
+- `ingest_image_sequence` [live verified] - Register an external image-sequence directory as an ImgMediaSource (no image copy by default).
+- `ingest_list` [live verified] - List existing media assets under a /Game/Media folder (recursive).
+- `ingest_video` [live verified] - Copy an external video file into ProjectContent/Media/<sub_folder>/ and create a FileMediaSource pointing at it.
+- `input_action_create` [live verified] - Create an Enhanced Input Action asset.
+- `input_action_list` [live verified] - List all InputAction assets in the project.
+- `input_mapping_context_add_mapping` [live verified] - Add a key mapping to an InputMappingContext, binding a key to an InputAction.
+- `input_mapping_context_create` [live verified] - Create an Enhanced Input Mapping Context asset.
+- `input_mapping_context_get_mappings` [live verified] - Read all key mappings from an InputMappingContext.
+- `input_mapping_context_list` [live verified] - List all InputMappingContext assets in the project.
+- `insights_audio_capture_plan` [live verified] - P2 insights_profiling_receipts wrapper for qa_inspector.
+- `insights_capture_failure_classify` [live verified] - P2 insights_profiling_receipts wrapper for qa_inspector.
+- `insights_chaosvd_capture_plan` [live verified] - P2 insights_profiling_receipts wrapper for qa_inspector.
+- `insights_cpu_timing_snapshot` [live verified] - P2 insights_profiling_receipts wrapper for qa_inspector.
+- `insights_gpu_timing_snapshot` [live verified] - P2 insights_profiling_receipts wrapper for qa_inspector.
+- `insights_mass_trace_capture_plan` [live verified] - P2 insights_profiling_receipts wrapper for qa_inspector.
+- `insights_memory_snapshot` [live verified] - P2 insights_profiling_receipts wrapper for qa_inspector.
+- `insights_network_prediction_capture_plan` [live verified] - P2 insights_profiling_receipts wrapper for qa_inspector.
+- `insights_niagara_capture_plan` [live verified] - P2 insights_profiling_receipts wrapper for qa_inspector.
+- `insights_render_graph_snapshot` [live verified] - P2 insights_profiling_receipts wrapper for qa_inspector.
+- `insights_render_trace_capture_plan` [live verified] - P2 insights_profiling_receipts wrapper for qa_inspector.
+- `insights_trace_export_plan` [live verified] - P2 insights_profiling_receipts wrapper for qa_inspector.
+- `insights_trace_receipt_validate` [live verified] - P2 insights_profiling_receipts wrapper for qa_inspector.
+- `insights_trace_session_start` [live verified] - P2 insights_profiling_receipts wrapper for qa_inspector.
+- `insights_trace_session_status` [live verified] - P2 insights_profiling_receipts wrapper for qa_inspector.
+- `insights_trace_session_stop` [live verified] - P2 insights_profiling_receipts wrapper for qa_inspector.
+- `interchange_asset_import_data_inspect` [live verified] - Report the source files recorded on imported assets, and whether each still exists on disk. Accepts many assets so a whole imported set can be audited in one entry.
+- `interchange_batch_import` [live verified] - Import many source files in ONE game-thread entry. This is the bulk ingest tool for queued workloads: N separate import calls cost N entries against a small concurrent job budget, while this costs one. Per-file results are returned so a partial failure is diagnosable without re-running the wave.
+- `interchange_can_reimport` [live verified] - Check whether an existing asset can be reimported through Interchange, and return the source filenames recorded on it.
+- `interchange_can_translate` [live verified] - Check whether any registered Interchange translator accepts a source file. Use before interchange_import_asset to fail fast on unsupported formats.
+- `interchange_capability_probe` [live verified] - Report Interchange availability on the running engine: module presence, engine version, and which gated APIs (async import, reimport, imported-object reporting) are usable. Call this before branching on Interchange behaviour.
+- `interchange_container_create` [live verified] - Create an empty Interchange node container and return a session handle. Handles address the same graph across many jobs/submit calls.
+- `interchange_container_list` [live verified] - List live Interchange container handles in this editor session.
+- `interchange_container_load` [live verified] - Load a previously saved Interchange node graph from disk and return a session handle.
+- `interchange_container_release` [live verified] - Release a container handle so its graph can be garbage collected. Call this at the end of a queued wave to avoid leaking graphs across a long session.
+- `interchange_container_save` [live verified] - Write an Interchange node graph to disk so a later session can reload it.
+- `interchange_directory_scan` [live verified] - List source files under a directory and report which ones Interchange can translate. Read-only. Run this first to plan a queued import wave without spending job slots on files that would be rejected.
+- `interchange_export_asset` [live verified] - Export an asset through Interchange. With automated=true no dialog is shown and the export uses the registered default settings for the asset type.
+- `interchange_export_scene` [live verified] - Export a world/level through Interchange. Pass the world object path, or omit it to export the currently edited world.
+- `interchange_import_asset` [live verified] - Import a source file into the content browser through Interchange (fbx, gltf, glb, obj, usd, MaterialX, and every other registered translator). Runs synchronously and returns the created objects on UE 5.5 and newer.
+- `interchange_import_asset_async` [live verified] - Queue an asset import without blocking the game thread. Requires UE 5.5 or newer; on older engines use interchange_import_asset.
+- `interchange_import_dialog_settings_get` [live verified] - UE 5.8 content_pipeline settings_get bridge, capability, contract, and receipt tool.
+- `interchange_import_dialog_settings_set` [live verified] - UE 5.8 content_pipeline settings_set bridge, capability, contract, and receipt tool.
+- `interchange_import_pipeline_configure` [live verified] - UE 5.8 content_pipeline configure bridge, capability, contract, and receipt tool.
+- `interchange_import_pipeline_inspect` [live verified] - UE 5.8 content_pipeline inspect bridge, capability, contract, and receipt tool.
+- `interchange_import_receipt_validate` [live verified] - Verify that an expected set of assets exists after an import wave, and that each one records a source file that is still on disk. Use this as the terminal check of a queued ingest so a partially-applied wave is detected before downstream work depends on it.
+- `interchange_import_scene` [live verified] - Import a source file as a scene through Interchange, spawning actors into the current level in addition to creating assets.
+- `interchange_import_scene_async` [live verified] - Queue a scene import without blocking the game thread. Requires UE 5.5 or newer; on older engines use interchange_import_scene.
+- `interchange_node_attribute_catalog` [live verified] - List the attribute keys a node class exposes, with their value types and whether they are writable. Call this before queueing a wave of attribute writes so bad keys are caught at planning time rather than after they have occupied a job slot.
+- `interchange_node_attribute_get` [live verified] - Read one typed attribute from any node. This reaches every GetCustomXxx accessor across all Interchange node classes, because they are all backed by the same typed attribute storage.
+- `interchange_node_attribute_get_batch` [live verified] - Read many attributes across many nodes in ONE game-thread entry. Pair this with _set_batch to diff a graph before and after a queued reconfiguration without paying one job slot per read.
+- `interchange_node_attribute_remove` [live verified] - Remove an attribute from a factory node, reverting it to whatever the factory defaults to for that key.
+- `interchange_node_attribute_set` [live verified] - Write one typed attribute onto a factory node. Factory nodes are what drive asset creation, so this is how an import is retargeted before it runs. For more than a couple of writes use interchange_node_attribute_set_batch instead.
+- `interchange_node_attribute_set_batch` [live verified] - Write many attributes across many factory nodes in ONE game-thread entry. This is the throughput tool for queued workloads: the editor is game-thread bound with only a few concurrent job slots, so N single writes cost N entries while this costs one. Per-item results are returned so a partial failure is diagnosable.
+- `interchange_node_children_list` [live verified] - List the direct children of a node, for walking a translated scene hierarchy.
+- `interchange_node_inspect` [live verified] - Inspect one node: identity, class, parent, and children.
+- `interchange_node_list` [live verified] - List nodes in a container, optionally filtered to a node class. Use factory_only=true to get just the nodes that drive asset creation.
+- `interchange_node_parent_set` [live verified] - Reparent a node within the container, or clear its parent by omitting parent_uid. Use to restructure a translated hierarchy before the factories run.
+- `interchange_node_remove` [live verified] - Remove a node from the container so its factory never runs. Requires UE 5.6 or newer; on older engines disable the node through its factory attributes instead.
+- `interchange_node_roots_list` [live verified] - List the root nodes of a container's hierarchy — the entry points for walking a translated scene graph.
+- `interchange_pipeline_catalog` [live verified] - List the properties a pipeline class exposes, with types and whether each is editable. Call this before queueing a wave of pipeline writes so bad property names are caught at planning time rather than after occupying a job slot.
+- `interchange_pipeline_class_list` [live verified] - List the pipeline classes this editor has loaded, so a caller can pick a base class for a new pipeline asset without guessing at class paths.
+- `interchange_pipeline_duplicate` [live verified] - Duplicate a pipeline asset so it can be customized without editing the shared default. Returns the new asset path, ready for interchange_pipeline_property_set.
+- `interchange_pipeline_inspect` [live verified] - Dump a pipeline asset's current property values as JSON. Use this to see what an import will actually do before running it.
+- `interchange_pipeline_property_set` [live verified] - Set properties on a pipeline asset and return post-set readback receipts. For more than a couple of pipelines use interchange_pipeline_property_set_batch.
+- `interchange_pipeline_property_set_batch` [live verified] - Apply property writes across many pipelines in ONE game-thread entry. This is the throughput tool for queued reconfiguration: N single writes cost N entries against a small concurrent job budget, while this costs one. Per-item receipts are returned.
+- `interchange_pipeline_stack_default_set` [live verified] - Choose which pipeline stack imports use by default. Affects every subsequent import that does not pass override_pipelines.
+- `interchange_pipeline_stack_list` [live verified] - List the Interchange pipeline stacks configured in Project Settings, for asset imports and for scene imports, including which stack is the default. These are the stacks an import uses when no override_pipelines are supplied.
+- `interchange_pipeline_stack_set` [live verified] - Replace the pipeline list of a named stack in Project Settings, creating the stack if it does not exist. This changes how every subsequent import behaves, so it is a project-wide edit rather than a per-import override — use import override_pipelines when only one import should differ.
+- `interchange_registered_factory_class_get` [live verified] - Resolve which Interchange factory class is registered to produce a given asset class. Useful for diagnosing why an import produces an unexpected asset type.
+- `interchange_reimport_asset` [live verified] - Reimport an existing asset from its recorded source file through Interchange. Requires UE 5.6 or newer.
+- `interchange_reimport_asset_async` [live verified] - Queue a reimport without blocking the game thread. Requires UE 5.6 or newer.
+- `interchange_result_capture_start` [live verified] - Begin capturing Interchange import diagnostics. Interchange reports translator and factory messages through a completion delegate rather than through the import return value, and nothing retains them afterwards — so call this BEFORE a queued import wave, then read interchange_result_list once the wave finishes.
+- `interchange_result_clear` [live verified] - Discard captured diagnostics, and optionally stop capturing. Use between queued waves so each wave's messages can be attributed to it.
+- `interchange_result_list` [live verified] - List captured Interchange import diagnostics, newest last. An import can report success while still emitting per-asset warnings and errors, so read this after a wave rather than trusting the import return value alone.
+- `interchange_source_data_create` [live verified] - Validate a source file and report what Interchange can do with it: whether a translator accepts it, and its resolved absolute path and size. Read-only; nothing is imported.
+- `interchange_source_file_relink` [live verified] - Repoint assets at moved source files by rewriting their recorded import paths. Use after content is relocated so reimport keeps working. Applies to many assets in one game-thread entry.
+- `interchange_supported_asset_type_formats_list` [live verified] - List file formats Interchange can translate into a specific asset type (textures, materials, meshes, animations, sounds, grooms).
+- `interchange_supported_formats_for_object` [live verified] - List the source formats that can reimport an existing asset. source_file_index selects among multi-source assets on UE 5.5 and newer.
+- `interchange_supported_formats_list` [live verified] - List file formats Interchange can translate, filtered by translator type (assets, actors, scenes). Each entry is 'extension;Description'.
+- `interchange_usd_import` [live verified] - UE 5.8 content_pipeline import bridge, capability, contract, and receipt tool.
+- `interchange_usd_receipt_validate` [live verified] - UE 5.8 content_pipeline validate bridge, capability, contract, and receipt tool.
+- `interchange_usd_reimport` [live verified] - UE 5.8 content_pipeline reimport bridge, capability, contract, and receipt tool.
+- `ios_application_extension_build_validate` [live verified] - UE 5.8 platform_mobile validate bridge, capability, contract, and receipt tool.
+- `ios_application_extension_configure` [live verified] - UE 5.8 platform_mobile extension_configure bridge, capability, contract, and receipt tool.
+- `ios_application_extension_create` [live verified] - UE 5.8 platform_mobile extension_create bridge, capability, contract, and receipt tool.
+- `ios_keyboard_mouse_runtime_validate` [live verified] - UE 5.8 platform_mobile validate bridge, capability, contract, and receipt tool.
+- `ios_keyboard_mouse_support_get` [live verified] - UE 5.8 platform_mobile settings_get bridge, capability, contract, and receipt tool.
+- `ios_keyboard_mouse_support_set` [live verified] - UE 5.8 platform_mobile settings_set bridge, capability, contract, and receipt tool.
+- `ios_shader_model6_compile_validate` [live verified] - UE 5.8 platform_mobile validate bridge, capability, contract, and receipt tool.
+- `ios_shader_model6_settings_get` [live verified] - UE 5.8 platform_mobile settings_get bridge, capability, contract, and receipt tool.
+- `ios_shader_model6_settings_set` [live verified] - UE 5.8 platform_mobile settings_set bridge, capability, contract, and receipt tool.
+- `iris_capability_probe` [live verified] - UE 5.8 iris probe bridge, capability, contract, and receipt tool.
+- `iris_diagnostics_capture` [live verified] - UE 5.8 iris capture bridge, capability, contract, and receipt tool.
+- `iris_filter_configure` [live verified] - UE 5.8 iris configure bridge, capability, contract, and receipt tool.
+- `iris_prioritizer_configure` [live verified] - UE 5.8 iris configure bridge, capability, contract, and receipt tool.
+- `iris_replication_descriptor_configure` [live verified] - UE 5.8 iris configure bridge, capability, contract, and receipt tool.
+- `iris_replication_descriptor_inspect` [live verified] - UE 5.8 iris inspect bridge, capability, contract, and receipt tool.
+- `iris_runtime_connection_snapshot` [live verified] - UE 5.8 iris snapshot bridge, capability, contract, and receipt tool.
+- `iris_runtime_replication_validate` [live verified] - UE 5.8 iris validate bridge, capability, contract, and receipt tool.
+- `job_await` [live verified] - Block until the job completes, fails, is cancelled, or timeout_ms elapses (timed_out=true).
+- `job_cancel` [live verified] - Cancel a queued or running job.
+- `job_events` [live verified] - Poll job event log; optional long-poll via wait_ms. Use since_seq from prior next_seq.
+- `job_get` [live verified] - Get job status, progress, step_results, and structured error if failed.
+- `job_run_plan` [live verified] - Submit a job and await completion (convenience). Same params as job_submit plus optional timeout_ms for the wait phase.
+- `job_submit` [live verified] - Queue a multi-step async job (mirrors jobs/submit). Returns job_id, deduplicated, optional trace_id.
+- `ki_pro_capture_plan` [live verified] - P3 media_codecs_capture_baseline wrapper for media_author.
+- `landscape_actor_list_lite` [live verified] - List landscape proxies in the editor world with NAME + TRANSFORM ONLY. Does NOT touch heightmaps, components, materials, or layer info. Designed to never freeze the editor. Optional `limit` (default 200) caps results. Use this instead of python_exec scripts that iterate EditorActorSubsystem.get_all_level_actors() or read landscape proxy data.
+- `landscape_apply_heightmap_patch` [live verified] - Apply raw height data to a specific region of a landscape. Takes base64-encoded PNG heightmap and writes it to the specified region.
+- `landscape_apply_spline` [live verified] - Apply a spline component to a landscape.
+- `landscape_circle_height_patch_plan` [live verified] - Read-only plan for a LandscapeCircleHeightPatch for circular flatten/raise/lake/visibility masks without using deprecated PatchManager.
+- `landscape_circle_patch_create` [live verified] - Create a LandscapeCircleHeightPatch component, bind it to a Landscape Patch Edit Layer, and request a landscape update.
+- `landscape_clear_edit_layer` [live verified] - Clear an edit layer on a landscape.
+- `landscape_copy_region` [live verified] - Copy a region from a landscape height/weight map.
+- `landscape_create` [live verified] - Create a landscape actor in the editor world. Returns the spawned actor reference directly.
+- `landscape_create_from_heightmap` [live verified] - Create a landscape from base64-encoded heightmap data. Supports PNG (8-bit grayscale) or raw R16 format. Returns the landscape actor path.
+- `landscape_create_layer` [live verified] - Create a new edit layer on a landscape.
+- `landscape_delete_layer` [live verified] - Delete a landscape edit layer.
+- `landscape_export_heightmap` [live verified] - Export the current landscape heightmap as a base64-encoded PNG image. Simpler interface than landscape_get_heightmap_base64.
+- `landscape_fill_paint_layer` [live verified] - Fill a landscape paint layer in the current region.
+- `landscape_flatten_brush` [live verified] - Apply a flatten brush stroke to a landscape; flatten target height and projection/filter parameters are bound to the shared stroke snapshot and rollback contract (BR-03).
+- `landscape_get_height_region` [live verified] - Read back height data from a landscape region.
+- `landscape_get_heightmap_base64` [live verified] - Export a landscape's heightmap as base64-encoded PNG grayscale image. Returns the image data and dimensions.
+- `landscape_get_layer_weight` [live verified] - Return the painted weight (0..1) of a layer at a world-space XY position.
+- `landscape_get_paint_layer_data` [live verified] - Read back paint layer weight data from a landscape region.
+- `landscape_get_weight_region` [live verified] - Read back weight data from a landscape region.
+- `landscape_heightmap_blend` [live verified] - Blend a heightmap patch onto an existing landscape with configurable opacity/falloff. Useful for terrain editing and path carving.
+- `landscape_heightmap_from_noise` [live verified] - Generate heightmap data using procedural noise (Perlin-like). Returns base64 PNG and raw height values for use with landscape_create_from_heightmap.
+- `landscape_hole_punch` [live verified] - Apply a safe landscape hole-punch fallback by toggling component visibility inside a world-space AOI.
+- `landscape_lake_basin_world` [live verified] - Hydrology MVP: carve a smooth circular basin in world XY (cm) by lowering existing heightmap samples toward a lake bed (subtract up to depth_u16 with feather).
+- `landscape_layer_catalog` [live verified] - Read-only catalog of a landscape's edit layers, paint LayerInfo bindings, material, and bounds.
+- `landscape_layerinfo_bind` [live verified] - Bind Landscape Target LayerInfo objects (LayerInfoObj) by layer_name to an existing Landscape.
+- `landscape_layerinfo_create` [live verified] - Create a ULandscapeLayerInfoObject asset for a Landscape Target Layer name.
+- `landscape_list_layers` [live verified] - List edit layers on a landscape.
+- `landscape_list_paint_layers` [live verified] - List paint layer infos used by a landscape.
+- `landscape_mirror` [live verified] - Mirror a landscape along the X or Y axis. Creates a symmetrical copy.
+- `landscape_noise_brush` [live verified] - Apply a deterministic-seed noise brush stroke to a landscape through the shared spacing/falloff filters, target lock and save/readback writer receipt (BR-04).
+- `landscape_noise_height_region` [live verified] - MVP single-biome: fill a landscape height region with Perlin noise (heightmap coordinates). Use terrain_tile_plan + per-tile regions for chunked worlds.
+- `landscape_paint_layer` [live verified] - Paint a named landscape weight layer inside a world-space region using editor weightmap data.
+- `landscape_paste_region` [live verified] - Paste a copied region back into a landscape.
+- `landscape_patch_apply_receipt` [live verified] - P1 water_landscape_patch wrapper for terrain_author.
+- `landscape_patch_capability_probe` [live verified] - Probe LandscapePatch plugin coverage for SOMOLMCP-native patch edit-layer, circle patch, and texture patch routes.
+- `landscape_patch_component_inspect` [live verified] - P1 concrete Landscape Patch component readback. Delegates to the live patch stack inspector with optional landscape filter.
+- `landscape_patch_edit_layer_bind` [live verified] - P1 water_landscape_patch wrapper for terrain_author.
+- `landscape_patch_edit_layer_create` [live verified] - Create or reuse a Landscape Patch Edit Layer on a target landscape using SOMOLMCP-native reflection, not MCPClientToolset.
+- `landscape_patch_edit_layer_plan` [live verified] - Read-only plan for the SOMOLMCP-native LandscapePatch edit-layer workflow that replaces deprecated PatchManager routes on UE 5.7+.
+- `landscape_patch_height_blend_plan` [live verified] - P1 water_landscape_patch wrapper for terrain_author.
+- `landscape_patch_material_layer_sync` [live verified] - P1 water_landscape_patch wrapper for terrain_author.
+- `landscape_patch_rollback_plan` [live verified] - P1 water_landscape_patch wrapper for terrain_author.
+- `landscape_patch_stack_inspect` [live verified] - Inspect live LandscapePatch components, bindings, edit layer GUIDs, and priorities. Optional landscape filter.
+- `landscape_patch_texture_readback` [live verified] - P1 water_landscape_patch wrapper for terrain_author.
+- `landscape_patch_visibility_mask_plan` [live verified] - P1 water_landscape_patch wrapper for terrain_author.
+- `landscape_patch_workflow_coverage_report` [live verified] - Report SOMOLMCP coverage for LandscapePatch versus existing direct heightmap/weightmap Landscape tools.
+- `landscape_rename_layer` [live verified] - Rename a landscape edit layer.
+- `landscape_reorder_layer` [live verified] - Move a landscape edit layer to a new index.
+- `landscape_replace_paint_layer` [live verified] - Replace one paint layer with another.
+- `landscape_sculpt` [live verified] - [ALIAS] Sculpt landscape. Use 'landscape_sculpt_brush' with landscape_actor_id, operation, brush_size, brush_strength.
+- `landscape_sculpt_brush` [live verified] - Apply a sculpt brush stroke to a landscape through the shared BrushKernel stroke envelope (BR-01: profile/stroke envelope, target lock, pre-snapshot and exact writer receipt).
+- `landscape_set_editing_layer` [live verified] - Set the current editing layer on a landscape.
+- `landscape_set_height_region` [live verified] - Write height data into a landscape region.
+- `landscape_set_heightmap_data` [live verified] - Set raw heightmap data on a landscape proxy.
+- `landscape_set_layer_alpha` [live verified] - Set height or weight alpha on a landscape edit layer.
+- `landscape_set_layer_locked` [live verified] - Set locked state on a landscape edit layer.
+- `landscape_set_layer_visibility` [live verified] - Set visibility on a landscape edit layer.
+- `landscape_set_material` [live verified] - Set a material on a landscape actor. Replaces the landscape material with the specified material asset. Accepts 'landscape' or 'landscape_name' for the actor lookup.
+- `landscape_set_visibility_mask` [live verified] - Toggle landscape components hidden/visible whose centers lie inside a region box.
+- `landscape_set_weight_region` [live verified] - Write paint weight data into a landscape region.
+- `landscape_set_weightmap_data` [live verified] - Set raw weightmap data for a landscape paint layer.
+- `landscape_smooth_brush` [live verified] - Apply a smooth brush stroke to a landscape through the shared radius/falloff/pressure/mask/symmetry schema with a receipt-gated commit (BR-02).
+- `landscape_spline_add_mesh` [live verified] - Assign a UStaticMesh to every segment of the named spline chain.
+- `landscape_spline_create` [live verified] - Create a chain of ULandscapeSplineControlPoint+Segment on the landscape's splines component. Returns a stable spline_id (component-relative chain index).
+- `landscape_spline_inspect` [live verified] - Read-only inspection of native landscape splines and SOMOLMCP fallback spline actors.
+- `landscape_texture_patch_create` [live verified] - Create a LandscapeTexturePatch component, set coverage/resolution/basic height texture options, bind it to a patch edit layer, and request update.
+- `landscape_texture_patch_create_v2` [live verified] - P1 concrete Landscape Texture Patch v2 wrapper. Dry-run by default; execute=true delegates to the proven landscape_texture_patch_create route.
+- `landscape_texture_patch_plan` [live verified] - Read-only plan for a LandscapeTexturePatch component for non-destructive height/weight/visibility patching on UE 5.7+.
+- `landscape_to_mesh_terrain_convert_execute` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: landscape_to_mesh_terrain_convert_execute. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `landscape_world_box_to_heightmap` [live verified] - Convert a world-space XY bounds box (cm) to inclusive landscape heightmap indices for a landscape actor (uses LandscapeActorToWorld + scale).
+- `level_actor_list` [live verified] - List all actors in the current level or a specified streaming level.
+- `level_create` [live verified] - Create a new persistent level (.umap) asset. Can optionally make it a streaming sub-level of the current level.
+- `level_delete` [live verified] - Delete a level (.umap) asset from the project permanently.
+- `level_get_current` [live verified] - Return the current editor world, map, persistent level, current level, and loaded level summary.
+- `level_list` [live verified] - List all level (.umap) assets in the project, with optional folder filter.
+- `level_load` [live verified] - Load a level asset, replacing the current persistent level in the editor.
+- `level_save` [live verified] - Save the current persistent level or a specified level asset.
+- `level_scatter_on_surface` [live verified] - Procedurally scatter instances of an actor/mesh on the surface within a specified bounding box. Uses downward raycasting to find the floor/terrain and aligns the spawned actors with the surface normal.
+- `level_snapshot` [live verified] - Capture a detailed snapshot of the current level state — all actors, transforms, properties. Useful for before/after comparisons.
+- `level_spawn_blockout` [live verified] - Spawn a primitive greyboxing shape (Cube, Sphere, Cylinder, Plane, Cone) with specific absolute dimensions (in cm). Automatically snaps to the ground if snap_to_ground is true.
+- `level_streaming_add` [live verified] - Add streaming sub-level.
+- `level_streaming_list` [live verified] - List streaming sub-levels.
+- `level_streaming_remove` [live verified] - Remove streaming sub-level.
+- `level_streaming_set_transform` [live verified] - Set streaming level position/rotation offset.
+- `level_streaming_volume_delete` [live verified] - Delete a streaming volume actor from the current level.
+- `level_streaming_volume_list` [live verified] - List all level streaming volumes in the current level with their associated levels and properties.
+- `light_component_inspect` [live verified] - Read every reflected editable field on a Point, Spot, Rect, Directional, or other ULightComponent without side effects; returns typed JSON, lossless export text, identity, world context, and explicit unsupported reasons.
+- `light_component_patch` [live verified] - Transactionally patch reflected editable fields on all five light types and return per-property readback plus complete before/after snapshots. Sky recapture is explicit and defaults off.
+- `light_create` [live verified] - Create a light actor of a specified type.
+- `light_get_settings` [live verified] - Get common settings from a light component.
+- `light_set_basic` [live verified] - Set common intensity and color settings on a light.
+- `light_set_directional_atmosphere` [live verified] - Set directional light atmosphere and cloud flags.
+- `light_set_function_and_profile` [live verified] - Set light function or IES profile assets on a light.
+- `light_set_shadowing` [live verified] - Set common shadowing settings on a light.
+- `light_set_shape` [live verified] - Set common shape properties on a local light.
+- `light_set_sky` [live verified] - Set sky light specific settings.
+- `lighting_build_state_inspect` [live verified] - Read static-lighting and reflection-capture build state, unbuilt counts, map/package identity, lighting scenarios and WorldSettings/Lightmass fields without starting a build.
+- `lighting_effective_view_inspect` [live verified] - Inspect an editor viewport, camera actor, PIE/standalone player camera, or side-effect-free active Sequencer evaluation at a specified frame; returns exposure/PP/light/config provenance and explicit GPU-only unavailable results.
+- `lighting_renderer_effective_inspect` [live verified] - Resolve authored renderer settings and effective Lumen, reflection, MegaLights, VSM, ray tracing, static-lighting and exposure CVars with value-source flags and explicit GPU-only limitations.
+- `lighting_scene_inspect` [live verified] - Side-effect-free scene inventory of all ULightComponentBase types, Sky Lights, reflection captures, atmosphere, volumetric clouds, fog and post-process volumes in an explicit world context.
+- `lighting_scene_report` [live verified] - Report on all lights in the scene: type, intensity, color, shadows.
+- `live_link_capability_probe` [live verified] - Probe UE 5.7+ Live Link availability for mocap, camera, lens, and virtual production streams.
+- `live_link_capture_source_plan` [live verified] - P3 media_codecs_capture_baseline wrapper for media_author.
+- `live_link_subjects_probe` [live verified] - Probe current LiveLink subjects and available Python subject APIs for virtual-production routing.
+- `livecoding_compile_request` [live verified] - P0 devops wrapper: Request Live Coding compile.
+- `livecoding_status_get` [live verified] - P0 devops wrapper: Get Live Coding status.
+- `livelink_face_video_stream_capability_probe` [live verified] - UE 5.8 livelink_face probe bridge, capability, contract, and receipt tool.
+- `livelink_face_video_stream_configure` [live verified] - UE 5.8 livelink_face configure bridge, capability, contract, and receipt tool.
+- `livelink_face_video_stream_health_get` [live verified] - UE 5.8 livelink_face health bridge, capability, contract, and receipt tool.
+- `livelink_face_video_stream_start` [live verified] - UE 5.8 livelink_face start bridge, capability, contract, and receipt tool.
+- `livelink_face_video_stream_stop` [live verified] - UE 5.8 livelink_face stop bridge, capability, contract, and receipt tool.
+- `livelink_hub_device_register` [live verified] - UE 5.8 display_cluster_io device_register bridge, capability, contract, and receipt tool.
+- `livelink_hub_timecode_configure` [live verified] - UE 5.8 display_cluster_io timecode_configure bridge, capability, contract, and receipt tool.
+- `livelink_hub_timestep_configure` [live verified] - UE 5.8 display_cluster_io timestep_configure bridge, capability, contract, and receipt tool.
+- `livelink_hub_video_monitor_start` [live verified] - UE 5.8 display_cluster_io monitor_start bridge, capability, contract, and receipt tool.
+- `livelink_hub_video_monitor_stop` [live verified] - UE 5.8 display_cluster_io monitor_stop bridge, capability, contract, and receipt tool.
+- `lod_list` [live verified] - List LOD information for a static or skeletal mesh asset. Note: Screen size data not available in UE 5.7 for StaticMesh.
+- `lod_set_material` [live verified] - Override a material on a specific LOD of a mesh.
+- `lod_set_screen_size` [live verified] - Set the screen size transition for a specific LOD level. Note: StaticMesh not supported in UE 5.7, SkeletalMesh only.
+- `lumen_lite_capability_probe` [live verified] - UE 5.8 rendering transaction: lumen_lite_capability_probe
+- `lumen_lite_performance_receipt` [live verified] - UE 5.8 rendering transaction: lumen_lite_performance_receipt
+- `lumen_lite_profile_get` [live verified] - UE 5.8 rendering transaction: lumen_lite_profile_get
+- `lumen_lite_profile_set` [live verified] - UE 5.8 rendering transaction: lumen_lite_profile_set
+- `lumen_lite_render_validation_capture` [live verified] - UE 5.8 rendering transaction: lumen_lite_render_validation_capture
+- `lumen_lite_scene_compatibility_audit` [live verified] - UE 5.8 rendering transaction: lumen_lite_scene_compatibility_audit
+- `mass_capability_probe` [live verified] - Probe UE 5.7+ Mass Entity/GamePlay/AI/Crowd availability for scalable crowd and simulation authoring.
+- `mass_crowd_density_plan` [live verified] - Plan Mass crowd density/performance budget.
+- `mass_crowd_deployment_plan` [live verified] - Plan Mass crowd or entity deployment with lane, population, performance, and QA guardrails.
+- `mass_crowd_lane_bind` [live verified] - Plan Mass crowd ZoneGraph lane binding.
+- `mass_entity_config_create` [live verified] - Plan Mass entity config creation.
+- `mass_entity_config_inspect` [live verified] - Inspect Mass entity config readiness.
+- `mass_entity_config_probe` [live verified] - Scan content for Mass Entity configs, processors, spawners, and crowd assets.
+- `mass_entity_debug_snapshot` [live verified] - Read Mass entity debug snapshot contract.
+- `mass_fragment_schema_get` [live verified] - Read Mass fragment/trait schema readiness.
+- `mass_modular_dependency_audit` [live verified] - UE 5.8 mass audit bridge, capability, contract, and receipt tool.
+- `mass_module_inventory_58` [live verified] - UE 5.8 mass inventory bridge, capability, contract, and receipt tool.
+- `mass_processor_configure_58` [live verified] - UE 5.8 mass configure bridge, capability, contract, and receipt tool.
+- `mass_processor_list` [live verified] - Read Mass processor class availability.
+- `mass_runtime_scheduler_snapshot` [live verified] - UE 5.8 mass snapshot bridge, capability, contract, and receipt tool.
+- `mass_scale_benchmark_58` [live verified] - UE 5.8 mass benchmark bridge, capability, contract, and receipt tool.
+- `mass_simulation_snapshot` [live verified] - Read Mass simulation snapshot contract.
+- `mass_spawn_receipt_validate` [live verified] - Validate Mass spawn/deployment receipt.
+- `mass_spawner_create` [live verified] - Plan Mass spawner actor/config creation.
+- `mass_spawner_spawn_data_set` [live verified] - Plan Mass spawner spawn-data update.
+- `mass_zonegraph_sync_plan` [live verified] - Plan Mass/ZoneGraph synchronization.
+- `material_add_comment` [live verified] - Add, save, and read back a native comment expression in a material or material function graph.
+- `material_add_layer_stack` [live verified] - Enable Material Attributes on the parent UMaterial and add a base layer (UMaterialFunctionMaterialLayer).
+- `material_add_node` [live verified] - Add a material expression node to a material asset. Supports 50+ node types: TextureSample, Constant, Multiply, Add, Lerp, ScalarParameter, VectorParameter, TextureCoordinate, Fresnel, Noise, etc.
+- `material_analyze_structure` [live verified] - Deep-analyze a material's node graph: expressions, parameters, texture samples, and complexity estimate.
+- `material_asset_wizard_instance_plan` [live verified] - P2 material_validation_wizard wrapper for material_author.
+- `material_asset_wizard_layered_material_plan` [live verified] - P2 material_validation_wizard wrapper for material_author.
+- `material_asset_wizard_probe` [live verified] - P2 material_validation_wizard wrapper for material_author.
+- `material_asset_wizard_receipt_validate` [live verified] - P2 material_validation_wizard wrapper for material_author.
+- `material_assign_to_selected` [live verified] - Assign a Material or MaterialInstance to actors' mesh components. Use actor_names to target specific actors, or omit to use editor selection. Supports StaticMesh and SkeletalMesh.
+- `material_batch_edit` [live verified] - Run multiple material edit operations in sequence. Each operation requires {tool, arguments}.
+- `material_connect_expressions` [live verified] - Connect one material expression to another.
+- `material_connect_property` [live verified] - Connect a material expression output to a material property.
+- `material_create` [live verified] - Create a new material asset. Accepts either (package_path + asset_name) or a single asset_path like '/Game/Folder/MaterialName'.
+- `material_create_animated_uv` [live verified] - Animated UV: Panner(Time,SpeedX,SpeedY) → TextureSample. Scrolling texture effect. Texture optional (defaults to /Engine/EngineResources/DefaultDiffuse).
+- `material_create_dissolve` [live verified] - Dissolve: Noise+Step for mask, SmoothStep edge glow. Masked blend.
+- `material_create_expression` [live verified] - Create a material expression node in a material graph. expression_type accepts short names: Constant, Constant2Vector, Constant3Vector, Constant4Vector, TextureSample, Multiply, Add, Subtract, Lerp, WorldPosition, CameraVector, VertexNormalWS, Time, Sine, Cosine, Power, OneMinus, Clamp, ComponentMask, StaticSwitch, Custom, ScalarParameter, VectorParameter, TextureSampleParameter2D, CollectionParameter.
+- `material_create_foliage` [live verified] - Convenience: create a foliage-quality material (TwoSidedFoliage shading + Masked blend + opacity mask). Use opacity_mask_texture for tree leaf cutouts. Without an opacity texture, falls back to a constant alpha mask.
+- `material_create_fresnel_rim` [live verified] - Fresnel rim-light: base + edge glow. Shields, energy, highlights.
+- `material_create_hologram` [live verified] - Hologram: scan lines + fresnel + depth fade. Translucent+TwoSided.
+- `material_create_pbr` [live verified] - Create PBR material with TextureSampleParameter2D (Albedo,Normal,Roughness,Metallic,AO,Emissive). Scalar/Vector fallback for missing textures.
+- `material_create_pbr_simple` [live verified] - Simple PBR: VectorParameter(BaseColor) + ScalarParameter(Roughness/Metallic). Optional emissive.
+- `material_create_toon` [live verified] - Cel-shading with Custom node (floor(NdotL*Steps)/Steps), configurable bands, shadow color, fresnel rim.
+- `material_create_toon_outline` [live verified] - Inverted-hull outline: VertexNormal*Thickness -> WPO. Apply to duplicated mesh with flipped normals.
+- `material_create_wind` [live verified] - Foliage wind: Time+sin/cos -> WPO via Custom node. Subtle vertex sway for grass/trees.
+- `material_delete_expression` [live verified] - Delete a material expression by index.
+- `material_diagnose` [live verified] - Diagnose material issues: disconnected properties, missing textures, compile errors, invalid references, orphaned nodes.
+- `material_disconnect_expressions` [live verified] - Disconnect a material expression input link with C++ readback verification, graph hash evidence, and optional save.
+- `material_disconnect_property` [live verified] - Disconnect a material property input with C++ readback verification, graph hash evidence, and optional save.
+- `material_duplicate` [live verified] - [Alias] Duplicate a UMaterial asset to a new path/name.
+- `material_duplicate_expression` [live verified] - Duplicate a material expression inside a material graph.
+- `material_expression_catalog` [live verified] - List every loaded concrete UMaterialExpression class with searchable metadata. This is the authoritative discovery surface before generic material_create_expression/material_safe_patch writes.
+- `material_expression_schema_inspect` [live verified] - Inspect one UMaterialExpression class, including editable reflected properties, categories, ranges, inputs, and outputs. Read this schema before creating or modifying a material node.
+- `material_find_edit_points` [live verified] - Find safe semantic edit points in a material: output property connections, parameters, texture samples, and editable expression nodes.
+- `material_function_add_input` [live verified] - Add, configure, save, and read back a native material-function input expression.
+- `material_function_add_output` [live verified] - Add, configure, save, and read back a native material-function output expression.
+- `material_function_create` [live verified] - Create a material function asset.
+- `material_function_create_expression` [live verified] - Create a material expression inside a material function graph.
+- `material_function_delete_expression` [live verified] - Delete a material expression from a material function graph.
+- `material_function_layout` [live verified] - Auto-layout all expressions in a material function graph.
+- `material_function_list_expressions` [live verified] - List expressions in a material function graph.
+- `material_function_recompile` [live verified] - Update and recompile a material function.
+- `material_get_all_params` [live verified] - [Alias] Get all scalar/vector/texture parameters on a MaterialInstanceConstant.
+- `material_get_parameter_info` [live verified] - Read native parameter metadata from a material expression by index or GUID.
+- `material_get_statistics` [live verified] - Return material instruction and sampler statistics.
+- `material_graph_diff` [live verified] - Diff two material graphs by expression nodes and connections. Read-only; accepts UMaterial or MaterialInstance assets.
+- `material_graph_explain` [live verified] - Explain a material graph as semantic nodes, expression edges, connected material properties, and a short narrative. Read-only.
+- `material_graph_restore_snapshot` [live verified] - Restore a material graph from a snapshot on disposable targets. It no-ops when the hash already matches, and conservatively repairs changed graphs by removing extra nodes/edges and reconnecting snapshot links when all snapshot nodes still exist.
+- `material_graph_snapshot` [live verified] - Read-only material graph rollback snapshot with deterministic graph hash, expression nodes, and links.
+- `material_inspect` [live verified] - Inspect material: parameters, textures, blend mode, shading model.
+- `material_inspect_attributes` [live verified] - Read asset-level material properties: blend_mode, shading_model, two_sided, opacity_mask_clip_value, dithered_lod, used_as_special_engine_material, domain.
+- `material_instance_batch_create` [live verified] - Create multiple MaterialInstanceConstant assets with optional parameter sets, per-item receipts, conflict policy, save/reload verification, and optional atomic rollback.
+- `material_instance_batch_parameters` [live verified] - Apply scalar, vector, texture, or static-switch parameters to multiple MaterialInstanceConstant assets with per-step receipts.
+- `material_instance_create` [live verified] - Create a material instance asset.
+- `material_instance_get_params` [live verified] - Get all parameters from a Material Instance (scalar, vector, texture, switch). Returns parameter names, types, and current values.
+- `material_instance_promote_parameter` [live verified] - Prepare or apply a stable promote_parameter patch receipt for a material expression. Write mode uses the same hardened subset as material_safe_patch.
+- `material_instance_set_parent` [live verified] - Set the parent material for a material instance.
+- `material_instance_set_scalar_parameter` [live verified] - Set a scalar parameter on a material instance.
+- `material_instance_set_static_switch_parameter` [live verified] - Set a static switch parameter on a material instance.
+- `material_instance_set_texture_parameter` [live verified] - Set a texture parameter on a material instance.
+- `material_instance_set_vector_parameter` [live verified] - Set a vector parameter on a material instance. Accepts value as {r,g,b,a}, [r,g,b], [r,g,b,a], or the color_value compatibility alias.
+- `material_layer_blend_create` [live verified] - Create a UMaterialFunctionMaterialLayerBlend asset (or BlendInstance if parent_blend_path is provided).
+- `material_layer_create` [live verified] - Create a UMaterialFunctionMaterialLayer asset (or LayerInstance if parent_layer_path is provided).
+- `material_layer_inspect` [live verified] - Inspect the layer stack on a UMaterial, layer asset (UMaterialFunctionMaterialLayer), or MaterialInstance.
+- `material_layout_expressions` [live verified] - Auto-layout all expressions in a material graph.
+- `material_list_expressions` [live verified] - List material expressions in a material graph.
+- `material_list_supported_properties` [live verified] - List supported material property names for material_connect_property. Pass asset_path for a domain-aware list (e.g. Volume adds Extinction/Albedo aliases and only domain-active pins).
+- `material_preview_compare_contract` [live verified] - Read-only material delivery gate for before/after preview evidence. It does not render thumbnails itself; pair asset_get_thumbnail or asset_compare receipts with material graph hashes.
+- `material_preview_editor_capture` [live verified] - UE 5.8 editor_preview capture bridge, capability, contract, and receipt tool.
+- `material_preview_editor_settings_get` [live verified] - UE 5.8 editor_preview settings_get bridge, capability, contract, and receipt tool.
+- `material_preview_editor_settings_set` [live verified] - UE 5.8 editor_preview settings_set bridge, capability, contract, and receipt tool.
+- `material_property_trace` [live verified] - Trace one material property upstream through expression inputs. Read-only; useful for QA and semantic handoff receipts.
+- `material_recompile` [live verified] - Recompile a material after graph edits.
+- `material_repair` [live verified] - Auto-repair material: reconnect defaults, fix missing textures, remove orphaned nodes, resolve compile errors.
+- `material_safe_patch` [live verified] - Validate or apply a stable material graph patch plan. Write mode supports set_expression_property, connect_property, connect_expression, delete_expression, create_expression, and the hardened promote_parameter subset.
+- `material_set_attributes` [live verified] - Set asset-level material properties. Pass any subset: blend_mode (Opaque/Masked/Translucent/Additive/Modulate), shading_model (DefaultLit/Unlit/Subsurface/Foliage/TwoSidedFoliage/etc), two_sided (bool), opacity_mask_clip_value (0..1), dithered_lod_transition (bool), domain (surface/decal/post_process/ui/volume/light_function). Recompiles after change.
+- `material_set_expression_properties` [live verified] - Apply public UPROPERTY values onto a material expression.
+- `material_set_layer_param` [live verified] - Set a parameter override on a specific layer of a MaterialInstance using the layer stack.
+- `material_set_parameter_group` [live verified] - Set parameter group metadata for a material expression parameter.
+- `material_set_scalar_param` [live verified] - [Alias] Set a scalar parameter on a MaterialInstanceConstant.
+- `material_set_texture_param` [live verified] - [Alias] Set a texture parameter on a MaterialInstanceConstant.
+- `material_set_vector_param` [live verified] - [Alias] Set a vector (FLinearColor) parameter on a MaterialInstanceConstant.
+- `material_substrate_create_simple` [live verified] - Create a new UMaterial with a Substrate root + 1 Slab BSDF. Optional base_color (RGB array, default white) and roughness (0-1).
+- `material_substrate_inspect` [live verified] - Inspect a UMaterial for Substrate usage: counts slab nodes, reports root-node class and parameter list. Read-only.
+- `material_substrate_set_slab_property` [live verified] - Set a property on a Slab BSDF node inside a Substrate material. property_name: diffuse_albedo|f0|roughness|sss_mfp. value is a color array for diffuse_albedo/f0/sss_mfp, a number for roughness.
+- `material_substrate_status` [live verified] - Report Substrate availability for this build/project. Inspects r.Substrate CVar, expression class registration, and compile-time guards. Always succeeds.
+- `material_texture_role_detect` [live verified] - Detect semantic roles for textures used by a material, or for a single texture asset. Roles include base_color, normal, roughness, metallic, ambient_occlusion, packed_orm, height, opacity and emissive.
+- `material_usage_audit_v2` [live verified] - P2 material_validation_wizard wrapper for material_author.
+- `material_validation_fix_plan` [live verified] - P2 material_validation_wizard wrapper for material_author.
+- `material_validation_issue_classify` [live verified] - P2 material_validation_wizard wrapper for material_author.
+- `material_validation_receipt_validate` [live verified] - P2 material_validation_wizard wrapper for material_author.
+- `material_validation_report_get` [live verified] - P2 material_validation_wizard wrapper for material_author.
+- `material_validation_run_v2` [live verified] - P2 material_validation_wizard wrapper for material_author.
+- `mcp_blueprint_callable_inventory` [live verified] - Read-only UE 5.7-safe inventory of loaded BlueprintCallable UFunctions with schema, safety, version, and plugin gate metadata.
+- `mcp_blueprint_callable_invoke_readonly` [live verified] - Fail-closed generic readonly BlueprintCallable invoke. Allows only public BlueprintCallable functions that pass the local readonly allowlist/safety policy.
+- `mcp_blueprint_callable_receipt_validate` [live verified] - Validate that a BlueprintCallable wrapper/invoke receipt contains target binding, gate, readback, failure route, and mutation QA evidence when needed.
+- `mcp_blueprint_callable_schema` [live verified] - Reflect one BlueprintCallable UFunction schema including params, return values, safety, UE version, module, category, and plugin gate.
+- `mcp_blueprint_callable_wrapper_plan` [live verified] - Plan a named SOMOLMCP wrapper for a BlueprintCallable UFunction with explicit safety, version, plugin gate, and receipt requirements.
+- `mcp_callable_allowlist_get` [live verified] - Return the local fail-closed readonly allowlist/denylist policy used by generic BlueprintCallable invoke.
+- `mcp_callable_allowlist_set` [live verified] - Add/remove a runtime readonly allowlist override for a public BlueprintCallable const/pure function; mutation-name patterns remain denied.
+- `mcp_callable_deny_reason` [live verified] - Explain whether a BlueprintCallable target would be allowed or denied by the readonly invoke policy, with structured deny reason.
+- `mcp_callable_wrapper_plan` [live verified] - Compatibility alias for mcp_blueprint_callable_wrapper_plan.
+- `mcp_capabilities_get` [live verified] - Return server capability snapshot for diagnostics (tools/resources/prompts/sampling/completions/jobs).
+- `mcp_list_dynamic_tools` [live verified] - List currently callable native C++ SOMOLMCP tools with optional prefix and text filters.
+- `mcp_p1_p2_landscape_pcg_capability_report` [live verified] - Summarize MCP-side P1/P2 Landscape/PCG coverage and remaining live-proof boundaries.
+- `mcp_parallel_authoring_plan` [live verified] - Schedule MCP tool calls into non-conflicting parallel waves using inferred lanes and resource locks.
+- `mcp_resource_lock_plan` [live verified] - Infer resource locks for a batch of MCP tool calls and report conflicts before dispatching multi-agent work.
+- `mcp_tool_execution_profile` [live verified] - Classify one MCP tool call into domain, lane, thread model, receipt requirements, target paths, and resource locks for multi-agent dispatch.
+- `media_capture_device_probe` [live verified] - P3 media_codecs_capture_baseline wrapper for media_author.
+- `media_plate_actor_create_plan` [live verified] - P3 media_codecs_capture_baseline wrapper for media_author.
+- `media_player_control` [live verified] - Unified MediaPlayer control: action=play|pause|stop|rewind|seek (with seconds).
+- `media_player_create` [live verified] - Create a MediaPlayer asset (used by MediaTexture/MediaSoundComponent).
+- `media_player_create_plan` [live verified] - P3 media_codecs_capture_baseline wrapper for media_author.
+- `media_player_open_source` [live verified] - Open a MediaSource in a MediaPlayer (optionally auto-plays via play_on_open).
+- `media_player_open_test` [live verified] - P3 media_codecs_capture_baseline wrapper for media_author.
+- `media_player_play` [live verified] - Shorthand for media_player_control action=play.
+- `media_playlist_add` [live verified] - Append a MediaSource to an existing MediaPlaylist.
+- `media_playlist_create` [live verified] - Create a MediaPlaylist asset with optional initial sources.
+- `media_profile_list_v2` [live verified] - P3 media_codecs_capture_baseline wrapper for media_author.
+- `media_query` [live verified] - Read metadata of an existing media asset (FileMediaSource / StreamMediaSource / ImgMediaSource / MediaPlayer / MediaTexture / MediaPlaylist).
+- `media_source_create` [live verified] - Create a FileMediaSource asset pointing at a local video file.
+- `media_source_create_plan` [live verified] - P3 media_codecs_capture_baseline wrapper for media_author.
+- `media_source_inspect_v2` [live verified] - P3 media_codecs_capture_baseline wrapper for media_author.
+- `media_texture_bind_plan` [live verified] - P3 media_codecs_capture_baseline wrapper for media_author.
+- `media_texture_create` [live verified] - Create a MediaTexture and optionally bind it to a MediaPlayer.
+- `media_viewer_capture` [live verified] - UE 5.8 media_pipeline capture bridge, capability, contract, and receipt tool.
+- `media_viewer_compare_configure` [live verified] - UE 5.8 media_pipeline compare_configure bridge, capability, contract, and receipt tool.
+- `media_viewer_playback_control` [live verified] - UE 5.8 media_pipeline playback_control bridge, capability, contract, and receipt tool.
+- `media_viewer_session_close` [live verified] - UE 5.8 media_pipeline session_close bridge, capability, contract, and receipt tool.
+- `media_viewer_session_open` [live verified] - UE 5.8 media_pipeline session_open bridge, capability, contract, and receipt tool.
+- `media_viewer_source_add` [live verified] - UE 5.8 media_pipeline source_add bridge, capability, contract, and receipt tool.
+- `megalights_batch_configure` [live verified] - Batch configure lighting properties on all light actors matching a type filter in the current scene.
+- `megalights_configure` [live verified] - Configure MegaLights settings for high-quality dynamic lighting in UE5. Executes console variables for enabled state, quality level, and max lights count.
+- `megalights_create_light` [live verified] - Create a light actor (Point, Spot, Rect, or Directional) with configurable properties.
+- `megalights_get_light_info` [live verified] - Get detailed lighting information for a specific light actor or all lights in the scene.
+- `megalights_get_settings` [live verified] - Get current MegaLights configuration settings by reading console variables.
+- `megalights_performance_receipt` [live verified] - UE 5.8 rendering transaction: megalights_performance_receipt
+- `megalights_project_settings_get` [live verified] - UE 5.8 rendering transaction: megalights_project_settings_get
+- `megalights_project_settings_set` [live verified] - UE 5.8 rendering transaction: megalights_project_settings_set
+- `megalights_render_validation_capture` [live verified] - UE 5.8 rendering transaction: megalights_render_validation_capture
+- `megalights_scene_compatibility_audit` [live verified] - UE 5.8 rendering transaction: megalights_scene_compatibility_audit
+- `megalights_set_light_property` [live verified] - Set MegaLights and lighting properties on a specific light actor. Configures intensity, color, attenuation, shadows, and MegaLights-specific settings.
+- `megalights_set_quality` [live verified] - Set MegaLights quality level.
+- `mesh_paint_component_color_copy` [live verified] - Copy exact per-instance colors between compatible StaticMeshComponents and verify the target map save.
+- `mesh_paint_component_inspect` [live verified] - Inspect per-instance StaticMeshComponent vertex color overrides by LOD.
+- `mesh_paint_lod_copy` [live verified] - Copy instance colors between equal-vertex-count LODs, save, and verify the exact target hash.
+- `mesh_paint_lod_propagate` [live verified] - Propagate instance colors between different LOD topologies by deterministic nearest vertex position.
+- `mesh_paint_operation_receipt_validate` [live verified] - Validate a saved mesh-paint writer receipt before downstream material blending is allowed.
+- `mesh_paint_texture_backup_create` [live verified] - Create a reusable in-memory full-mip Mesh Paint texture and component-configuration backup.
+- `mesh_paint_texture_backup_restore` [live verified] - Restore a reusable Mesh Paint texture backup to its original component, save it, and verify all source mips.
+- `mesh_paint_texture_blur` [live verified] - Apply a native bounded box blur to every Mesh Paint texture mip with transaction, rollback, save, and readback.
+- `mesh_paint_texture_channel_histogram_inspect` [live verified] - Inspect the native BGRA8 source distribution of every Mesh Paint texture channel without mutation.
+- `mesh_paint_texture_channel_remap` [live verified] - Copy or invert one native BGRA8 Mesh Paint texture channel into another with rollback and readback.
+- `mesh_paint_texture_clear` [live verified] - Clear every source mip to transparent black without removing the texture, with rollback, save, and readback.
+- `mesh_paint_texture_config_inspect` [live verified] - Inspect UE 5.8 Mesh Paint texture enablement, UV override, resolution override, and live texture dimensions.
+- `mesh_paint_texture_config_set` [live verified] - Set UE 5.8 Mesh Paint texture UV/resolution overrides with transactional recreation, save, rollback, and readback.
+- `mesh_paint_texture_copy_component` [live verified] - Copy the complete Mesh Paint texture mip chain and UV configuration from one component to another.
+- `mesh_paint_texture_duplicate_to_component` [live verified] - Duplicate a single-layer BGRA8 texture asset into a component-owned Mesh Paint texture and persist it in the map.
+- `mesh_paint_texture_fill` [live verified] - Fill every source mip of an existing UE 5.8 Mesh Paint texture with one RGBA color, then save and verify.
+- `mesh_paint_texture_resource_stats` [live verified] - Read source mip bytes, GPU resource estimate, dimensions, format, and content hash for a Mesh Paint texture.
+- `mesh_paint_texture_session_begin` [live verified] - Begin an in-memory Mesh Paint texture session with a complete configuration and full-mip rollback snapshot.
+- `mesh_paint_texture_session_cancel` [live verified] - Cancel a Mesh Paint texture session, restore its complete snapshot, save the rollback, and verify its hash.
+- `mesh_paint_texture_session_commit` [live verified] - Commit an active Mesh Paint texture session by saving the map and recording final full-mip readback.
+- `mesh_paint_texture_target_create` [live verified] - Create the native UE 5.8 component Mesh Paint texture, save the map, and verify texture/resource readback.
+- `mesh_paint_texture_target_inspect` [live verified] - Inspect UE 5.8 component texture-paint capability, assigned texture, UV target, resolution, and resource bytes.
+- `mesh_paint_texture_target_remove` [live verified] - Remove the native component Mesh Paint texture, save the map, and verify null texture and zero resource bytes.
+- `mesh_paint_uv_target_inspect` [live verified] - Inspect paintable UV-channel counts, active mesh-paint UV index, and texture resolution by LOD.
+- `mesh_paint_vertex_channel_fill` [live verified] - Fill exactly one RGBA instance-color channel, save the map, and verify all written values.
+- `mesh_paint_vertex_channel_inspect` [live verified] - Inspect deterministic per-channel RGBA statistics for one component LOD without mutation.
+- `mesh_paint_vertex_color_clear` [live verified] - Remove all instance vertex color overrides, save the map, and verify zero painted bytes.
+- `mesh_paint_vertex_color_fill` [live verified] - Fill instance vertex colors on one or all StaticMeshComponent LODs, save the map, and verify override buffers.
+- `mesh_paint_weight_fill` [live verified] - Fill one UE vertex-weight target across a component LOD, then save and verify its exact encoded color.
+- `mesh_paint_weight_target_inspect` [live verified] - Inspect UE 5.8 vertex-weight target encodings for two through five blended layers.
+- `mesh_partition_actor_create_plan` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_partition_actor_inspect` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_partition_affected_sections_get` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_affected_sections_get. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_attribute_map_create` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_attribute_map_create. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_attribute_map_list` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_attribute_map_list. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_attribute_paint_apply` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_attribute_paint_apply. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_build_cancel` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_build_cancel. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_build_perf_stats_get` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_build_perf_stats_get. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_build_status_get` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_build_status_get. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_build_submit` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_build_submit. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_build_variant_list` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_build_variant_list. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_build_variant_mutate` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_build_variant_mutate. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_cache_invalidate_plan` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_partition_cache_snapshot` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_partition_channel_create` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_channel_create. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_channel_delete` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_channel_delete. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_channel_list` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_channel_list. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_channel_texel_settings_set` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_channel_texel_settings_set. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_channel_update` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_channel_update. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_channel_uv_layout_set` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_channel_uv_layout_set. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_collision_rebuild` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_collision_rebuild. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_compiled_section_inspect` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_compiled_section_inspect. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_create` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_create. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_datalayer_bind` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_datalayer_bind. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_definition_create` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_definition_create. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_definition_update` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_definition_update. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_expand` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_expand. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_far_field_skirt_audit` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_far_field_skirt_audit. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_generated_asset_readback` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_partition_generated_products_cleanup` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_generated_products_cleanup. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_heightmap_import` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_heightmap_import. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_hlod_build` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_hlod_build. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_lake_shape_set` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_lake_shape_set. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_material_cache_build` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_material_cache_build. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_material_set` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_material_set. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_merge` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_merge. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_mesh_convert` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_mesh_convert. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_apply_plan` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_partition_modifier_catalog` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_partition_modifier_create_boolean` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_create_boolean. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_create_instanced_patch` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_create_instanced_patch. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_create_instanced_projection` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_create_instanced_projection. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_create_instanced_texture_patch` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_create_instanced_texture_patch. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_create_lattice` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_create_lattice. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_create_mesh_project` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_create_mesh_project. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_create_noise` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_create_noise. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_create_patch` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_create_patch. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_create_project_sculpt_layers` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_create_project_sculpt_layers. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_create_remesh` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_create_remesh. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_create_spline` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_create_spline. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_create_spline_remesh` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_create_spline_remesh. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_create_texture_patch` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_create_texture_patch. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_delete` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_delete. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_dependencies_get` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_dependencies_get. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_enabled_set` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_enabled_set. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_graph_validate` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_graph_validate. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_inspect` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_inspect. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_order_set` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_order_set. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_modifier_update` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_modifier_update. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_ocean_boundary_set` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_ocean_boundary_set. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_pcg_write_editor` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_pcg_write_editor. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_physical_material_channel_set` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_physical_material_channel_set. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_physical_material_resolve_audit` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_physical_material_resolve_audit. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_platform_runtime_settings_set` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_platform_runtime_settings_set. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_preview_section_inspect` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_preview_section_inspect. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_receipt_validate` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_partition_rectangle_create` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_rectangle_create. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_resection` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_resection. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_river_spline_set` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_river_spline_set. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_runtime_cell_readback` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_runtime_cell_readback. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_section_bounds` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_partition_section_build` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_section_build. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_section_invalidate` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_section_invalidate. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_section_list` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_partition_split` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_split. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_stitch` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_stitch. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_topology_operation_preview` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_topology_operation_preview. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_topology_operation_receipt_validate` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_topology_operation_receipt_validate. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_transformer_execute` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_transformer_execute. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_transformer_pipeline_inspect` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_transformer_pipeline_inspect. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_transformer_pipeline_mutate` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_transformer_pipeline_mutate. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_vertex_color_paint_apply` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_vertex_color_paint_apply. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_water_modifier_catalog` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_water_modifier_catalog. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_water_modifier_create` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_water_modifier_create. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_water_modifier_delete` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_water_modifier_delete. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_water_modifier_inspect` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_water_modifier_inspect. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_water_modifier_update` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_water_modifier_update. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_partition_water_terrain_receipt_validate` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_partition_water_terrain_receipt_validate. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_active_tool_get` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_active_tool_get. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_apply_heightfield_to_mesh` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_apply_heightfield_to_mesh. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_bake_attribute_maps` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_bake_attribute_maps. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_collision_navigation_audit` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_collision_navigation_audit. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_collision_plan` [live verified] - Plan MeshTerrain collision/nav setup.
+- `mesh_terrain_convert_receipt_validate` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_terrain_convert_to_landscape_plan` [live verified] - Plan MeshTerrain-to-Landscape conversion/fallback.
+- `mesh_terrain_crash_recovery_checkpoint_create` [live verified] - Create persistent project-local recovery duplicates and a sequence-numbered manifest for bound terrain assets.
+- `mesh_terrain_crash_recovery_restore` [live verified] - Restore terrain assets from a persistent recovery checkpoint with overwrite confirmation and post-restore readback.
+- `mesh_terrain_create_asset_plan` [live verified] - Plan MeshPartition/MeshTerrain asset creation.
+- `mesh_terrain_deep_preview_capture` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_terrain_deep_sculpt_plan` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_terrain_delivery_gate` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_delivery_gate. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_erosion_apply` [live verified] - Apply bounded thermal or hydraulic-style erosion through the UE 5.8 native terrain tool route.
+- `mesh_terrain_geometry_quality_audit` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_geometry_quality_audit. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_gpu_stats_get` [live verified] - Read MeshPartition build/GPU performance statistics through the native performance surface.
+- `mesh_terrain_height_flatten_apply` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_height_flatten_apply. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_height_sculpt_apply` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_height_sculpt_apply. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_height_smooth_apply` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_height_smooth_apply. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_hole_cave_overhang_apply` [live verified] - Create or modify holes, caves, tunnels, and overhangs through a native boolean/modifier writer.
+- `mesh_terrain_landscape_convert_execute` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_landscape_convert_execute. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_landscape_mesh_diff` [live verified] - Compare bound Landscape and Mesh Terrain targets using native object, bounds, dependency, and property fingerprints.
+- `mesh_terrain_lod_plan` [live verified] - Plan MeshTerrain LOD/Nanite/static mesh section budget.
+- `mesh_terrain_material_attribute_readback` [live verified] - Read materials, editable attributes, dependencies, and package state from Mesh Terrain targets.
+- `mesh_terrain_material_layer_plan` [live verified] - Plan MeshTerrain material and layer setup.
+- `mesh_terrain_material_quality_audit` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_material_quality_audit. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_mode_enter` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_mode_enter. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_mode_exit` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_mode_exit. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_mode_probe` [live verified] - Probe UE 5.8 Mesh Terrain Mode and MeshPartition gates.
+- `mesh_terrain_mode_state_get` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_mode_state_get. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_multi_target_sculpt_session_begin` [live verified] - Bind multiple UE 5.8 Mesh Terrain targets to one native sculpt session without leaving the editor in a modal terrain mode.
+- `mesh_terrain_natural_landform_audit` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_natural_landform_audit. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_nav_collision_hlod_receipt` [live verified] - Aggregate native navigation, collision, World Partition, and HLOD validation into one delivery receipt.
+- `mesh_terrain_operation_preflight` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_operation_preflight. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_operation_rollback` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_operation_rollback. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_operation_snapshot_create` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_operation_snapshot_create. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_palette_list` [live verified] - List Mesh Terrain Mode submodes and tool palette commands from UE 5.8 source contracts.
+- `mesh_terrain_patch_project_plan` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_terrain_preview_capture` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_preview_capture. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_receipt_validate` [live verified] - Validate MeshTerrain production receipt.
+- `mesh_terrain_rollback_receipt` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_terrain_sculpt_brush_catalog` [live verified] - Return Mesh Terrain sculpt and height sculpt brush catalog.
+- `mesh_terrain_sculpt_layer_duplicate` [live verified] - Duplicate a sculpt layer with native write, save, readback, and receipt enforcement.
+- `mesh_terrain_sculpt_layer_list` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_sculpt_layer_list. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_sculpt_layer_merge` [live verified] - Merge one sculpt layer into another with native write, save, readback, and receipt enforcement.
+- `mesh_terrain_sculpt_layer_mutate` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_sculpt_layer_mutate. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_sculpt_layer_reorder` [live verified] - Move a sculpt layer to a new stack position with native write and stack readback.
+- `mesh_terrain_sculpt_session_begin` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_sculpt_session_begin. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_sculpt_session_commit` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_sculpt_session_commit. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_sculpt_settings_get` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_sculpt_settings_get. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_sculpt_settings_set` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_sculpt_settings_set. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_sculpt_stroke_apply` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_sculpt_stroke_apply. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_sculpt_stroke_batch` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_sculpt_stroke_batch. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_seam_repair` [live verified] - Repair selected MeshPartition seams through native stitch execution and topology receipt validation.
+- `mesh_terrain_selection_set` [live verified] - Set the exact multi-actor Mesh Terrain selection and return selected-object readback.
+- `mesh_terrain_slope_erode_apply` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_slope_erode_apply. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_stamp_apply` [live verified] - Apply a bounded Mesh Terrain stamp through a verified native writer; incomplete interactive strokes fail closed.
+- `mesh_terrain_submode_set` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_submode_set. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_tool_accept` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_tool_accept. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_tool_cancel` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_tool_cancel. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_tool_command_catalog` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_terrain_tool_command_dry_run` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_terrain_tool_properties_get` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_tool_properties_get. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_tool_properties_set` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_tool_properties_set. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_tool_start` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_tool_start. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_visual_qa_capture` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_visual_qa_capture. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `mesh_terrain_weightmap_projection_plan` [live verified] - P3 mesh_partition_mesh_terrain_deep wrapper for terrain_author.
+- `mesh_terrain_world_partition_commit` [live verified] - Commit Mesh Terrain products to World Partition with save, build, cell readback, and receipt evidence.
+- `mesh_terrain_world_partition_streaming_audit` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: mesh_terrain_world_partition_streaming_audit. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `metahuman_anim_blueprint_bind_plan` [live verified] - Plan MetaHuman animation Blueprint binding.
+- `metahuman_animator_audio_solve_configure` [live verified] - UE 5.8 metahuman_animator audio_solve bridge, capability, contract, and receipt tool.
+- `metahuman_animator_capture_import` [live verified] - UE 5.8 metahuman_animator capture_import bridge, capability, contract, and receipt tool.
+- `metahuman_animator_curve_quality_audit` [live verified] - UE 5.8 metahuman_animator quality_audit bridge, capability, contract, and receipt tool.
+- `metahuman_animator_export_validate` [live verified] - UE 5.8 metahuman_animator validate bridge, capability, contract, and receipt tool.
+- `metahuman_animator_platform_capability_probe` [live verified] - UE 5.8 metahuman_animator probe bridge, capability, contract, and receipt tool.
+- `metahuman_animator_solve_status_get` [live verified] - UE 5.8 metahuman_animator solve_status bridge, capability, contract, and receipt tool.
+- `metahuman_animator_solve_submit` [live verified] - UE 5.8 metahuman_animator solve_submit bridge, capability, contract, and receipt tool.
+- `metahuman_asset_report` [live verified] - Build a MetaHuman asset report from available assets/classes.
+- `metahuman_body_type_inspect` [live verified] - Inspect MetaHuman body-type and compatibility planning inputs.
+- `metahuman_calibration_diagnostics_run` [live verified] - Plan MetaHuman calibration diagnostics.
+- `metahuman_character_assets_list` [live verified] - List MetaHuman, DNA, groom, wardrobe, and character assets under a folder.
+- `metahuman_character_export_dcc` [live verified] - Plan MetaHuman DCC export with receipt gates.
+- `metahuman_character_export_dna` [live verified] - Plan MetaHuman DNA export/import verification.
+- `metahuman_character_export_geometry` [live verified] - Plan MetaHuman geometry export.
+- `metahuman_character_export_materials` [live verified] - Plan MetaHuman material and texture export.
+- `metahuman_character_instance_inspect` [live verified] - Inspect a MetaHuman character or character instance asset.
+- `metahuman_crowd_actor_bind` [live verified] - Plan MetaHuman crowd actor identity and animation binding.
+- `metahuman_crowd_collection_component_add` [live verified] - UE 5.8 metahuman_crowd component_add bridge, capability, contract, and receipt tool.
+- `metahuman_crowd_collection_component_remove` [live verified] - UE 5.8 metahuman_crowd component_remove bridge, capability, contract, and receipt tool.
+- `metahuman_crowd_collection_create` [live verified] - UE 5.8 metahuman_crowd collection_create bridge, capability, contract, and receipt tool.
+- `metahuman_crowd_ism_transition_configure` [live verified] - UE 5.8 metahuman_crowd ism_transition bridge, capability, contract, and receipt tool.
+- `metahuman_crowd_mass_bridge_plan` [live verified] - Plan MetaHuman Crowd to Mass bridge.
+- `metahuman_crowd_mass_configure` [live verified] - UE 5.8 metahuman_crowd mass_configure bridge, capability, contract, and receipt tool.
+- `metahuman_crowd_performance_receipt` [live verified] - UE 5.8 metahuman_crowd validate bridge, capability, contract, and receipt tool.
+- `metahuman_crowd_procedural_assemble` [live verified] - UE 5.8 metahuman_crowd procedural_assemble bridge, capability, contract, and receipt tool.
+- `metahuman_crowd_runtime_readback` [live verified] - UE 5.8 metahuman_crowd runtime_readback bridge, capability, contract, and receipt tool.
+- `metahuman_crowd_runtime_spawn` [live verified] - UE 5.8 metahuman_crowd runtime_spawn bridge, capability, contract, and receipt tool.
+- `metahuman_crowd_spawner_create` [live verified] - Plan MetaHuman crowd spawner creation.
+- `metahuman_crowd_variation_plan` [live verified] - Plan MetaHuman crowd variations.
+- `metahuman_groom_asset_audit` [live verified] - Audit MetaHuman groom assets and binding dependencies.
+- `metahuman_livelink_subject_config` [live verified] - Plan MetaHuman LiveLink subject/source configuration.
+- `metahuman_preview_capture` [live verified] - Plan MetaHuman preview capture.
+- `metahuman_receipt_validate` [live verified] - Validate a MetaHuman production/export/preview receipt.
+- `metasound_58_compile_receipt` [live verified] - UE 5.8 audio validate bridge, capability, contract, and receipt tool.
+- `metasound_channel_agnostic_type_validate` [live verified] - UE 5.8 audio validate bridge, capability, contract, and receipt tool.
+- `metasound_compile` [live verified] - Build and overwrite a MetaSound through the editor builder, register it with the frontend, save, and verify readback.
+- `metasound_create` [live verified] - Create a MetaSound Patch or a compiled mono Source starter graph. Templates: empty patch, oneshot/loop/music sine-source graphs with native Builder nodes and save/readback.
+- `metasound_inspect` [live verified] - Return MetaSound type and live graph input/output metadata through the editor builder API.
+- `metasound_node_add` [live verified] - Add a native MetaSound node by frontend class name, persist the graph, and verify node-ID readback.
+- `metasound_node_configuration_apply` [live verified] - UE 5.8 audio node_config_apply bridge, capability, contract, and receipt tool.
+- `metasound_node_configuration_create` [live verified] - UE 5.8 audio node_config_create bridge, capability, contract, and receipt tool.
+- `metasound_node_remove` [live verified] - Remove a MetaSound node by persistent node ID, save, and verify the node no longer exists.
+- `metasound_nodes_connect` [live verified] - Connect named output/input pins on two persistent MetaSound nodes and verify the edge after save.
+- `metasound_nodes_disconnect` [live verified] - Disconnect named output/input pins on two persistent MetaSound nodes and verify edge removal after save.
+- `metasound_set_input_default` [live verified] - Set a Bool, Int32, Float, or String graph input default, overwrite the MetaSound, save it, and verify readback.
+- `metasound_template_create` [live verified] - UE 5.8 audio template_create bridge, capability, contract, and receipt tool.
+- `metasound_template_instantiate` [live verified] - UE 5.8 audio template_instantiate bridge, capability, contract, and receipt tool.
+- `mlflow_run_snapshot_get` [live verified] - P3 nne_neural_rendering_ml wrapper for external_tools.
+- `mobile_gesture_event_configure` [live verified] - UE 5.8 platform_mobile configure bridge, capability, contract, and receipt tool.
+- `mobile_gesture_event_runtime_test` [live verified] - UE 5.8 platform_mobile validate bridge, capability, contract, and receipt tool.
+- `mobile_preview_platform_profile_apply` [live verified] - UE 5.8 platform_mobile profile_apply bridge, capability, contract, and receipt tool.
+- `mobile_preview_platform_validate` [live verified] - UE 5.8 platform_mobile validate bridge, capability, contract, and receipt tool.
+- `mobile_renderer_58_render_validate` [live verified] - UE 5.8 platform_mobile validate bridge, capability, contract, and receipt tool.
+- `mobile_renderer_58_settings_get` [live verified] - UE 5.8 platform_mobile settings_get bridge, capability, contract, and receipt tool.
+- `mobile_renderer_58_settings_set` [live verified] - UE 5.8 platform_mobile settings_set bridge, capability, contract, and receipt tool.
+- `mocap_manager_capture_start` [live verified] - UE 5.8 mocap capture_start bridge, capability, contract, and receipt tool.
+- `mocap_manager_capture_stop` [live verified] - UE 5.8 mocap capture_stop bridge, capability, contract, and receipt tool.
+- `mocap_manager_device_bind` [live verified] - UE 5.8 mocap device_bind bridge, capability, contract, and receipt tool.
+- `mocap_manager_recording_readback` [live verified] - UE 5.8 mocap recording_readback bridge, capability, contract, and receipt tool.
+- `mocap_manager_session_create` [live verified] - UE 5.8 mocap session_create bridge, capability, contract, and receipt tool.
+- `modeling_dynamic_mesh_bake_normal_color` [live verified] - Bake computed normals into native vertex colors.
+- `modeling_dynamic_mesh_bake_position_color` [live verified] - Bake normalized local positions into native vertex colors.
+- `modeling_dynamic_mesh_compact` [live verified] - Compact sparse vertex, edge, triangle, and attribute identifiers.
+- `modeling_dynamic_mesh_deform_bend` [live verified] - Apply a bounded bend deformation around an arbitrary axis.
+- `modeling_dynamic_mesh_deform_rotate` [live verified] - Rotate a validated vertex selection around a pivot.
+- `modeling_dynamic_mesh_deform_scale` [live verified] - Scale a validated vertex selection around a pivot.
+- `modeling_dynamic_mesh_deform_taper` [live verified] - Apply an axis-relative taper to selected vertices.
+- `modeling_dynamic_mesh_deform_translate` [live verified] - Translate a validated vertex selection.
+- `modeling_dynamic_mesh_deform_twist` [live verified] - Twist selected vertices around an arbitrary axis.
+- `modeling_dynamic_mesh_edge_collapse` [live verified] - Collapse a validated edge while preserving manifold topology.
+- `modeling_dynamic_mesh_edge_flip` [live verified] - Flip a non-boundary edge when the native topology operation permits it.
+- `modeling_dynamic_mesh_edge_split` [live verified] - Split an edge at a validated interpolation parameter.
+- `modeling_dynamic_mesh_faces_extrude` [live verified] - Extrude a connected triangle region and build closed boundary side walls.
+- `modeling_dynamic_mesh_faces_inset` [live verified] - Inset selected face regions by a native local-space boundary distance.
+- `modeling_dynamic_mesh_hole_fill` [live verified] - Fill a validated boundary loop with a native triangle fan.
+- `modeling_dynamic_mesh_inspect` [live verified] - Inspect a Static Mesh LOD through a real native FDynamicMesh3 conversion.
+- `modeling_dynamic_mesh_material_ids_set` [live verified] - Assign a material ID to validated triangles.
+- `modeling_dynamic_mesh_normals_recompute` [live verified] - Recompute native per-vertex normals and write them back.
+- `modeling_dynamic_mesh_orientation_reverse` [live verified] - Reverse the whole mesh or selected triangle orientations.
+- `modeling_dynamic_mesh_plane_trim` [live verified] - Safely trim whole triangles on one side of a plane; intersecting triangles fail closed by default.
+- `modeling_dynamic_mesh_polygroups_set` [live verified] - Assign a polygroup ID to validated triangles.
+- `modeling_dynamic_mesh_receipt_get` [live verified] - Read a previously issued Modeling/DynamicMesh receipt.
+- `modeling_dynamic_mesh_sculpt_flatten` [live verified] - Project selected or brush-filtered vertices toward a plane.
+- `modeling_dynamic_mesh_sculpt_inflate` [live verified] - Inflate selected or brush-filtered vertices along computed normals.
+- `modeling_dynamic_mesh_sculpt_smooth` [live verified] - Apply bounded Laplacian smoothing to selected or brush-filtered vertices.
+- `modeling_dynamic_mesh_selection_boundary_edges` [live verified] - Resolve boundary edges for the whole mesh or a triangle selection.
+- `modeling_dynamic_mesh_selection_component` [live verified] - Select the connected triangle component containing a seed triangle.
+- `modeling_dynamic_mesh_selection_grow` [live verified] - Grow a triangle selection through native topology adjacency.
+- `modeling_dynamic_mesh_selection_invert` [live verified] - Invert a triangle selection against all valid triangles.
+- `modeling_dynamic_mesh_selection_shrink` [live verified] - Shrink a triangle selection by removing its boundary ring.
+- `modeling_dynamic_mesh_selection_triangles_box` [live verified] - Select triangles whose centroids are inside an axis-aligned box.
+- `modeling_dynamic_mesh_selection_vertices_box` [live verified] - Select mesh vertices inside an axis-aligned box.
+- `modeling_dynamic_mesh_snapshot_create` [live verified] - Capture a real in-memory geometry snapshot for guarded recovery.
+- `modeling_dynamic_mesh_snapshot_restore` [live verified] - Restore and commit a previously captured geometry snapshot.
+- `modeling_dynamic_mesh_triangle_poke` [live verified] - Insert a vertex into a triangle using barycentric coordinates.
+- `modeling_dynamic_mesh_triangles_delete` [live verified] - Delete validated triangles with an explicit empty-mesh guard.
+- `modeling_dynamic_mesh_uv_planar_project` [live verified] - Bake planar per-vertex UVs on the selected projection axes.
+- `modeling_dynamic_mesh_validate` [live verified] - Validate topology, bounds, and element counts of a Static Mesh LOD.
+- `modeling_dynamic_mesh_vertex_colors_fill` [live verified] - Fill native vertex colors on selected or all vertices.
+- `modeling_dynamic_mesh_vertices_weld` [live verified] - Weld one vertex into another using the native manifold gate.
+- `modular_control_rig_58_compile_validate` [live verified] - Compile, save, and read back a UE 5.8 modular Control Rig with fail-closed diagnostics.
+- `modular_control_rig_58_module_add` [live verified] - Add a real module asset to a UE 5.8 modular Control Rig, compile, save, and read back.
+- `modular_control_rig_58_module_asset_create` [live verified] - Create a real UE 5.8 Control Rig module asset for modular rig assembly.
+- `modular_control_rig_58_module_catalog` [live verified] - List UE 5.8 Control Rig modules available to modular rig authoring.
+- `modular_control_rig_58_module_update` [live verified] - Rename, reparent, reconnect, or replace the source of a UE 5.8 modular Control Rig module.
+- `module_load_failure_classify` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `motion_design_58_feature_delta_report` [live verified] - UE 5.8 motion_design feature_delta_report bridge, capability, contract, and receipt tool.
+- `motion_design_avalanche_actor_add` [live verified] - UE 5.8 motion_design actor_add bridge, capability, contract, and receipt tool.
+- `motion_design_avalanche_compile_validate` [live verified] - UE 5.8 motion_design compile_validate bridge, capability, contract, and receipt tool.
+- `motion_design_avalanche_material_bind` [live verified] - UE 5.8 motion_design material_bind bridge, capability, contract, and receipt tool.
+- `motion_design_avalanche_render_receipt` [live verified] - UE 5.8 motion_design render_receipt bridge, capability, contract, and receipt tool.
+- `motion_design_avalanche_scene_create` [live verified] - UE 5.8 motion_design scene_create bridge, capability, contract, and receipt tool.
+- `motion_design_avalanche_scene_inspect` [live verified] - UE 5.8 motion_design scene_inspect bridge, capability, contract, and receipt tool.
+- `motion_design_avalanche_sequence_bind` [live verified] - UE 5.8 motion_design sequence_bind bridge, capability, contract, and receipt tool.
+- `motion_design_capability_probe` [live verified] - Probe UE 5.7+ Motion Design/Avalanche availability for broadcast graphics and procedural UI scenes.
+- `motion_design_scene_plan` [live verified] - Plan Motion Design/Avalanche scene creation for broadcast graphics and generated UI scenes.
+- `motion_matching_validate_native` [live verified] - Validate motion matching through a specialized PoseSearch adapter; currently fail-closed.
+- `motion_warping_window_add_native` [live verified] - Add a MotionWarping window through a specialized notify adapter; currently fail-closed.
+- `motion_warping_window_remove_native` [live verified] - Remove a MotionWarping window through a specialized notify adapter; currently fail-closed.
+- `mover_animation_sync_validate` [live verified] - UE 5.8 mover validate bridge, capability, contract, and receipt tool.
+- `mover_animnext_trajectory_bridge_plan` [live verified] - Plan UE 5.8 Mover-to-AnimNext trajectory and root-motion bridge.
+- `mover_blackboard_inspect` [live verified] - Inspect Mover blackboard class and target component snapshot.
+- `mover_character_component_setup` [live verified] - Plan CharacterMoverComponent setup for controllable characters.
+- `mover_component_attach` [live verified] - Plan MoverComponent attachment to an actor or Blueprint with actor lock/readback gates.
+- `mover_component_state_snapshot` [live verified] - Read Mover component state snapshot contract.
+- `mover_debug_snapshot` [live verified] - Read Mover debug snapshot contract for actor/component state.
+- `mover_floor_query_debug` [live verified] - Read Mover floor query/debug utility availability and target snapshot.
+- `mover_input_mapping_plan` [live verified] - Plan Enhanced Input mapping for Mover-controlled actors.
+- `mover_instant_effect_queue` [live verified] - Plan Mover instant movement effect queue insertion.
+- `mover_layered_move_queue` [live verified] - Plan Mover layered move queue insertion and rollback evidence.
+- `mover_live_fixture_create` [live verified] - UE 5.8 mover fixture_create bridge, capability, contract, and receipt tool.
+- `mover_mode_config_get` [live verified] - Inspect Mover movement mode/config readiness and target snapshot.
+- `mover_mode_config_set` [live verified] - Plan Mover movement mode/config property patch.
+- `mover_mode_set` [live verified] - Plan current/default Mover movement mode assignment.
+- `mover_modes_list` [live verified] - List reflected Mover movement mode classes and version gates.
+- `mover_motion_matching_setup_plan` [live verified] - Plan Mover plus PoseSearch motion-matching setup.
+- `mover_movement_mode_receipt` [live verified] - Validate Mover movement-mode readback receipt.
+- `mover_nav_avoidance_set` [live verified] - Plan NavMover avoidance/RVO configuration.
+- `mover_nav_component_setup` [live verified] - Plan NavMoverComponent setup and navigation handoff.
+- `mover_network_prediction_audit` [live verified] - Audit Mover network prediction/physics liaison readiness.
+- `mover_network_prediction_live_test` [live verified] - UE 5.8 mover validate bridge, capability, contract, and receipt tool.
+- `mover_physics_interop_validate` [live verified] - UE 5.8 mover validate bridge, capability, contract, and receipt tool.
+- `mover_pose_search_trajectory_predictor_attach` [live verified] - Plan Mover PoseSearch trajectory predictor attachment.
+- `mover_receipt_validate` [live verified] - Validate Mover production receipt before delivery.
+- `mover_restart_resume_receipt` [live verified] - UE 5.8 mover validate bridge, capability, contract, and receipt tool.
+- `mover_root_motion_toggle_plan` [live verified] - Plan root-motion toggling around Mover simulation/update order.
+- `mover_trajectory_predict` [live verified] - Plan/read Mover trajectory prediction contract for gameplay and motion matching.
+- `movie_render_graph_accumulation_dof_configure` [live verified] - UE 5.8 movie_render_graph dof_configure bridge, capability, contract, and receipt tool.
+- `movie_render_graph_asset_create` [live verified] - Create, save, and read back a native UMovieGraphConfig asset.
+- `movie_render_graph_basic_queue_configure` [live verified] - Persist a normalized Movie Render queue configuration on a graph asset and verify readback.
+- `movie_render_graph_capture_preflight` [live verified] - Fail-closed preflight for sequence, graph, dirty packages, output disk and launch-bound DX12/Vulkan RHI; issues an instance-bound token.
+- `movie_render_graph_compile_validate` [live verified] - Validate the real persisted Movie Render Graph structure and managed configuration.
+- `movie_render_graph_inspect` [live verified] - Inspect persisted native graph nodes, pins, and managed queue configuration.
+- `movie_render_graph_job_cancel` [live verified] - Cancel a native movie render job and release its shared Job Runtime locks.
+- `movie_render_graph_job_status_get` [live verified] - Read canonical native movie render progress and artifact state.
+- `movie_render_graph_job_submit` [live verified] - Submit a native UE Movie Render Graph/Pipeline job into the shared Job Runtime; a bound preflight token and idempotency key are mandatory.
+- `movie_render_graph_light_modifier_add` [live verified] - UE 5.8 movie_render_graph light_modifier_add bridge, capability, contract, and receipt tool.
+- `movie_render_graph_light_modifier_configure` [live verified] - UE 5.8 movie_render_graph light_modifier_configure bridge, capability, contract, and receipt tool.
+- `movie_render_graph_ndisplay_configure` [live verified] - UE 5.8 movie_render_graph ndisplay_configure bridge, capability, contract, and receipt tool.
+- `movie_render_graph_node_add` [live verified] - UE 5.8 movie_render_graph node_add bridge, capability, contract, and receipt tool.
+- `movie_render_graph_node_catalog` [live verified] - UE 5.8 movie_render_graph catalog bridge, capability, contract, and receipt tool.
+- `movie_render_graph_node_remove` [live verified] - UE 5.8 movie_render_graph node_remove bridge, capability, contract, and receipt tool.
+- `movie_render_graph_node_update` [live verified] - UE 5.8 movie_render_graph node_update bridge, capability, contract, and receipt tool.
+- `movie_render_graph_output_artifact_readback` [live verified] - Read back and validate native movie render output artifacts.
+- `movie_render_graph_pin_connect` [live verified] - UE 5.8 movie_render_graph pin_connect bridge, capability, contract, and receipt tool.
+- `movie_render_graph_pin_disconnect` [live verified] - UE 5.8 movie_render_graph pin_disconnect bridge, capability, contract, and receipt tool.
+- `movie_render_graph_visual_qa` [live verified] - Decode sampled render frames and detect black, duplicate, corrupt, and dimension-inconsistent output.
+- `movie_render_queue_capability_probe` [live verified] - Probe UE 5.7+ Movie Render Queue availability for cinematic preview and visual QA capture.
+- `movie_render_queue_job_plan` [live verified] - Plan a Movie Render Queue job for cinematic preview, visual QA, or delivery render evidence.
+- `movie_render_queue_preset_probe` [live verified] - Scan content assets for Movie Render Pipeline queue/config presets useful for render planning.
+- `mpc_add_parameter` [live verified] - Add scalar or vector parameter to MPC.
+- `mpc_create` [live verified] - Create Material Parameter Collection asset.
+- `mpc_list_parameters` [live verified] - List MPC parameters.
+- `mrq_job_configure` [live verified] - Configure a native Movie Render Graph through the canonical queue configuration provider.
+- `mrq_job_create` [live verified] - Submit a native UE Movie Render Graph/Pipeline job into the shared Job Runtime.
+- `mrq_output_validate` [live verified] - Validate real MRQ files, byte counts, frame count, and hashes.
+- `mrq_queue_list` [live verified] - List canonical native movie render jobs.
+- `mrq_render_status` [live verified] - Read canonical native movie render progress and artifact state.
+- `mutable_58_feature_delta_report` [live verified] - UE 5.8 mutable58 report bridge, capability, contract, and receipt tool.
+- `mutable_compile_status` [live verified] - Read/plan Mutable compile status.
+- `mutable_compile_validate_58` [live verified] - UE 5.8 mutable58 validate bridge, capability, contract, and receipt tool.
+- `mutable_customizable_object_inspect` [live verified] - Inspect a Mutable CustomizableObject asset.
+- `mutable_dependency_graph` [live verified] - Build Mutable dependency graph contract.
+- `mutable_graph_inspect_58` [live verified] - UE 5.8 mutable58 inspect bridge, capability, contract, and receipt tool.
+- `mutable_graph_mutate_58` [live verified] - UE 5.8 mutable58 mutate bridge, capability, contract, and receipt tool.
+- `mutable_instance_create` [live verified] - Plan Mutable instance asset creation.
+- `mutable_instance_generate_mesh` [live verified] - Plan Mutable generated mesh update.
+- `mutable_instance_parameter_list` [live verified] - List/plan Mutable instance parameter schema.
+- `mutable_instance_parameter_set` [live verified] - Plan Mutable instance parameter update.
+- `mutable_instance_update` [live verified] - Plan Mutable instance update.
+- `mutable_lod_variant_plan` [live verified] - Plan Mutable LOD variants.
+- `mutable_material_variant_audit` [live verified] - Audit Mutable material variant dependencies.
+- `mutable_population_asset_create` [live verified] - Plan Mutable population asset creation.
+- `mutable_population_class_create` [live verified] - Plan Mutable population class creation.
+- `mutable_population_generate_preview` [live verified] - Plan Mutable population preview generation.
+- `mutable_population_randomize_plan` [live verified] - Plan Mutable population randomization.
+- `mutable_preview_receipt` [live verified] - Validate Mutable preview receipt or return preview requirements.
+- `mutable_preview_receipt_58` [live verified] - UE 5.8 mutable58 validate bridge, capability, contract, and receipt tool.
+- `mutable_receipt_validate` [live verified] - Validate Mutable production receipt.
+- `mutable_texture_parameter_audit` [live verified] - Audit Mutable texture parameters.
+- `mutable_validation_run` [live verified] - Plan/run-gate Mutable validation.
+- `nav_link_proxy_create` [live verified] - Spawn NavLinkProxy for off-mesh nav links.
+- `nav_volume_create` [live verified] - Spawn NavMeshBoundsVolume at location with extent.
+- `navigation_per_mesh_recast_readback` [live verified] - UE 5.8 navigation readback bridge, capability, contract, and receipt tool.
+- `navigation_per_mesh_runtime_validate` [live verified] - UE 5.8 navigation validate bridge, capability, contract, and receipt tool.
+- `navigation_per_mesh_walkable_get` [live verified] - UE 5.8 navigation readback bridge, capability, contract, and receipt tool.
+- `navigation_per_mesh_walkable_set` [live verified] - UE 5.8 navigation configure bridge, capability, contract, and receipt tool.
+- `navmesh_export_for_server` [live verified] - Export the navigation mesh (NavMesh) from the current level as a JSON file for server-side usage. Includes polygon vertices, adjacency/neighbor data, off-mesh links, area classes, and agent parameters. Used by MMORPG server scene service for player movement validation and NPC pathfinding.
+- `navmesh_get_settings` [live verified] - Read NavMesh settings: cell size, agent radius/height.
+- `navmesh_rebuild` [live verified] - Trigger a full NavMesh rebuild.
+- `navmesh_set_settings` [live verified] - Modify NavMesh settings. Only provided fields changed.
+- `ndisplay_auto_exposure_configure` [live verified] - UE 5.8 display_cluster_io exposure_configure bridge, capability, contract, and receipt tool.
+- `ndisplay_auto_exposure_validate` [live verified] - UE 5.8 display_cluster_io exposure_validate bridge, capability, contract, and receipt tool.
+- `net_actor_force_replicate` [live verified] - Find an actor by name (or label) in the current world, flush its dormancy if dormant, and call ForceNetUpdate. Always works even outside a replication graph.
+- `net_inspect` [live verified] - Inspect the current world's net mode and replication-role distribution. Optional actor_filter matches actor name OR class name (substring).
+- `net_replication_graph_dump` [live verified] - Walk the active UReplicationGraph (if present) and report its node-class structure. Returns NOT_AVAILABLE when a basic UNetDriver is in use instead of a graph driver.
+- `network_actor_set_dormancy` [live verified] - network_actor_set_dormancy authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `network_actor_set_net_update_frequency` [live verified] - network_actor_set_net_update_frequency authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `network_actor_set_replicate_movement` [live verified] - network_actor_set_replicate_movement authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `network_actor_set_replicates` [live verified] - network_actor_set_replicates authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `network_component_set_is_replicated` [live verified] - network_component_set_is_replicated authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `network_property_set_rep_notify` [live verified] - network_property_set_rep_notify authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `network_property_set_replicated` [live verified] - network_property_set_replicated authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `network_rpc_mark` [live verified] - Mark an existing Blueprint function graph as Server, Client, or Multicast RPC and verify the generated UFunction flags after compile.
+- `network_validate_replication_contract` [live verified] - network_validate_replication_contract authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `neural_rendering_feature_probe` [live verified] - P3 nne_neural_rendering_ml wrapper for external_tools.
+- `neural_rendering_material_plan` [live verified] - P3 nne_neural_rendering_ml wrapper for external_tools.
+- `niagara_58_compile_regression_validate` [live verified] - UE 5.8 niagara_58 compile_regression_validate bridge, capability, contract, and receipt tool.
+- `niagara_58_feature_delta_report` [live verified] - UE 5.8 niagara_58 feature_delta_report bridge, capability, contract, and receipt tool.
+- `niagara_58_module_compatibility_audit` [live verified] - UE 5.8 niagara_58 module_compatibility_audit bridge, capability, contract, and receipt tool.
+- `niagara_58_performance_capture` [live verified] - UE 5.8 niagara_58 performance_capture bridge, capability, contract, and receipt tool.
+- `niagara_58_runtime_preview_receipt` [live verified] - UE 5.8 niagara_58 runtime_preview_receipt bridge, capability, contract, and receipt tool.
+- `niagara_58_system_upgrade_execute` [live verified] - UE 5.8 niagara_58 upgrade_execute bridge, capability, contract, and receipt tool.
+- `niagara_58_system_upgrade_plan` [live verified] - UE 5.8 niagara_58 upgrade_plan bridge, capability, contract, and receipt tool.
+- `niagara_58_visual_regression_qa` [live verified] - UE 5.8 niagara_58 visual_regression_qa bridge, capability, contract, and receipt tool.
+- `niagara_add_emitter_to_system` [live verified] - Add a Niagara emitter asset to a Niagara system asset.
+- `niagara_add_mesh_renderer` [live verified] - Add a mesh renderer with common strong-typed settings to a Niagara emitter.
+- `niagara_add_module_to_stack` [live verified] - Add a module script to a Niagara emitter stack using the native UE 5.8 stack graph API.
+- `niagara_add_renderer` [live verified] - Add a renderer to a Niagara emitter asset.
+- `niagara_add_ribbon_renderer` [live verified] - Add a ribbon renderer with common strong-typed settings to a Niagara emitter.
+- `niagara_add_sprite_renderer` [live verified] - Add a sprite renderer with common strong-typed settings to a Niagara emitter.
+- `niagara_add_user_parameter` [live verified] - Add an exposed user parameter to a Niagara system.
+- `niagara_authoring_acceptance_check` [live verified] - Aggregate Niagara authoring proof after complex mutations: system snapshot, optional script graph explain, compile diagnostics, and optional runtime preview snapshot.
+- `niagara_batch_preview_diff` [live verified] - Preview high-level impact of Niagara batch operations without execution.
+- `niagara_bp_wrapper_create` [live verified] - Plan Blueprint actor wrapper creation for Niagara system/component.
+- `niagara_compile_diagnostics` [live verified] - Compile a Niagara system and return structured diagnostics including VM compile events (node/pin GUIDs when available) and asset message store entries.
+- `niagara_compile_system` [live verified] - Request compile for a Niagara system asset.
+- `niagara_component_activate` [live verified] - Activate a Niagara component on an actor.
+- `niagara_component_deactivate` [live verified] - Deactivate a Niagara component on an actor.
+- `niagara_component_reinitialize` [live verified] - Reinitialize a Niagara component on an actor.
+- `niagara_component_reset` [live verified] - Reset a Niagara component on an actor.
+- `niagara_component_set_bool` [live verified] - Set a bool user variable on a Niagara component.
+- `niagara_component_set_color` [live verified] - Set a color user variable on a Niagara component.
+- `niagara_component_set_float` [live verified] - Set a float user variable on a Niagara component.
+- `niagara_component_set_int` [live verified] - Set an int user variable on a Niagara component.
+- `niagara_component_set_vector` [live verified] - Set a vector user variable on a Niagara component.
+- `niagara_create_emitter` [live verified] - Create a Niagara emitter asset.
+- `niagara_create_system` [live verified] - Create a Niagara system asset.
+- `niagara_data_interface_schema_get` [live verified] - Inspect Niagara data interface schema and compatibility.
+- `niagara_dynamic_input_schema` [live verified] - Inspect Niagara dynamic input schema.
+- `niagara_emitter_template_apply_v2` [live verified] - Plan Niagara emitter template application.
+- `niagara_graph_explain` [live verified] - Read-only Niagara graph explain receipt: script nodes/pins/links plus stable schema anchors for emitters, modules, renderers, user parameters, and asset references.
+- `niagara_graph_restore_snapshot` [live verified] - Restore a Niagara script graph from a snapshot. Safe default: requires allow_disposable_write=true and a /Game/SOMOLMCP/Disposable* target; can restore layout and optionally links.
+- `niagara_graph_restore_snapshot_full` [live verified] - Full disposable Niagara graph restore from a snapshot: restore layout, links, pin defaults, and delete nodes that were added after the snapshot. Production restore requires allow_production_restore=true.
+- `niagara_graph_snapshot` [live verified] - Read-only Niagara script graph rollback snapshot with deterministic graph hash, nodes, links, layout, pins, and referenced asset hints.
+- `niagara_hlsl_add_custom_node` [live verified] - Create a Niagara Custom HLSL node without linking MinimalAPI setters; writes code through UPROPERTY reflection.
+- `niagara_hlsl_inspect` [live verified] - Inspect Niagara Custom HLSL nodes and their reflected code/signature/pins.
+- `niagara_hlsl_set_code` [live verified] - Set code on an existing Niagara Custom HLSL node through UPROPERTY reflection.
+- `niagara_hlsl_validate` [live verified] - Validate Custom HLSL text or the code stored on a Niagara Custom HLSL node. Local syntax validation; use niagara_compile_diagnostics for full VM compile messages.
+- `niagara_list_emitters` [live verified] - List emitters inside a Niagara system asset.
+- `niagara_list_renderers` [live verified] - List renderers on a Niagara emitter asset.
+- `niagara_list_script_graph_nodes` [live verified] - List nodes in a Niagara script graph.
+- `niagara_list_scripts` [live verified] - List scripts referenced by a Niagara system.
+- `niagara_list_user_parameters` [live verified] - List exposed user parameters on a Niagara system.
+- `niagara_module_add_v2` [live verified] - Plan Niagara module insertion through Toolset contracts.
+- `niagara_module_schema_from_asset` [live verified] - Inspect Niagara module asset schema.
+- `niagara_parameter_binding_audit` [live verified] - Audit Niagara parameter binding/user-variable consistency.
+- `niagara_pipeline_smoke_test` [live verified] - Run niagara_compile_diagnostics plus optional niagara_runtime_snapshot.
+- `niagara_pipeline_template_run` [live verified] - Run a predefined Niagara pipeline template with per-step execution and structured failure reporting (failed_step_index, failed_tool, failed_arguments). Supports extended template_id library; use niagara_pipeline_templates_list for ids and validation rules.
+- `niagara_pipeline_templates_list` [live verified] - List supported niagara_pipeline_template_run template_id values with default asset names and validation constraints.
+- `niagara_preview_render_receipt` [live verified] - Validate Niagara preview/render receipt.
+- `niagara_regression_baseline_compare` [live verified] - Compare current niagara_regression_smoke_suite output (or re-run via run_suite) against a saved baseline; emits regressions/improvements and threshold alerts.
+- `niagara_regression_baseline_save` [live verified] - Save a Niagara regression smoke suite snapshot to Saved/SOMOLMCP/NiagaraRegression/baselines/<baseline_id>.json for later comparison.
+- `niagara_regression_report_write` [live verified] - Write a JSON report (and optional .txt summary) under Saved/SOMOLMCP/NiagaraRegression/reports/ from suite_result and optional baseline compare output.
+- `niagara_regression_smoke_suite` [live verified] - Batch niagara_pipeline_smoke_test over multiple systems. Supports per-case group/tags and suite-level filter_groups / filter_tags_any / filter_tags_all. Skipped cases appear with skipped=true.
+- `niagara_remove_emitter_from_system` [live verified] - Remove an emitter from a Niagara system by name or handle id.
+- `niagara_remove_renderer` [live verified] - Remove a renderer from a Niagara emitter asset.
+- `niagara_remove_user_parameter` [live verified] - Remove an exposed user parameter from a Niagara system.
+- `niagara_rename_emitter_in_system` [live verified] - Rename an emitter inside a Niagara system.
+- `niagara_rename_user_parameter` [live verified] - Rename an exposed user parameter on a Niagara system.
+- `niagara_renderer_add_v2` [live verified] - Plan Niagara renderer insertion through Toolset contracts.
+- `niagara_reorder_emitter_in_system` [live verified] - Move an emitter to a new index inside a Niagara system.
+- `niagara_reorder_renderer` [live verified] - Move a renderer to a new index on a Niagara emitter asset.
+- `niagara_runtime_snapshot` [live verified] - Capture lightweight runtime snapshot of a Niagara component on an actor.
+- `niagara_runtime_stats_get` [live verified] - Niagara runtime and asset stats: optional per-emitter simulation state and particle counts when a live instance exists.
+- `niagara_script_add_node` [live verified] - Add a UNiagaraNode subclass to a UNiagaraScript's graph. Supports short class names: NumericConstant, OpAdd/Op*, FunctionCall, Input, Output, DataInterface, ReadDataSet, WriteDataSet.
+- `niagara_script_connect_pins` [live verified] - Connect two pins on Niagara graph nodes via UEdGraphSchema_Niagara::TryCreateConnection.
+- `niagara_script_delete_node` [live verified] - Delete one node from a Niagara script graph with the same disposable-target guard used by restore. Intended for rollback cleanup and disposable smoke assets.
+- `niagara_script_disconnect_pins` [live verified] - Disconnect a specific link between two pins on Niagara graph nodes (no-op if not connected).
+- `niagara_script_layout_graph` [live verified] - Auto-layout the Niagara graph. Currently uses a deterministic grid; FNiagaraEditorUtilities::AutoLayout would require NiagaraEditorWidgets.
+- `niagara_script_set_node_property` [live verified] - Set a UPROPERTY on a Niagara graph node via FProperty::ImportText_Direct.
+- `niagara_script_set_pin_default` [live verified] - Set a Niagara graph pin default value through the graph schema and verify the exported pin default changed. Useful for module inputs, parameters, and Data Interface node pins represented in the script graph.
+- `niagara_set_emitter_enabled` [live verified] - Enable or disable an emitter inside a Niagara system.
+- `niagara_set_emitter_settings` [live verified] - Set common Niagara emitter settings such as local space, sim target and fixed bounds.
+- `niagara_set_renderer_enabled` [live verified] - Enable or disable a Niagara emitter renderer.
+- `niagara_set_renderer_properties` [live verified] - Apply public UPROPERTY values onto a Niagara renderer.
+- `niagara_set_system_fixed_bounds` [live verified] - Set fixed bounds usage and values on a Niagara system.
+- `niagara_set_user_parameter_default` [live verified] - Set the default value of an exposed user parameter on a Niagara system.
+- `niagara_set_warmup_settings` [live verified] - Set warmup time and tick count on a Niagara system.
+- `niagara_sim_cache_capture_v2` [live verified] - Plan Niagara simulation cache capture.
+- `niagara_spawn_actor` [live verified] - Spawn a Niagara system into the current level.
+- `niagara_stack_input_schema` [live verified] - Inspect Niagara stack input schema and value modes.
+- `niagara_stack_input_set_v2` [live verified] - Plan Niagara stack input value update.
+- `niagara_stack_issue_fix_apply` [live verified] - Plan Niagara stack issue fix application.
+- `niagara_stack_issues_get` [live verified] - Inspect Niagara stack issues through Toolset async status.
+- `niagara_system_authoring_snapshot` [live verified] - Read-only Niagara system authoring snapshot for rollback/preview: emitter order, enabled state, renderer counts, user parameter names/types, and a stable snapshot hash.
+- `niagara_system_inspect` [live verified] - Inspect Niagara System: emitters, parameters.
+- `niagara_system_restore_snapshot` [live verified] - Rollback-surface alias for Niagara graph snapshots used by systems. Accepts script_path + snapshot and applies the same disposable-target guard as niagara_graph_restore_snapshot.
+- `niagara_system_topology_v2` [live verified] - Inspect/plan Niagara system topology through Toolset contracts.
+- `niagara_toolset_compile_validate` [live verified] - Validate Niagara Toolset compile/stack issue receipt.
+- `niagara_toolset_receipt_validate` [live verified] - Validate full Niagara Toolset production receipt.
+- `niagara_toolset_rollback_plan` [live verified] - Build Niagara Toolset rollback plan.
+- `niagara_toolset_schema_get` [live verified] - Get UE 5.8 NiagaraToolsets schema/function/class inventory.
+- `niagara_user_vars_add_v2` [live verified] - Plan Niagara user variable add/update through Toolset contracts.
+- `nne_model_asset_create_plan` [live verified] - P3 nne_neural_rendering_ml wrapper for external_tools.
+- `nne_model_asset_inspect` [live verified] - P3 nne_neural_rendering_ml wrapper for external_tools.
+- `nne_model_batch_inference_plan` [live verified] - P3 nne_neural_rendering_ml wrapper for external_tools.
+- `nne_model_inference_dry_run` [live verified] - P3 nne_neural_rendering_ml wrapper for external_tools.
+- `nne_model_input_schema` [live verified] - P3 nne_neural_rendering_ml wrapper for external_tools.
+- `nne_model_output_schema` [live verified] - P3 nne_neural_rendering_ml wrapper for external_tools.
+- `nne_model_validate_runtime` [live verified] - P3 nne_neural_rendering_ml wrapper for external_tools.
+- `nne_runtime_catalog_probe` [live verified] - P3 nne_neural_rendering_ml wrapper for external_tools.
+- `openxr_stereo_layer_underlay_configure` [live verified] - UE 5.8 platform_xr configure bridge, capability, contract, and receipt tool.
+- `orthographic_viewport_settings_get` [live verified] - UE 5.8 editor_ux settings_get bridge, capability, contract, and receipt tool.
+- `orthographic_viewport_settings_set` [live verified] - UE 5.8 editor_ux settings_set bridge, capability, contract, and receipt tool.
+- `outfit_asset_create` [live verified] - Plan Chaos outfit asset creation.
+- `outfit_body_compat_audit` [live verified] - Audit outfit/body compatibility.
+- `outfit_material_slot_map` [live verified] - Plan/read outfit material slot map.
+- `outfit_preview_capture` [live verified] - Validate/plan outfit preview capture.
+- `outfit_receipt_validate` [live verified] - Validate outfit production receipt.
+- `outfit_size_variants_set` [live verified] - Plan outfit size variant setup.
+- `outfit_skin_weight_audit` [live verified] - Audit outfit skin weights.
+- `outfit_source_add` [live verified] - Plan source addition to outfit asset.
+- `package_build` [live verified] - Spawn UAT BuildCookRun -Stage -Package -Pak with optional build configuration. Returns immediately with a job_id; poll cook_status to track progress.
+- `packaging_platform_profile_apply` [live verified] - Apply a target-platform packaging profile and return the matching package_build arguments. Covers platform switching, common project packaging flags, MapsToCook, and optional raw platform settings for UE 5.7/5.8.
+- `packaging_profile_get` [live verified] - Read ProjectPackagingSettings from Config/DefaultGame.ini.
+- `packaging_profile_set` [live verified] - Write common ProjectPackagingSettings keys: configuration, pak/io store, distribution, debug files, prerequisites, staging dir and maps.
+- `packaging_settings_export_full` [live verified] - Export a UE 5.7/5.8-compatible ProjectPackagingSettings snapshot plus known platform settings sections. Supports extra_keys for project-specific fields.
+- `packaging_settings_patch_full` [live verified] - Patch arbitrary ProjectPackagingSettings and platform target settings by section/key. This is the full project-settings bridge for UE 5.7/5.8 packaging UI coverage.
+- `packaging_settings_validate` [live verified] - Validate packaging settings after platform/profile changes: configuration, Pak/IoStore, Shipping distribution consistency, target platform section, and MapsToCook readiness.
+- `pak_asset_dependency_closure` [live verified] - Resolve a single asset's recursive cook dependency closure from Asset Registry.
+- `pak_chunk_plan` [live verified] - Plan per-asset chunks and lift dependencies shared by multiple roots into common chunk 0.
+- `pak_chunk_plan_apply` [live verified] - Apply a per-asset chunk plan as saved PrimaryAssetLabels, with shared dependencies assigned to chunk 0.
+- `pak_manifest_export` [live verified] - Hash Pak/IoStore outputs and write a versioned update manifest under Saved/SOMOLMCP/PakUpdates.
+- `pak_output_validate` [live verified] - Validate Pak archives with UnrealPak -List and verify IoStore .utoc/.ucas pairing.
+- `pak_patch_build_submit` [live verified] - Submit an asynchronous UAT patch build based on an existing release version.
+- `pak_primary_asset_label_upsert` [live verified] - Create or update a real UPrimaryAssetLabel consumed by Asset Manager cook/chunk generation, then save and read back.
+- `pak_release_build_submit` [live verified] - Submit an asynchronous UAT base release build with GenerateChunks, manifests, and CreateReleaseVersion.
+- `pak_update_settings_apply` [live verified] - Enable and verify real Pak/IoStore chunk generation in ProjectPackagingSettings.
+- `pcg_actorless_runtime_generation_configure` [live verified] - UE 5.8 native PCG transaction: pcg_actorless_runtime_generation_configure
+- `pcg_actorless_runtime_generation_validate` [live verified] - UE 5.8 native PCG transaction: pcg_actorless_runtime_generation_validate
+- `pcg_alembic_export_to_asset` [live verified] - P0 pcg_interop wrapper: Export Alembic/external data into PCG asset contract.
+- `pcg_alembic_export_to_pcg_asset` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_alembic_standard_setup` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_attribute_histogram` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_attribute_inspect` [live verified] - Post-generate structural probe: walks ISM/HISM components under an actor (typically a PCG Volume) and reports per-mesh instance counts + optional transform samples. V2 adds include_custom_data: emits NumCustomDataFloats + PerInstanceSMCustomData sample window + per-channel min/max/mean — the real post-generate PCG point attribute view (density / scale_variant / biome_weight / material_index channels written by PCG ActorSpawner or InstanceSpawner). Use to answer 'what did PCG actually spawn here and with what attributes?' without replaying the graph. Pairs with pcg_graph_diff (configured vs realized) and with pcg-multi-region-biodiversity (B9) for preset assignment auditing.
+- `pcg_biome_density_receipt_validate` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_biome_graph_plan` [live verified] - Read-only plan for PCGBiomeCore-driven biome graph handoff using SOMOLMCP PCG templates, masks, and dry-run calibration.
+- `pcg_biome_overlay_apply` [live verified] - v3.7 V2 — Biome overlay writer. Finds UPCGComponent(s) on actor, locates each graph instance's FInstancedPropertyBag by reflection, and writes `overrides` via SetValueSerializedString. Components whose graph instance has no property bag degrade to probe mode for that component. Top-level `mode` is 'write_v2' | 'write_v2_partial' | 'write_v2_all_failed' | 'write_v2_dry_run' | 'probe_v1' | 'write_v2_noop'. B3 composer uses mode to branch between overlay path and sandwich fallback.
+- `pcg_character_montage_decorate` [live verified] - Post-PCG character decorator: for each SkeletalMeshComponent-bearing actor under `actor`, pick an AnimMontage from a weighted pool (deterministic SplitMix64 via seed + actor_seed), optionally Montage_Play immediately with a randomized play rate. Use after pcg_generate / pcg_generate_async on a Volume whose graph spawns NPCs or crowd fill; gives idle-animation variety without a new PCG node class. Each successful assignment is persisted to actor/component tags under SOMO.PCG.Montage.*. Safe to call multiple times — each call re-picks from the pool.
+- `pcg_complex_attribute_array_constant_add` [live verified] - UE 5.8 native PCG transaction: pcg_complex_attribute_array_constant_add
+- `pcg_complex_attribute_array_operation_add` [live verified] - UE 5.8 native PCG transaction: pcg_complex_attribute_array_operation_add
+- `pcg_complex_attribute_execution_readback` [live verified] - UE 5.8 native PCG transaction: pcg_complex_attribute_execution_readback
+- `pcg_complex_attribute_extract` [live verified] - UE 5.8 native PCG transaction: pcg_complex_attribute_extract
+- `pcg_complex_attribute_map_constant_add` [live verified] - UE 5.8 native PCG transaction: pcg_complex_attribute_map_constant_add
+- `pcg_complex_attribute_pin_validate` [live verified] - UE 5.8 native PCG transaction: pcg_complex_attribute_pin_validate
+- `pcg_complex_attribute_schema_create` [live verified] - UE 5.8 native PCG transaction: pcg_complex_attribute_schema_create
+- `pcg_complex_attribute_set_constant_add` [live verified] - UE 5.8 native PCG transaction: pcg_complex_attribute_set_constant_add
+- `pcg_complex_attribute_struct_constant_add` [live verified] - UE 5.8 native PCG transaction: pcg_complex_attribute_struct_constant_add
+- `pcg_component_attach` [live verified] - Attach a PCG component to an actor using a native UE fallback. Works when Python SubobjectDataSubsystem component insertion is unavailable.
+- `pcg_component_info` [live verified] - One-shot state dump of every UPCGComponent on an actor: graph path, is_generated, is_partitioned, parameter bag presence, plus the ISM count + total instance count on the component's owner as a quick 'how much was spawned here' proxy. Cheaper than sequencing pcg_generate_status + actor_list + pcg_graph_get_info by hand.
+- `pcg_component_set_settings` [live verified] - Set settings on a PCG component attached to an actor. Supports seed, graph, and other PCG component properties.
+- `pcg_compute_graph_compile_probe` [live verified] - UE 5.8+ read-only PCG compute graph compile/cache probe. It does not invoke graph generation, graph compilation, or shader compilation; it inspects GPU node intent and checks whether a cached compute graph already exists for asset_path/grid_size/compute_graph_index. On UE 5.7 it returns status=version_unavailable.
+- `pcg_dry_run` [live verified] - Heuristic count-only estimator for a UPCGGraph. Use to budget-screen before actually generating. Response marks dry_run_status=heuristic_estimate_only, exact_count_available=false, and requires post-generate calibration; accuracy is ~+/-50%.
+- `pcg_dynamic_mesh_node_add` [live verified] - P0 pcg_interop wrapper: Add PCG DynamicMesh interop node.
+- `pcg_dynamic_mesh_nodes_catalog` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_dynamic_mesh_pipeline_plan` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_dynamic_mesh_pipeline_validate` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_dynamic_mesh_preview_capture` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_embedded_subgraph_compile_validate` [live verified] - UE 5.8 native PCG transaction: pcg_embedded_subgraph_compile_validate
+- `pcg_embedded_subgraph_create` [live verified] - UE 5.8 native PCG transaction: pcg_embedded_subgraph_create
+- `pcg_embedded_subgraph_extract` [live verified] - UE 5.8 native PCG transaction: pcg_embedded_subgraph_extract
+- `pcg_embedded_subgraph_inline` [live verified] - UE 5.8 native PCG transaction: pcg_embedded_subgraph_inline
+- `pcg_embedded_subgraph_interface_set` [live verified] - UE 5.8 native PCG transaction: pcg_embedded_subgraph_interface_set
+- `pcg_embedded_subgraph_node_add` [live verified] - UE 5.8 native PCG transaction: pcg_embedded_subgraph_node_add
+- `pcg_embedded_subgraph_open` [live verified] - UE 5.8 native PCG transaction: pcg_embedded_subgraph_open
+- `pcg_embedded_subgraph_save_reload` [live verified] - UE 5.8 native PCG transaction: pcg_embedded_subgraph_save_reload
+- `pcg_external_data_alembic_plan` [live verified] - Read-only plan for PCG ExternalData Alembic ingestion and attribute mapping without relying on MCPClientToolset.
+- `pcg_external_data_asset_validate` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_external_data_mapping_plan` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_failure_classify` [live verified] - Classify a PCG failure into validation, budget, asset_missing, streaming, generation, index_stale, or unknown. Returns confidence, signals, next recommended tool, and read/repair candidates.
+- `pcg_fastgeo_interop_plan` [live verified] - Read-only plan for PCG FastGeo container use for high-volume generated geometry with explicit budget gates.
+- `pcg_fastgeo_interop_probe` [live verified] - P1 pcg_mesh_partition_delta wrapper for pcg_author.
+- `pcg_generate` [live verified] - Trigger PCG generation after resolving actor/actor_label + graph_path and running pcg_graph_validate. Pass actor or actor_label for a specific actor, graph_path/asset_path for a specific graph, or allow_all=true to intentionally target every resolved match. Tile evidence is capped at <=4 tiles; strict/unattended requests fail closed when tile count is unknown.
+- `pcg_generate_async` [live verified] - Kick off pcg_generate as a background job and return {job_id} immediately. Use this whenever you expect generation to take more than a few seconds — especially after pcg_dry_run predicts > 100k points. Poll via pcg_job_poll. Resolves actor/actor_label + graph_path and forwards canonical graph metadata. allowed_tiles/tile_indices are guarded: <=4 requested tiles and exactly one resolved actor scope are required; receipts expose tile_filter_enforcement_mode because native pcg_generate still has no tile mask.
+- `pcg_generated_actor_bounds_readback` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_generated_actor_health_audit` [live verified] - Audit generated PCG actors for missing mesh, empty material slots, hidden collision, and zero scale. Read-only; returns repair hints and provenance receipts.
+- `pcg_generated_dependency_graph` [live verified] - Build a read-only dependency graph for generated PCG actors: PCG graph, mesh, material, texture, animation, Niagara, sound/audio, and camera-like asset references where discoverable.
+- `pcg_generated_dependency_readback` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_generated_mesh_asset_promote_plan` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_generation_budget_get` [live verified] - Query the point budget for a PCG Graph (or all graphs if asset_path omitted).
+- `pcg_generation_budget_set` [live verified] - Set a point budget (max_points) for a PCG Graph. pcg_dry_run will attach a budget_status field to its response when this is set. Pass max_points=0 to clear. Advisory — harness middleware consults this to gate generate calls.
+- `pcg_geometry_script_interop_plan` [live verified] - Read-only plan for PCG GeometryScript dynamic-mesh graph nodes through SOMOLMCP generic PCG graph authoring.
+- `pcg_get_dynamic_mesh_materials_node_add` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_get_generation_results` [live verified] - Get information about the PCG generation state of an actor's PCG component, including generated resource count and state.
+- `pcg_gpu_primitive_data_spawner_configure` [live verified] - UE 5.8 native PCG transaction: pcg_gpu_primitive_data_spawner_configure
+- `pcg_gpu_runtime_scatter_benchmark` [live verified] - UE 5.8 native PCG transaction: pcg_gpu_runtime_scatter_benchmark
+- `pcg_graph_add_node` [live verified] - Native C++ replacement for retired Python PCG operation: pcg_graph_add_node
+- `pcg_graph_auto_repair_plan` [live verified] - Read-only PCG graph repair planner. Runs validate when asset_path is provided, classifies failure evidence, and emits ordered patch steps with risk, mutating tools, and rollback path. Does not apply changes.
+- `pcg_graph_connect` [live verified] - Native C++ replacement for retired Python PCG operation: pcg_graph_connect
+- `pcg_graph_create` [live verified] - Native C++ replacement for retired Python PCG operation: pcg_graph_create
+- `pcg_graph_cycle_detect` [live verified] - Detect directed cycles in a UPCGGraph and return explicit node paths for each cycle. Use before generate and in auto-repair planning when pcg_graph_validate reports graph_cycle.
+- `pcg_graph_diff` [live verified] - Structural + property diff between two PCG Graph assets. Compares nodes (by name), edges (by from/to node+pin tuple), and per-node settings properties. Canonical consumer: pcg_graph_authoring_loop (C3) to check whether an iteration actually changed anything, and pcg-biome-composer (B3) to report what a biome preset modified. Pair with pcg_graph_snapshot to diff 'before vs after' a refactor.
+- `pcg_graph_disconnect` [live verified] - Native C++ replacement for retired Python PCG operation: pcg_graph_disconnect
+- `pcg_graph_explain` [live verified] - Produce a human-readable description of a UPCGGraph by walking from each terminal node back to its sources. Use this to understand an unfamiliar graph before modifying it.
+- `pcg_graph_export` [live verified] - Export a PCG graph structure as JSON, including all nodes, their types, and edge connections.
+- `pcg_graph_get_node_info` [live verified] - Native C++ replacement for retired Python PCG operation: pcg_graph_get_node_info
+- `pcg_graph_inspect` [live verified] - Inspect PCG graph: nodes, edges, input/output pins.
+- `pcg_graph_list_nodes` [live verified] - Native C++ replacement for retired Python PCG operation: pcg_graph_list_nodes
+- `pcg_graph_list_pins` [live verified] - Native C++ replacement for retired Python PCG operation: pcg_graph_list_pins
+- `pcg_graph_param_set_v2` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_graph_param_snapshot` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_graph_remove_node` [live verified] - Native C++ replacement for retired Python PCG operation: pcg_graph_remove_node
+- `pcg_graph_required_pin_audit` [live verified] - List every input pin with required/optional/advanced/default-status evidence. Only Required pins missing a connection are blocking; optional pins are reported without becoming generate errors.
+- `pcg_graph_restore` [live verified] - Restore a snapshot back to a target path. DESTRUCTIVE: deletes target first if force=true. Detach PCG Volumes from the target graph before calling.
+- `pcg_graph_set_input_type` [live verified] - Set the default input type for a PCG graph's input node settings.
+- `pcg_graph_snapshot` [live verified] - Take an atomic snapshot of a PCG Graph asset to /Game/PCG/__Snapshots/. Restore via pcg_graph_restore. Use before any bulk mutation (template_apply / refactor) to give yourself an undo point.
+- `pcg_graph_template_apply` [live verified] - Apply a built-in PCG scenario template (forest_deciduous / grass_field / rock_scatter / riverbank / alpine_conifer) to an existing graph. Turns a 200-line authoring session into a single call. Next step should be pcg_graph_validate.
+- `pcg_graph_usage_set` [live verified] - UE 5.8 native PCG transaction: pcg_graph_usage_set
+- `pcg_graph_validate` [live verified] - Pre-execution validation of a UPCGGraph: pin type compatibility, dangling required inputs, same-graph edges, graph cycles, missing CDOs, unused outputs, and required-pin audit. Returns stable issue ids. REQUIRED: call this before every pcg_generate to save 5-8 minute dead runs.
+- `pcg_hlsl_output_attribute_create` [live verified] - UE 5.8 native PCG transaction: pcg_hlsl_output_attribute_create
+- `pcg_instanced_actors_interop_plan` [live verified] - Read-only plan for PCG InstancedActors spawning for large crowds/biomes with actor index and health receipts.
+- `pcg_instanced_actors_resource_audit` [live verified] - P0 pcg_interop wrapper: Audit PCG instanced actors resources.
+- `pcg_interop_capability_probe` [live verified] - Probe UE 5.7+ PCG interop plugins and expose the SOMOLMCP graph-node routes that cover them.
+- `pcg_interop_dry_run_receipt` [live verified] - P0 pcg_interop wrapper: Build PCG interop dry-run receipt.
+- `pcg_interop_failure_classify_v2` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_interop_plugin_gate_report` [live verified] - P0 pcg_interop wrapper: Report PCG interop plugin gates.
+- `pcg_interop_readback_snapshot` [live verified] - P0 pcg_interop wrapper: Read back PCG interop graph state.
+- `pcg_interop_receipt_validate` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_isolate_toolmode_execute` [live verified] - UE 5.8 native PCG transaction: pcg_isolate_toolmode_execute
+- `pcg_job_poll` [live verified] - Poll a PCG job submitted via pcg_generate_async. Returns status / started_at / finished_at / error / results. wait_ms>0 piggy-backs on the next completion event up to 5000 ms (saves polling chatter). wait_ms=0 is an instant snapshot.
+- `pcg_level_graph_execute` [live verified] - UE 5.8 native PCG transaction: pcg_level_graph_execute
+- `pcg_manual_editing_capability_probe` [live verified] - UE 5.8 native PCG transaction: pcg_manual_editing_capability_probe
+- `pcg_manual_override_commit` [live verified] - UE 5.8 native PCG transaction: pcg_manual_override_commit
+- `pcg_manual_override_diff` [live verified] - UE 5.8 native PCG transaction: pcg_manual_override_diff
+- `pcg_manual_override_exclude` [live verified] - UE 5.8 native PCG transaction: pcg_manual_override_exclude
+- `pcg_manual_override_list` [live verified] - UE 5.8 native PCG transaction: pcg_manual_override_list
+- `pcg_manual_override_modify` [live verified] - UE 5.8 native PCG transaction: pcg_manual_override_modify
+- `pcg_manual_override_receipt_validate` [live verified] - UE 5.8 native PCG transaction: pcg_manual_override_receipt_validate
+- `pcg_manual_override_restore` [live verified] - UE 5.8 native PCG transaction: pcg_manual_override_restore
+- `pcg_manual_override_select` [live verified] - UE 5.8 native PCG transaction: pcg_manual_override_select
+- `pcg_merge_dynamic_meshes_node_add` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_mesh_partition_adapter_attach` [live verified] - P1 pcg_mesh_partition_delta wrapper for pcg_author.
+- `pcg_mesh_partition_bake_section_mesh_node_add` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: pcg_mesh_partition_bake_section_mesh_node_add. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `pcg_mesh_partition_data_component_inspect` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: pcg_mesh_partition_data_component_inspect. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `pcg_mesh_partition_end_to_end_receipt_validate` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: pcg_mesh_partition_end_to_end_receipt_validate. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `pcg_mesh_partition_get_channel_textures_node_add` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: pcg_mesh_partition_get_channel_textures_node_add. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `pcg_mesh_partition_get_grass_types_node_add` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: pcg_mesh_partition_get_grass_types_node_add. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `pcg_mesh_partition_get_section_actor_node_add` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: pcg_mesh_partition_get_section_actor_node_add. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `pcg_mesh_partition_get_section_node_add` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: pcg_mesh_partition_get_section_node_add. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `pcg_mesh_partition_get_texel_sizes_node_add` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: pcg_mesh_partition_get_texel_sizes_node_add. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `pcg_mesh_partition_graph_execute` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: pcg_mesh_partition_graph_execute. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `pcg_mesh_partition_graph_readback` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: pcg_mesh_partition_graph_readback. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `pcg_mesh_partition_health_audit` [live verified] - P1 pcg_mesh_partition_delta wrapper for pcg_author.
+- `pcg_mesh_partition_incremental_regenerate` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: pcg_mesh_partition_incremental_regenerate. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `pcg_mesh_partition_managed_resources_cleanup` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: pcg_mesh_partition_managed_resources_cleanup. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `pcg_mesh_partition_parallel_section_plan` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: pcg_mesh_partition_parallel_section_plan. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `pcg_mesh_partition_patch_spawner_add` [live verified] - P1 pcg_mesh_partition_delta wrapper for pcg_author.
+- `pcg_mesh_partition_projection_spawner_add` [live verified] - P1 pcg_mesh_partition_delta wrapper for pcg_author.
+- `pcg_mesh_partition_query_node_add` [live verified] - P1 pcg_mesh_partition_delta wrapper for pcg_author.
+- `pcg_mesh_partition_sculpt_layer_write_node_add` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: pcg_mesh_partition_sculpt_layer_write_node_add. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `pcg_mesh_partition_selection_key_validate` [live verified] - UE 5.8 native Mesh Terrain/MeshPartition operation: pcg_mesh_partition_selection_key_validate. Uses target binding, native editor APIs, and explicit running/completed receipts.
+- `pcg_mesh_sampler_node_add` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_mesh_to_dynamic_mesh_node_add` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_montage_pool_validate` [live verified] - Standalone AnimMontage pool validator for PCG character scatter. Loads every positive-weight montage entry, checks weight/play-rate sanity, exposes slot and skeleton basics, and can compare against expected_skeletons or a target_actor's skeletal mesh skeletons. Use before pcg_character_montage_decorate or before persisting an unattended montage pool.
+- `pcg_nanite_assembly_builder_add` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_nanite_assembly_builder_node_add` [live verified] - P0 pcg_interop wrapper: Add Nanite assembly builder node.
+- `pcg_nanite_assembly_interop_plan` [live verified] - Read-only plan for PCG Nanite Assemblies builder nodes for generated modular structures and large scene sets.
+- `pcg_niagara_attribute_bridge_plan` [live verified] - Plan attribute schema mapping between PCG generated data and Niagara emitters.
+- `pcg_niagara_data_channel_interop_plan` [live verified] - Read-only plan for PCGNiagaraInterop Write To Niagara Data Channel nodes using SOMOLMCP PCG/Niagara validation tools.
+- `pcg_niagara_interop_capability_probe` [live verified] - Probe PCG/Niagara interop readiness; UE 5.8 has a dedicated PCGNiagaraInterop plugin but UE 5.7 can still report baseline state safely.
+- `pcg_niagara_interop_node_add` [live verified] - P0 pcg_interop wrapper: Add PCG/Niagara interop node.
+- `pcg_niagara_interop_node_catalog` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_niagara_interop_plan` [live verified] - Plan PCG-to-Niagara interop for generated VFX driven by PCG points or attributes.
+- `pcg_node_catalog` [live verified] - Enumerate all UPCGSettings subclasses with pin signatures. Use this BEFORE calling pcg_graph_add_node to avoid invalid class names. Supports name_prefix / category filter.
+- `pcg_node_catalog_lookup` [live verified] - Search the PCG node catalog by class/path/category/keyword and by input/output pin label or type. Use this before pcg_graph_add_node and before repair planning to avoid class-name typos and pin-shape guesses.
+- `pcg_parameter_hierarchy_category_create` [live verified] - UE 5.8 native PCG transaction: pcg_parameter_hierarchy_category_create
+- `pcg_parameter_hierarchy_description_set` [live verified] - UE 5.8 native PCG transaction: pcg_parameter_hierarchy_description_set
+- `pcg_parameter_hierarchy_group_create` [live verified] - UE 5.8 native PCG transaction: pcg_parameter_hierarchy_group_create
+- `pcg_parameter_hierarchy_readback` [live verified] - UE 5.8 native PCG transaction: pcg_parameter_hierarchy_readback
+- `pcg_parameter_hierarchy_sort` [live verified] - UE 5.8 native PCG transaction: pcg_parameter_hierarchy_sort
+- `pcg_partition_preview` [live verified] - Forecast point counts across a tile grid covering an AOI. One-shot replacement for manually computing tiles_total + batches_total + per-tile estimated_points in the pcg-incremental-fill plan phase. Flags over_budget_tile_count when per_tile_budget is set.
+- `pcg_pin_compat_validate` [live verified] - Validate whether one PCG output pin can safely connect to one PCG input pin. Accepts source_node/source_pin + target_node/target_pin or source_pin_path/target_pin_path as Node::Pin. Returns expected/actual types, UE compatibility result, same-graph check, and target capacity.
+- `pcg_point_data_schema_inspect` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_query_toolmode_execute` [live verified] - UE 5.8 native PCG transaction: pcg_query_toolmode_execute
+- `pcg_resolve_graph_parameters` [live verified] - Dump every graph-instance parameter (name / type / current value) for every UPCGComponent on an actor. Pair with pcg_biome_overlay_apply(dry_run=true) to plan a write, or with pcg_graph_diff to reason about structural vs parameter-level differences.
+- `pcg_runtime_gen_scheduler_status` [live verified] - UE 5.8+ read-only runtime generation scheduler probe. Reports PCG module availability, runtime scheduler/subsystem presence, registered execution-source counts, runtime-managed PCG component counts, and selected runtime generation CVars. On UE 5.7 it returns status=version_unavailable.
+- `pcg_save_dynamic_mesh_to_asset_node_add` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_scene_capture_input_transform_set` [live verified] - UE 5.8 native PCG transaction: pcg_scene_capture_input_transform_set
+- `pcg_set_dynamic_mesh_materials_node_add` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_set_random_seed` [live verified] - Set the random seed on a PCG component for deterministic generation.
+- `pcg_snapshot_hash` [live verified] - Compatibility fingerprint for legacy callers. Not a content hash, not stable across days, and not usable for restore; use pcg_graph_snapshot for real snapshots.
+- `pcg_snapshot_restore` [live verified] - Restore a legacy snapshot_id to a PCG graph target with overwrite protection, save, and type readback.
+- `pcg_spatial_data_stats` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_spawn_dynamic_mesh_node_add` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_spawned_actor_index` [live verified] - Index PCG spawned output around a scope actor. Scans actor/children/attached/all for UPCGComponent, SkeletalMeshComponent, ISM, and HISM data, returning actor paths, component paths, tags, mesh paths, instance counts, durable SOMO.PCG.Montage.* bindings, and provenance hints including tile_id/generation_id/seed/graph_hash. Use before montage assignment and for receipt/QA recovery after long PCG batches.
+- `pcg_spawned_actor_index_repair` [live verified] - Conservative read-only repair planner for generated actor indexes. Proposes missing SOMO.PCG.* provenance tags and stale external index entry removals; it does not delete actors or mutate metadata.
+- `pcg_spawned_actor_material_audit` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_spline_to_mesh_node_add` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_terrain_production_receipt_gate` [live verified] - Fail-closed gate for PCG/terrain production receipts. Requires graph binding, validate, dry-run/calibration, tile-cap, generated actor health, preview, and rollback/cleanup evidence by default.
+- `pcg_tile_batch_plan` [live verified] - Plan PCG tile batches from tiles_requested/tile_indices/allowed_tiles or AOI bounds. Returns <=4-tile batches, stable per-tile seeds, generation_id, tile_cap_policy, and replay hints; does not generate or mutate actors.
+- `pcg_tile_budget_estimate_v2` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `pcg_tile_generation_status` [live verified] - Read-only tile status view over indexed/generated PCG actors. Groups actors by tile_id and generation_id, returning actor counts, instance counts, graph hints, and tile_cap_policy.
+- `pcg_tile_seed_resolve` [live verified] - Resolve deterministic per-tile seeds from tile_id/tiles/AOI plus generation_id, graph_path, base_seed, and salt. Read-only receipt helper for replay-safe tile generation.
+- `pcg_troubleshoot` [live verified] - Scan a PCG graph for common troubleshooting issues: missing settings, empty graphs, unconnected likely-required input pins, broken edges, and pin type mismatches. Returns a fail-closed issue receipt and recommended follow-up tools.
+- `pcg_validate_hook` [live verified] - Hook-stage-tagged validation for a PCG graph — runs the same node/pin/edge checks as pcg_graph_validate (dangling required pins, type mismatches, missing settings CDOs) and returns a {passed, error_count, warning_count, findings[]} envelope. Stage is one of pre_generation | post_generation | post_compile. min_severity ("error" default | "warning") controls what shows up in findings; passed is always (error_count == 0). Soft-fails to passed=false + a synthetic finding when the asset cannot be loaded so DAG callers never crash.
+- `pcg_volume_create` [live verified] - Create a PCG volume actor in the current scene at the specified location and size.
+- `pcg_volume_set_world_box` [live verified] - Resize/move a PCG Volume actor to match a world-space AABB (best-effort via actor bounds + scale).
+- `pcg_water_spline_interop_plan` [live verified] - Read-only plan for PCGWaterInterop water-spline reads for rivers, lakes, shoreline vegetation, and path masks.
+- `pcg_water_spline_node_add` [live verified] - P0 pcg_interop wrapper: Add water spline PCG interop node.
+- `pcg_water_spline_node_add_v2` [live verified] - P1 pcg_deep_interops wrapper for pcg_author.
+- `physics_asset_add_body` [live verified] - Append a USkeletalBodySetup for a bone with chosen geom (box|sphere|capsule|convex). Idempotent on (bone).
+- `physics_asset_add_constraint` [live verified] - Add a UPhysicsConstraintTemplate between parent_bone and child_bone (constraint_type: swing_twist|linear).
+- `physics_asset_bodies_list` [live verified] - P0 physics_asset_toolset wrapper: List physics asset bodies.
+- `physics_asset_body_add` [live verified] - P0 physics_asset_toolset wrapper: Add physics body.
+- `physics_asset_body_mode_get` [live verified] - P0 physics_asset_toolset wrapper: Get body mode.
+- `physics_asset_body_mode_set` [live verified] - P0 physics_asset_toolset wrapper: Set body mode.
+- `physics_asset_body_remove` [live verified] - P0 physics_asset_toolset wrapper: Remove physics body.
+- `physics_asset_body_shapes` [live verified] - P0 physics_asset_toolset wrapper: List body shapes.
+- `physics_asset_constraint_add` [live verified] - P0 physics_asset_toolset wrapper: Add physics constraint.
+- `physics_asset_constraint_limits_set` [live verified] - P0 physics_asset_toolset wrapper: Set physics constraint limits.
+- `physics_asset_constraint_remove` [live verified] - P0 physics_asset_toolset wrapper: Remove physics constraint.
+- `physics_asset_constraints_list` [live verified] - P0 physics_asset_toolset wrapper: List physics constraints.
+- `physics_asset_create` [live verified] - Create a new UPhysicsAsset linked to a SkeletalMesh; auto-generate body setups for each bone.
+- `physics_asset_create_from_mesh` [live verified] - P0 physics_asset_toolset wrapper: Create physics asset from mesh.
+- `physics_asset_inspect` [live verified] - Inspect PhysicsAsset bodies and constraints.
+- `physics_asset_mass_scale_get` [live verified] - P0 physics_asset_toolset wrapper: Get body mass scale.
+- `physics_asset_mass_scale_set` [live verified] - P0 physics_asset_toolset wrapper: Set body mass scale.
+- `physics_asset_set_box` [live verified] - P0 physics_asset_toolset wrapper: Set box shape.
+- `physics_asset_set_capsule` [live verified] - P0 physics_asset_toolset wrapper: Set capsule shape.
+- `physics_asset_set_sphere` [live verified] - P0 physics_asset_toolset wrapper: Set sphere shape.
+- `physics_asset_shape_remove` [live verified] - P0 physics_asset_toolset wrapper: Remove body shape.
+- `physics_body_configure` [live verified] - Configure physics on actor root (simulate, mass, damping, gravity).
+- `physics_constraint_configure` [live verified] - Configure constraint limits (linear/angular).
+- `physics_constraint_create` [live verified] - Spawn PhysicsConstraintActor between two actors.
+- `pico_openxr_controller_profile_apply` [live verified] - UE 5.8 platform_xr profile_apply bridge, capability, contract, and receipt tool.
+- `pie_capture` [live verified] - Capture a screenshot during PIE. The active PIE viewport will be captured.
+- `pie_get_status` [live verified] - Get the current PIE status: whether the editor is playing, simulating, or stopped.
+- `pie_local_player_create` [live verified] - Create one local player in the active PIE GameInstance and verify the local-player count readback.
+- `pie_local_player_remove` [live verified] - Remove one local player from the active PIE GameInstance and verify the local-player count readback.
+- `pie_screenshot` [live verified] - Take a screenshot of the active PIE viewport. Alias for pie_capture.
+- `pie_start` [live verified] - Start a Play In Editor (PIE) session. Equivalent to pressing the Play button.
+- `pie_stop` [live verified] - Stop the current Play In Editor (PIE) session. Equivalent to pressing the Stop button.
+- `plugin_api_stability_audit` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `plugin_check_compatibility` [live verified] - Compare plugin's required engine version to current ENGINE_VERSION_STRING and scan for missing/disabled required dependencies. Returns {compatible, issues[]}.
+- `plugin_disable` [live verified] - Disable a project plugin (writes to .uproject). Editor restart is required.
+- `plugin_enable` [live verified] - Enable a project plugin (writes to .uproject). Editor restart is required for the change to take effect for module-loading plugins.
+- `plugin_inspect` [live verified] - Detailed descriptor for a single plugin: modules, dependencies, required_engine_version, content_only, base_dir.
+- `plugin_list_all` [live verified] - List every plugin discovered by IPluginManager. Optional category_filter narrows to engine | project | marketplace. Returns count + plugins[].
+- `plugin_recommend_for_role` [live verified] - Hardcoded role-to-plugin matrix. Roles: foliage_author, animation_author, material_author, vfx_author, audio_author, cinematic. Each entry is annotated with installed/enabled/version live status.
+- `pose_search_capability_probe` [live verified] - Probe UE 5.7+ Pose Search availability for motion matching databases and animation retrieval.
+- `pose_search_channel_add_native` [live verified] - Add a PoseSearch channel through a specialized editor adapter; currently fail-closed.
+- `pose_search_database_asset_add_native` [live verified] - Add a PoseSearch database asset through a specialized editor adapter; currently fail-closed.
+- `pose_search_database_asset_remove_native` [live verified] - Remove a PoseSearch database asset through a specialized editor adapter; currently fail-closed.
+- `pose_search_database_build_index_native` [live verified] - Build a PoseSearch index only when a native boolean result is exposed; otherwise fail-closed.
+- `pose_search_database_create_native` [live verified] - Create a PoseSearch database asset.
+- `pose_search_database_probe` [live verified] - Scan content for Pose Search databases, schemas, and motion-matching assets.
+- `pose_search_motion_matching_plan` [live verified] - Realize Pose Search / motion-matching database usage: read back PoseSearch databases, schemas, skeletons, and animation-set evidence with fail-closed plugin gating.
+- `pose_search_schema_create_native` [live verified] - Create a PoseSearch schema asset.
+- `post_process_volume_create` [live verified] - Create a post process volume actor.
+- `post_process_volume_set_settings` [live verified] - Set post process settings on a post process volume.
+- `pp_material_create` [live verified] - Create a new post-process material asset with the correct domain.
+- `pp_material_delete` [live verified] - Delete a post-process material asset.
+- `pp_material_set_bloom` [live verified] - Configure bloom effect parameters on a post-process material. Stores parameter names for later use with Material Instance.
+- `pp_material_set_dof` [live verified] - Configure depth of field parameters on a post-process material.
+- `pp_material_set_vignette` [live verified] - Configure vignette effect parameters on a post-process material.
+- `pp_volume_add_material` [live verified] - Add a material-based post process effect to a PostProcessVolume.
+- `pp_volume_delete` [live verified] - Delete a PostProcessVolume actor from the level.
+- `pp_volume_list` [live verified] - List all PostProcessVolume actors in the current level.
+- `pp_volume_list_materials` [live verified] - List all blendable materials on a PostProcessVolume.
+- `pp_volume_remove_material` [live verified] - Remove a material-based post process effect from a PostProcessVolume.
+- `pp_volume_set_bounds` [live verified] - Set the bounds of a PostProcessVolume (extent, location, unbound state).
+- `pp_volume_set_priority` [live verified] - Set the blend priority of a PostProcessVolume.
+- `preview_api_guard_report` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `preview_platform_profile_create` [live verified] - UE 5.8 platform_mobile profile_create bridge, capability, contract, and receipt tool.
+- `preview_platform_profile_update` [live verified] - UE 5.8 platform_mobile profile_update bridge, capability, contract, and receipt tool.
+- `preview_platform_render_validate` [live verified] - UE 5.8 platform_mobile validate bridge, capability, contract, and receipt tool.
+- `preview_scene_profile_create` [live verified] - UE 5.8 editor_preview profile_create bridge, capability, contract, and receipt tool.
+- `preview_scene_settings_get` [live verified] - UE 5.8 editor_preview settings_get bridge, capability, contract, and receipt tool.
+- `preview_scene_settings_set` [live verified] - UE 5.8 editor_preview settings_set bridge, capability, contract, and receipt tool.
+- `private_header_dependency_report` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `procedural_mesh_create_section` [live verified] - procedural_mesh_create_section authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `procedural_mesh_set_collision` [live verified] - procedural_mesh_set_collision authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `procedural_mesh_update_section` [live verified] - procedural_mesh_update_section authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `procedural_mesh_validate_section` [live verified] - procedural_mesh_validate_section authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `project_config_read_ini` [live verified] - Read a section or specific key from an INI config file.
+- `project_config_write_ini` [live verified] - Write multiple key-value pairs to an INI config section.
+- `project_maps_list` [live verified] - List all map assets (.umap) in the project content directory.
+- `project_plugin_set_enabled` [live verified] - Enable or disable a project plugin by name. Requires editor restart for some plugins.
+- `project_plugins_list` [live verified] - List all discovered plugins with their enabled state, version, and category.
+- `project_settings_export` [live verified] - Read arbitrary UE project settings from approved project Config files. Covers UE 5.7/5.8 settings without hard-coding every engine property.
+- `project_settings_get` [live verified] - Read a project setting. For console variables (e.g. 'r.SkyAtmosphere'), pass any category — the name itself is sufficient. For typed UDeveloperSettings, pass category in {Renderer, Physics, AISystem} and setting_name as the property name.
+- `project_settings_patch` [live verified] - Patch arbitrary UE project settings in approved project Config files with dry-run support. Values are written as bool, number, string, array, or JSON text.
+- `project_settings_read` [live verified] - Read project description, default map, default game mode, and other project-level settings.
+- `project_settings_set` [live verified] - Write a project setting. Mirrors project_settings_get; persists typed settings via TryUpdateDefaultConfigFile(). Renderer-layout/shader CVars such as r.Substrate are config-only and never hot-applied. Returns previous and new values plus a requires_restart hint.
+- `project_settings_write` [live verified] - Write project settings by modifying ini config values. Specify section, key, and value.
+- `pve_asset_create` [live verified] - UE 5.8 pve asset_create bridge, capability, contract, and receipt tool.
+- `pve_capability_probe` [live verified] - UE 5.8 pve probe bridge, capability, contract, and receipt tool.
+- `pve_delivery_receipt_validate` [live verified] - UE 5.8 pve validate bridge, capability, contract, and receipt tool.
+- `pve_dynamic_wind_configure` [live verified] - UE 5.8 pve wind_configure bridge, capability, contract, and receipt tool.
+- `pve_export_nanite_validate` [live verified] - UE 5.8 pve validate bridge, capability, contract, and receipt tool.
+- `pve_export_settings_configure` [live verified] - UE 5.8 pve export_settings bridge, capability, contract, and receipt tool.
+- `pve_export_static_mesh` [live verified] - UE 5.8 pve export_static_mesh bridge, capability, contract, and receipt tool.
+- `pve_foliage_type_handoff` [live verified] - UE 5.8 pve foliage_handoff bridge, capability, contract, and receipt tool.
+- `pve_graph_compile_validate` [live verified] - UE 5.8 pve validate bridge, capability, contract, and receipt tool.
+- `pve_graph_execute` [live verified] - UE 5.8 pve execute bridge, capability, contract, and receipt tool.
+- `pve_graph_inspect` [live verified] - UE 5.8 pve inspect bridge, capability, contract, and receipt tool.
+- `pve_graph_node_add` [live verified] - UE 5.8 pve node_add bridge, capability, contract, and receipt tool.
+- `pve_graph_node_catalog` [live verified] - UE 5.8 pve catalog bridge, capability, contract, and receipt tool.
+- `pve_graph_node_remove` [live verified] - UE 5.8 pve node_remove bridge, capability, contract, and receipt tool.
+- `pve_graph_node_update` [live verified] - UE 5.8 pve node_update bridge, capability, contract, and receipt tool.
+- `pve_graph_pin_connect` [live verified] - UE 5.8 pve pin_connect bridge, capability, contract, and receipt tool.
+- `pve_graph_pin_disconnect` [live verified] - UE 5.8 pve pin_disconnect bridge, capability, contract, and receipt tool.
+- `pve_graph_save_reload` [live verified] - UE 5.8 pve save_reload bridge, capability, contract, and receipt tool.
+- `pve_pcg_handoff` [live verified] - UE 5.8 pve pcg_handoff bridge, capability, contract, and receipt tool.
+- `pve_preview_capture` [live verified] - UE 5.8 pve preview bridge, capability, contract, and receipt tool.
+- `quixel_search` [live verified] - Search Quixel Megascans (now part of Fab) for scan-based assets by query. Fails with EPIC_AUTH_NOT_CONFIGURED until Epic OAuth is wired.
+- `realtime_mesh_create_lod` [live verified] - realtime_mesh_create_lod authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `realtime_mesh_set_collision` [live verified] - realtime_mesh_set_collision authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `realtime_mesh_update_section_group` [live verified] - realtime_mesh_update_section_group authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `realtime_mesh_validate_lod` [live verified] - realtime_mesh_validate_lod authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `reflection_capture_inspect` [live verified] - Inspect one or all reflection-capture components with all reflected editable fields, build identity and explicit world context without triggering a recapture.
+- `reimport_asset` [live verified] - Reimport an existing asset from its source file.
+- `remote_control_capability_probe` [live verified] - Probe UE 5.7+ Remote Control availability for exposing scene parameters to MCP and external agents.
+- `remote_control_preset_plan` [live verified] - Plan Remote Control preset exposure for scene parameters, material controls, and live preview automation.
+- `remote_control_preset_probe` [live verified] - Scan content for Remote Control preset assets and return a guarded routing receipt.
+- `render_queue_cancel` [live verified] - Cancel a native movie render job and release its shared Job Runtime locks.
+- `render_queue_list` [live verified] - List canonical native movie render jobs.
+- `render_queue_output_guard_plan` [live verified] - Read-only normalize and collision-check an output path beneath Project/Saved.
+- `render_queue_submit` [live verified] - Submit a native UE Movie Render Graph/Pipeline job into the shared Job Runtime.
+- `render_target_configure` [live verified] - Change render target size/format.
+- `render_target_create` [live verified] - Create a TextureRenderTarget2D asset.
+- `render_target_list` [live verified] - List TextureRenderTarget2D assets.
+- `render_viewport_set` [live verified] - Configure editor viewport rendering settings.
+- `retarget_foot_definition_get` [live verified] - UE 5.8 retarget get bridge, capability, contract, and receipt tool.
+- `retarget_foot_definition_set` [live verified] - UE 5.8 retarget set bridge, capability, contract, and receipt tool.
+- `retarget_foot_definition_validate` [live verified] - UE 5.8 retarget validate bridge, capability, contract, and receipt tool.
+- `retarget_override_set_apply` [live verified] - UE 5.8 retarget override_apply bridge, capability, contract, and receipt tool.
+- `retarget_override_set_create` [live verified] - UE 5.8 retarget override_create bridge, capability, contract, and receipt tool.
+- `retarget_override_set_update` [live verified] - UE 5.8 retarget override_update bridge, capability, contract, and receipt tool.
+- `retarget_override_set_validate` [live verified] - UE 5.8 retarget validate bridge, capability, contract, and receipt tool.
+- `rig_hierarchy_element_list` [live verified] - List rig hierarchy elements with their parent and index, optionally filtered by type. Unlike control_rig_list_elements this reports hierarchy structure, which is what a caller needs before posing anything.
+- `rig_hierarchy_transform_get` [live verified] - Read one element's transform. Covers local and global space, current and initial (rest) pose — the same four combinations the rig editor exposes.
+- `rig_hierarchy_transform_get_batch` [live verified] - Read many element transforms in ONE game-thread entry. Use this to capture a pose before a queued edit so it can be compared or restored afterwards.
+- `rig_hierarchy_transform_set` [live verified] - Set one element's transform. Components left out of the request keep their current value, so a caller can move an element without restating its rotation and scale. For posing several elements use rig_hierarchy_transform_set_batch.
+- `rig_hierarchy_transform_set_batch` [live verified] - Apply many element transforms in ONE game-thread entry, under a single undo step. This is how a pose is set from a queued workload: posing a rig element by element costs one game-thread entry each against a small concurrent job budget, and leaves one undo entry per element instead of one per pose.
+- `rigmapper_capability_probe` [live verified] - UE 5.8 rigmapper probe bridge, capability, contract, and receipt tool.
+- `rigmapper_mapping_auto_resolve` [live verified] - UE 5.8 rigmapper auto_resolve bridge, capability, contract, and receipt tool.
+- `rigmapper_mapping_create` [live verified] - UE 5.8 rigmapper mapping_create bridge, capability, contract, and receipt tool.
+- `rigmapper_mapping_update` [live verified] - UE 5.8 rigmapper mapping_update bridge, capability, contract, and receipt tool.
+- `rigmapper_retarget_execute` [live verified] - UE 5.8 rigmapper retarget_execute bridge, capability, contract, and receipt tool.
+- `rigmapper_retarget_validate` [live verified] - UE 5.8 rigmapper validate bridge, capability, contract, and receipt tool.
+- `rigvm_execution_trace_get_native` [live verified] - Read RigVM execution trace data through a native debug adapter; currently fail-closed.
+- `rigvm_graph_snapshot` [live verified] - Export the whole RigVM graph — nodes, pins and links — as one JSON document. Take a snapshot before a queued graph edit so the result can be diffed against it, which is the only way to tell a no-op edit from a successful one.
+- `rigvm_link_edit_batch` [live verified] - Add and break many RigVM links in ONE game-thread entry, under a single undo step. Rewiring a graph one link at a time costs a game-thread entry and an undo step each, and leaves the graph in an intermediate state between calls.
+- `rigvm_node_catalog` [live verified] - List the RigVM unit-node script structs this editor has loaded, with the exact struct paths control_rig_graph_add_unit_node expects. Call this while planning a queued graph build so a wrong struct path is caught before it occupies a job slot.
+- `rigvm_node_inspect` [live verified] - Inspect a RigVM node: title, class, position and every pin with its type, direction, default value and link count. The returned pin_path values are the exact addresses rigvm_pin_default_set_batch and rigvm_link_add_batch take.
+- `rigvm_pin_default_set_batch` [live verified] - Set many pin default values in ONE game-thread entry, under a single undo step. Use the pin_path values returned by rigvm_node_inspect. Per-item results are returned so a partial failure is diagnosable without replaying the wave.
+- `rivermax_linux_capability_probe` [live verified] - UE 5.8 display_cluster_io probe bridge, capability, contract, and receipt tool.
+- `rivermax_linux_stream_configure` [live verified] - UE 5.8 display_cluster_io stream_configure bridge, capability, contract, and receipt tool.
+- `rivermax_linux_stream_validate` [live verified] - UE 5.8 display_cluster_io stream_validate bridge, capability, contract, and receipt tool.
+- `rtsp_stream_probe` [live verified] - P3 media_codecs_capture_baseline wrapper for media_author.
+- `sandboxed_asset_commit` [live verified] - P2 sandboxed_editing_file_sandbox wrapper for file_ops.
+- `sandboxed_asset_diff_preview` [live verified] - P2 sandboxed_editing_file_sandbox wrapper for file_ops.
+- `sandboxed_asset_revert` [live verified] - P2 sandboxed_editing_file_sandbox wrapper for file_ops.
+- `sandboxed_asset_write_plan` [live verified] - P2 sandboxed_editing_file_sandbox wrapper for file_ops.
+- `sandboxed_editing_probe` [live verified] - P2 sandboxed_editing_file_sandbox wrapper for file_ops.
+- `sandboxed_editing_receipt_validate` [live verified] - P2 sandboxed_editing_file_sandbox wrapper for file_ops.
+- `scene_batch_spawn` [live verified] - Batch spawn actors in grid/scatter/line layout with ground snap and overlap avoidance. Max 200 instances.
+- `scene_capture2d_spawn_with_render_target` [live verified] - Spawn a SceneCapture2D actor and bind TextureTarget to a render target without forcing an immediate render.
+- `scene_find_actors_by_proximity` [live verified] - Find actors within a specified distance from a location or another actor.
+- `scene_get_context` [live verified] - Get comprehensive scene context including active level, selected actors, viewport state, and world info.
+- `scene_get_overview` [live verified] - Get a high-level overview of the current scene: world info, actor count by class, selected actors with transforms, and World Partition status. Call this at the start of any spatial task to understand the scene before making changes.
+- `scene_get_visibility_state` [live verified] - Get visibility state of actors and layers in the current scene.
+- `scene_lighting_ensure` [live verified] - Idempotently guarantee a complete UE5 daylight baseline: exactly one primary DirectionalLight, one SkyLight, one SkyAtmosphere, one ExponentialHeightFog, and one unbound PostProcessVolume. Call on every scene-production run/resume; use this INSTEAD OF spawning ad-hoc sky-only or duplicate light actors.
+- `scene_perception_snapshot` [live verified] - Build a read-only Agent perception snapshot of the current editor scene: actor/component class distribution, selected actors, sampled transforms/bounds, referenced mesh/material/animation/audio assets, scene complexity metrics, risk flags, and recommended next tools. Use this before complex scene layout, PCG generation, asset deployment, lighting, Blueprint attachment, or QA handoff.
+- `semantic_search_asset_neighbors` [live verified] - P2 semantic_search_asset_intelligence wrapper for resource_finder.
+- `semantic_search_asset_query` [live verified] - P2 semantic_search_asset_intelligence wrapper for resource_finder.
+- `semantic_search_index_freshness_audit` [live verified] - P2 semantic_search_asset_intelligence wrapper for resource_finder.
+- `semantic_search_index_probe` [live verified] - P2 semantic_search_asset_intelligence wrapper for resource_finder.
+- `semantic_search_receipt_validate` [live verified] - P2 semantic_search_asset_intelligence wrapper for resource_finder.
+- `semantic_search_result_explain` [live verified] - P2 semantic_search_asset_intelligence wrapper for resource_finder.
+- `sequence_add_actors` [live verified] - Add actors from the level into the currently open sequence.
+- `sequence_add_camera_cuts_track` [live verified] - Add the special CameraCutTrack to a LevelSequence (only one allowed per sequence — errors with OPERATION_FAILED if one already exists). Optionally pre-populates cuts from camera_bindings: each entry is {camera_actor_name, start_frame}. Camera actors are matched by GetActorLabel() in the editor world; missing actors are auto-possessed.
+- `sequence_add_camera_track` [live verified] - Bind a real camera actor and add native Transform, FOV, or FocusDistance tracks to a level sequence.
+- `sequence_add_event_key` [live verified] - Add an event keyframe to an event track, bind a named Director Blueprint custom-event endpoint, compile the Blueprint, save the sequence, and verify key readback.
+- `sequence_add_event_track` [live verified] - Add a UMovieSceneEventTrack to a LevelSequence. If 'binding_id' is omitted the track is added at master scope; otherwise it is attached to the matching MovieScene binding (Guid string). Use sequence_add_event_key to create compiled Director Blueprint event endpoints.
+- `sequence_add_fade_track` [live verified] - Add a UMovieSceneFadeTrack (master-scope) for fade-to-black / fade-from-black transitions. Creates one default FadeSection covering the sequence playback range, with the supplied default_color (defaults to black). Use sequencer keyframe tools to author the alpha curve.
+- `sequence_add_folder` [live verified] - Add a named folder to a Level Sequence for organizing tracks.
+- `sequence_add_keys_bool` [live verified] - Mutate a typed MovieScene channel directly through the native C++ queue backend.
+- `sequence_add_keys_double` [live verified] - Mutate a typed MovieScene channel directly through the native C++ queue backend.
+- `sequence_add_keys_float` [live verified] - Mutate a typed MovieScene channel directly through the native C++ queue backend.
+- `sequence_add_keys_integer` [live verified] - Mutate a typed MovieScene channel directly through the native C++ queue backend.
+- `sequence_add_keys_object` [live verified] - Mutate a typed MovieScene channel directly through the native C++ queue backend.
+- `sequence_add_master_track` [live verified] - Add a root-level (master) track to a LevelSequence. Master tracks live on the MovieScene itself rather than on an actor binding. Supported track_class values: 'shot' (UMovieSceneCinematicShotTrack), 'audio' (UMovieSceneAudioTrack), 'event' (UMovieSceneEventTrack), 'cinematic_assembly' (UMovieSceneSubTrack).
+- `sequence_add_property_track` [live verified] - Add and configure a native property track on a sequence binding.
+- `sequence_add_section` [live verified] - Add a new section to a Level Sequence track (camera, spawn, or property track).
+- `sequence_add_track` [live verified] - Add a native master or object-binding track to a level sequence.
+- `sequence_camera_dolly` [live verified] - Generate linear dolly/zoom camera keyframes between two positions.
+- `sequence_camera_orbit` [live verified] - Generate orbital camera keyframes around a target point. Creates a smooth circular/arc camera motion in a level sequence.
+- `sequence_camera_shake` [live verified] - Add or configure a camera shake source component on a camera actor for procedural camera shake effects.
+- `sequence_convert_binding_to_possessable` [live verified] - Convert a binding in a level sequence to a possessable.
+- `sequence_convert_binding_to_spawnable` [live verified] - Convert a binding in a level sequence to a spawnable.
+- `sequence_create_asset` [live verified] - Create a level sequence asset.
+- `sequence_create_camera` [live verified] - Create and bind a cine camera in the currently open sequence.
+- `sequence_delete_keys` [live verified] - Mutate a typed MovieScene channel directly through the native C++ queue backend.
+- `sequence_describe` [live verified] - Describe a level sequence asset, including bindings, tracks and folders.
+- `sequence_focus_subsequence` [live verified] - List all subsequences within a Level Sequence, or focus on a specific subsequence. Returns all available sub-sequences with their paths and time ranges.
+- `sequence_get_camera_bindings` [live verified] - List all camera bindings in a level sequence, including their tracks and section ranges.
+- `sequence_get_current` [live verified] - Return the currently open level sequence.
+- `sequence_list_bindings` [live verified] - List bindings in a level sequence.
+- `sequence_list_channels` [live verified] - List channels on a sequence section.
+- `sequence_list_folders` [live verified] - List folders in a level sequence.
+- `sequence_list_sections` [live verified] - List sections on sequence tracks.
+- `sequence_list_tracks` [live verified] - List tracks in a level sequence or binding.
+- `sequence_open` [live verified] - Open a level sequence asset in the editor.
+- `sequence_set_camera_keyframe` [live verified] - Set a camera keyframe at a specific time in a level sequence. Sets transform, FOV, and/or focus distance on the specified camera binding.
+- `sequence_set_channel_default` [live verified] - Mutate a typed MovieScene channel directly through the native C++ queue backend.
+- `sequence_set_key_interpolation` [live verified] - Mutate a typed MovieScene channel directly through the native C++ queue backend.
+- `sequence_set_marked_frames` [live verified] - Set the marked frame range (playback range) on a Level Sequence. This defines the IN/OUT points for the sequence.
+- `sequence_set_playback_range` [live verified] - Set the playback range of a level sequence asset in display-rate frames.
+- `sequence_set_section_range` [live verified] - Set and verify the native frame range of a sequence section.
+- `sequence_transform_keys` [live verified] - Mutate a typed MovieScene channel directly through the native C++ queue backend.
+- `sequencer_asset_create_v3` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_asset_inspect_v3` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_audio_track_58_configure` [live verified] - UE 5.8 audio sequencer_track_configure bridge, capability, contract, and receipt tool.
+- `sequencer_audio_waveform_readback` [live verified] - UE 5.8 audio readback bridge, capability, contract, and receipt tool.
+- `sequencer_autobake_configure` [live verified] - UE 5.8 sequencer_autobake configure bridge, capability, contract, and receipt tool.
+- `sequencer_autobake_execute` [live verified] - UE 5.8 sequencer_autobake execute bridge, capability, contract, and receipt tool.
+- `sequencer_autobake_readback` [live verified] - UE 5.8 sequencer_autobake readback bridge, capability, contract, and receipt tool.
+- `sequencer_autobake_toggle` [live verified] - UE 5.8 sequencer_autobake toggle bridge, capability, contract, and receipt tool.
+- `sequencer_bind_actor_v3` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_binding_add_v2` [live verified] - P0 sequencer wrapper: Add a possessable/spawnable binding to a LevelSequence.
+- `sequencer_binding_remove_v3` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_binding_replace_actor` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_binding_roles_audit` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_camera_binding_create_v3` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_camera_cut_add_v2` [live verified] - P0 sequencer wrapper: Add a camera cut section with readback.
+- `sequencer_camera_cut_track_rebuild` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_camera_cut_validate` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_camera_path_audit` [live verified] - Evaluate a Level Sequence in the active editor/PIE world and sample active camera collision, continuity and subject occlusion.
+- `sequencer_channel_catalog` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_channel_key_add` [live verified] - P0 sequencer wrapper: Add a key to a Sequencer channel.
+- `sequencer_channel_key_interpolate_set` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_channel_key_remove` [live verified] - P0 sequencer wrapper: Remove a key from a Sequencer channel.
+- `sequencer_channel_key_tangent_set` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_channel_keys_export` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_channel_keys_import` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_channel_keys_list` [live verified] - P0 sequencer wrapper: List keys on a Sequencer channel.
+- `sequencer_compile_validate_v3` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_dependency_audit` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_director_bp_open` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_display_rate_set` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_easing_apply` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_eval_template_refresh` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_event_endpoint_create` [live verified] - Create/bind a real Director Blueprint event endpoint, compile, save, and read back.
+- `sequencer_event_payload_set` [live verified] - Persist closed scalar payload values on a real Sequencer event key and compile its Director Blueprint.
+- `sequencer_export_snapshot` [live verified] - P0 sequencer wrapper: Export structured Sequencer snapshot.
+- `sequencer_filter_system_get` [live verified] - UE 5.8 active Sequencer transaction: sequencer_filter_system_get
+- `sequencer_filter_system_set` [live verified] - UE 5.8 active Sequencer transaction: sequencer_filter_system_set
+- `sequencer_folder_add` [live verified] - P0 sequencer wrapper: Add an organizational folder to Sequencer.
+- `sequencer_folder_move_binding` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_inspect` [live verified] - Inspect LevelSequence: tracks, bindings, length.
+- `sequencer_keyframe_batch_add` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_link_system_get` [live verified] - UE 5.8 active Sequencer transaction: sequencer_link_system_get
+- `sequencer_link_system_set` [live verified] - UE 5.8 active Sequencer transaction: sequencer_link_system_set
+- `sequencer_marker_add` [live verified] - P0 sequencer wrapper: Add a marker to a LevelSequence.
+- `sequencer_marker_batch_add` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_mrq_job_cancel` [live verified] - Cancel a native movie render job and release its shared Job Runtime locks.
+- `sequencer_mrq_job_from_sequence` [live verified] - Submit a native UE Movie Render Graph/Pipeline job into the shared Job Runtime.
+- `sequencer_mrq_job_poll` [live verified] - Read canonical native movie render progress and artifact state.
+- `sequencer_mrq_preset_apply` [live verified] - Apply a native Movie Render Graph preset through the canonical queue configuration provider.
+- `sequencer_mrq_queue_submit` [live verified] - Submit a native UE Movie Render Graph/Pipeline job into the shared Job Runtime.
+- `sequencer_playback_range_set_v2` [live verified] - P0 sequencer wrapper: Set playback range on LevelSequence.
+- `sequencer_playback_settings_set` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_possessable_create` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_preview_screenshot` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_receipt_validate_v3` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_render_preview_plan` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_section_add_v2` [live verified] - P0 sequencer wrapper: Add a section to a Sequencer track.
+- `sequencer_section_create_v3` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_section_move` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_section_overlap_audit` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_section_split` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_section_trim` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_shot_section_add` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_shot_track_create` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_simple_view_key_batch_edit` [live verified] - UE 5.8 active Sequencer transaction: sequencer_simple_view_key_batch_edit
+- `sequencer_simple_view_settings_get` [live verified] - UE 5.8 active Sequencer transaction: sequencer_simple_view_settings_get
+- `sequencer_simple_view_settings_set` [live verified] - UE 5.8 active Sequencer transaction: sequencer_simple_view_settings_set
+- `sequencer_spawnable_create` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_subsequence_add` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_thumbnail_capture` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_tick_resolution_set` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_time_warp_plan` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_track_add_audio` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_track_add_event` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_track_add_material` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_track_add_property` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_track_add_transform` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_track_add_v2` [live verified] - P0 sequencer wrapper: Add a track to a sequence binding or master sequence.
+- `sequencer_track_add_visibility` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_track_catalog` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `sequencer_track_remove_v2` [live verified] - P2 sequencer_broad_toolset wrapper for camera_author.
+- `settlement_layout_plan_build` [live verified] - Build settlement road, parcel, district, building, entrance, DataLayer, and HLOD layout contracts.
+- `settlement_road_to_entrance_validate` [live verified] - Validate every settlement building entrance is connected to a road, plaza, or parcel path.
+- `shortcut_manager_binding_get` [live verified] - UE 5.8 editor_ux binding_get bridge, capability, contract, and receipt tool.
+- `shortcut_manager_binding_set` [live verified] - UE 5.8 editor_ux binding_set bridge, capability, contract, and receipt tool.
+- `shortcut_manager_conflict_audit` [live verified] - UE 5.8 editor_ux conflict_audit bridge, capability, contract, and receipt tool.
+- `skeletal_blendshape_edit_rollback` [live verified] - Restore a UE 5.8 morph target LOD from a project-local SOMOLMCP snapshot.
+- `skeletal_blendshape_edit_snapshot` [live verified] - Persist a project-local snapshot of one UE 5.8 morph target LOD before editing.
+- `skeletal_blendshape_mesh_element_inspect` [live verified] - Inspect one UE 5.8 Skeletal Mesh morph-target delta by LOD and delta index.
+- `skeletal_blendshape_mesh_element_move` [live verified] - Move one UE 5.8 morph-target delta with automatic snapshot, save, and readback.
+- `skeletal_mesh_add_socket` [live verified] - Add a validated mesh-only socket to a skeletal mesh using native C++ editor APIs.
+- `skeletal_mesh_analyze` [live verified] - Comprehensive skeletal mesh analysis: skeleton/bones, LODs, sockets, materials, physics asset, morph targets, bounds.
+- `skeletal_mesh_assign_physics_asset` [live verified] - Assign an existing physics asset to a skeletal mesh.
+- `skeletal_mesh_create_physics_asset` [live verified] - Create a physics asset from a skeletal mesh.
+- `skeletal_mesh_inspect` [live verified] - Inspect skeletal mesh: bones, LODs, materials, physics asset.
+- `skeletal_mesh_list_lods` [live verified] - List skeletal mesh LOD indices using native C++ asset readback.
+- `skeletal_mesh_list_sockets` [live verified] - List active skeletal mesh and skeleton sockets using native C++ asset readback.
+- `skeletal_mesh_reimport` [live verified] - Native C++ compatibility name for reimport_asset. Reimport an existing asset from its source file.
+- `skeletal_mesh_remove_socket` [live verified] - Remove and verify a mesh-only socket on a skeletal mesh using native C++ editor APIs.
+- `skeletal_mesh_set_import_settings` [live verified] - Set validated skeletal mesh LOD and streaming settings using native C++ editor APIs.
+- `skeletal_mesh_set_material_slot` [live verified] - Assign and verify a material slot on a skeletal mesh using native C++ editor APIs.
+- `skeletal_unused_bone_reduction_execute` [live verified] - Apply an explicitly confirmed UE 5.8 unused-bone plan to non-base Skeletal Mesh LODs, then save and read back.
+- `skeletal_unused_bone_reduction_plan` [live verified] - Find bones unused by skin weights and build a non-modal, fail-closed UE 5.8 LOD reduction plan.
+- `skeletal_unused_bone_reduction_validate` [live verified] - Validate UE 5.8 Skeletal Mesh LOD bone replacement data and configured removals.
+- `skeleton_check_compatibility` [live verified] - Compare two skeletons for animation retargeting compatibility. Returns compatibility status (identical/compatible/incompatible), shared bones, missing bones, and structural analysis.
+- `skeleton_get_bones` [live verified] - List all bones in SkeletalMesh skeleton.
+- `skelmesh_inspect` [live verified] - Read-only summary of a USkeletalMesh: bone_count, lod_count, material_count, physics_asset_path, skeleton_path, has_morphs.
+- `skelmesh_set_lod` [live verified] - Configure a USkeletalMesh LOD: screen size + optional reduction settings (percent_triangles, percent_vertices).
+- `sky_light_component_inspect` [live verified] - Read every reflected editable USkyLightComponent field, including source/cubemap, resolution, lower hemisphere, DFAO, cloud AO, real-time capture, identity and explicit null reasons.
+- `slate_accessibility_audit` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_argument_schema_create` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_box_layout_configure` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_brush_create` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_button_style_create` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_click_safe` [live verified] - P0 slate_inspector wrapper: Safely click Slate widget.
+- `slate_color_style_create` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_combo_style_create` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_command_execute` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_command_register` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_command_unregister` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_compound_widget_generate` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_cpp_widget_compile` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_cpp_widget_diagnostics` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_custom_widget_instantiate` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_dock_tab_spawn` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_dpi_preview` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_drag_safe` [live verified] - P0 slate_inspector wrapper: Safely drag Slate widget.
+- `slate_event_schema_create` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_fill_form_safe` [live verified] - P0 slate_inspector wrapper: Safely fill Slate form.
+- `slate_focus_path_inspect` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_grid_layout_configure` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_hover` [live verified] - P0 slate_inspector wrapper: Hover Slate widget.
+- `slate_input_routing_trace` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_invalidation_diagnostics` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_layout_readback` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_leaf_widget_generate` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_memory_profile` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_menu_extension_register` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_menu_extension_unregister` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_navigation_path_validate` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_nomad_tab_register` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_nomad_tab_unregister` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_observe` [live verified] - P0 slate_inspector wrapper: Start Slate observer.
+- `slate_observers_list` [live verified] - P0 slate_inspector wrapper: List Slate observers.
+- `slate_overdraw_capture` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_overlay_layout_configure` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_paint_statistics` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_panel_add_slot` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_panel_create` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_panel_remove_slot` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_press_key_safe` [live verified] - P0 slate_inspector wrapper: Safely press key in Slate context.
+- `slate_render_readback_validate` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_safe_zone_preview` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_screenshot` [live verified] - P0 slate_inspector wrapper: Capture Slate screenshot.
+- `slate_scroll_layout_configure` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_select_option` [live verified] - P0 slate_inspector wrapper: Select Slate option.
+- `slate_shortcut_bind` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_slot_property_set` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_snapshot` [live verified] - P0 slate_inspector wrapper: Snapshot Slate widget tree.
+- `slate_splitter_configure` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_style_asset_inspect` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_style_set_create` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_style_set_register` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_style_set_unregister` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_style_validate` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_table_row_style_create` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_text_style_create` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_tick_performance_profile` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_toolbar_extension_register` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_toolbar_extension_unregister` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_type_safe` [live verified] - P0 slate_inspector wrapper: Safely type text into Slate widget.
+- `slate_unobserve` [live verified] - P0 slate_inspector wrapper: Stop Slate observer.
+- `slate_wait_for` [live verified] - P0 slate_inspector wrapper: Wait for Slate selector.
+- `slate_widget_attribute_bind` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_widget_class_catalog` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_widget_create` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_widget_delegate_bind` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_widget_enabled_set` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_widget_property_get` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_widget_property_set` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_widget_reflector_snapshot` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_widget_remove` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_widget_reparent` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_widget_replace` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_widget_tooltip_set` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_widget_tree_create` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_widget_validate` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_widget_visibility_set` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_window_close` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_window_configure` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_window_content_set` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_window_create` [live verified] - Native managed Slate authoring operation with stable ids, readback, and receipt evidence.
+- `slate_windows` [live verified] - P0 slate_inspector wrapper: List Slate windows.
+- `smart_object_add_behavior` [live verified] - smart_object_add_behavior authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `smart_object_add_slot` [live verified] - smart_object_add_slot authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `smart_object_claim` [live verified] - Plan SmartObject claim route.
+- `smart_object_contract_status` [live verified] - Read-only SmartObject capability probe and contract anchor for definition, slot, and behavior authoring.
+- `smart_object_definition_create` [live verified] - smart_object_definition_create authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `smart_object_definition_inspect` [live verified] - Inspect SmartObject definition readiness.
+- `smart_object_query` [live verified] - Plan/read SmartObject query route.
+- `smart_object_receipt_validate` [live verified] - Validate SmartObject production receipt.
+- `smart_object_release` [live verified] - Plan SmartObject release route.
+- `smart_object_runtime_snapshot` [live verified] - Read SmartObject runtime snapshot contract.
+- `smart_object_slot_add` [live verified] - Plan SmartObject slot add.
+- `smart_object_slot_inspect` [live verified] - Inspect SmartObject slot schema/readiness.
+- `smart_object_slot_remove` [live verified] - Plan SmartObject slot removal.
+- `smart_object_validate_definition` [live verified] - smart_object_validate_definition authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `source_agent_role_mapping_lint` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `source_blueprint_callable_gap_report` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `source_plugin_gate_lint` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `source_receipt_contract_lint` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `source_symbol_index_build_plan` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `source_symbol_index_query` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `source_tool_name_collision_audit` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `source_uclass_callable_diff` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `source_version_guard_lint` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `source_wrapper_risk_rank` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `sourcecontrol_checkin` [live verified] - Submit (commit) one or more checked-out assets with a description.
+- `sourcecontrol_checkout` [live verified] - Check out (open for edit) one or more assets via the active source-control provider.
+- `sourcecontrol_diff` [live verified] - Diff a single asset against a revision (default HEAD). For binary assets (.uasset/.umap) returns is_binary=true plus old/new sizes; for text returns a textual diff_summary.
+- `sourcecontrol_status` [live verified] - Report source-control state for the project. Returns provider name plus per-state lists (checked_out, modified, added, conflicted). Optional path_filter narrows scan to a /Game subtree.
+- `spline_actor_add_mesh` [live verified] - UE 5.7+ generic spline mesh component authoring. Adds one USplineMeshComponent per spline segment on execute=true.
+- `spline_actor_create` [live verified] - UE 5.7+ generic spline actor creator for rivers, roads, camera rails, PCG corridors, and greybox guide paths. Dry-run by default.
+- `spline_actor_get_points` [live verified] - UE 5.7+ generic spline actor readback with point/tangent/length data.
+- `spline_actor_sample_points` [live verified] - UE 5.7+ generic spline sampler for roads, rivers, camera rails, PCG corridors, and flowmap planning. Returns uniformly spaced transforms along the spline.
+- `spline_actor_set_points` [live verified] - UE 5.7+ generic spline actor point setter. Reuses the guarded spline implementation; non-Water actors do not require water mutation acknowledgement.
+- `state_tree_add_state` [live verified] - state_tree_add_state authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `state_tree_add_transition` [live verified] - state_tree_add_transition authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `state_tree_asset_create` [live verified] - Plan StateTree asset creation.
+- `state_tree_asset_create_v2` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `state_tree_bind_task` [live verified] - state_tree_bind_task authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `state_tree_compile` [live verified] - Validate StateTree compile receipt or return compile requirements.
+- `state_tree_condition_add_plan` [live verified] - Plan StateTree condition insertion.
+- `state_tree_condition_bind_plan` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `state_tree_contract_status` [live verified] - Read-only StateTree capability probe and contract anchor for state, transition, and task authoring.
+- `state_tree_create` [live verified] - state_tree_create authoring mutation skeleton. Registers UE-side schema/receipt only; live mutation returns applied=false.
+- `state_tree_debug_snapshot` [live verified] - Read StateTree debug snapshot contract.
+- `state_tree_receipt_validate` [live verified] - Validate StateTree production receipt.
+- `state_tree_schema_inspect` [live verified] - Inspect StateTree schema classes.
+- `state_tree_schema_set_v2` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `state_tree_state_add_plan` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `state_tree_task_add_plan` [live verified] - Plan StateTree task insertion.
+- `state_tree_task_bind_plan` [live verified] - P2 bt_statetree_conversation wrapper for gameplay_author.
+- `state_tree_transition_add_plan` [live verified] - Plan StateTree transition insertion.
+- `statetree_compiler_extension_add` [live verified] - UE 5.8 statetree extension_add bridge, capability, contract, and receipt tool.
+- `statetree_compiler_extension_list` [live verified] - UE 5.8 statetree catalog bridge, capability, contract, and receipt tool.
+- `statetree_compiler_extension_remove` [live verified] - UE 5.8 statetree extension_remove bridge, capability, contract, and receipt tool.
+- `statetree_compiler_extension_validate` [live verified] - UE 5.8 statetree validate bridge, capability, contract, and receipt tool.
+- `statetree_starting_state_get` [live verified] - UE 5.8 statetree readback bridge, capability, contract, and receipt tool.
+- `statetree_starting_state_set` [live verified] - UE 5.8 statetree configure bridge, capability, contract, and receipt tool.
+- `static_mesh_add_simple_collision` [live verified] - Add simple collision to a static mesh.
+- `static_mesh_add_socket` [live verified] - Add a validated socket to a static mesh using native C++ editor APIs.
+- `static_mesh_analyze` [live verified] - Comprehensive static mesh analysis: LODs (vertex/triangle counts), sockets, collision primitives, material slots, Nanite, bounds, UV channels.
+- `static_mesh_list_lods` [live verified] - List LOD indices on a static mesh.
+- `static_mesh_list_sockets` [live verified] - List sockets on a static mesh.
+- `static_mesh_reimport` [live verified] - Native C++ compatibility name for reimport_asset. Reimport an existing asset from its source file.
+- `static_mesh_remove_socket` [live verified] - Remove and verify a socket on a static mesh using native C++ editor APIs.
+- `static_mesh_set_build_settings` [live verified] - Set validated build settings on a static mesh source LOD using native C++ editor APIs.
+- `static_mesh_set_material_slot` [live verified] - Assign and verify a material slot on a static mesh using native C++ editor APIs.
+- `static_mesh_set_nanite` [live verified] - Enable or disable Nanite on a static mesh.
+- `staticmesh_enable_nanite` [live verified] - Enable/disable Nanite on a UStaticMesh and (optionally) tweak position precision; rebuilds the mesh.
+- `staticmesh_generate_lods` [live verified] - Auto-generate N LODs on a UStaticMesh (lod_count: 2..8). When auto_compute is true (default), default reduction & screen sizes are applied.
+- `staticmesh_inspect` [live verified] - Read-only summary of a UStaticMesh: LOD count, LOD0 verts/tris, material count, simple-collision body count, Nanite flag, lightmap resolution, has_uvs.
+- `staticmesh_set_collision` [live verified] - Replace simple collision with one shape (box|sphere|capsule|convex), set complex-as-simple, or clear (none).
+- `staticmesh_set_lightmap` [live verified] - Set lightmap resolution (power of 2) and optional lightmap_coord_index for a UStaticMesh.
+- `staticmesh_set_lod` [live verified] - Configure a single LOD on a UStaticMesh: screen size and optional reduction settings (percent_triangles, percent_vertices in 0..1).
+- `steam_frame_capability_probe` [live verified] - UE 5.8 platform_desktop probe bridge, capability, contract, and receipt tool.
+- `steam_frame_runtime_validate` [live verified] - UE 5.8 platform_desktop validate bridge, capability, contract, and receipt tool.
+- `steam_frame_target_profile_apply` [live verified] - UE 5.8 platform_desktop profile_apply bridge, capability, contract, and receipt tool.
+- `stream_source_create` [live verified] - Create a StreamMediaSource asset pointing at an HLS/RTSP/RTMP/MP4-over-HTTP URL.
+- `struct_list` [live verified] - List UScriptStruct types available in the project.
+- `substrate_add_expression` [live verified] - Add a material expression node by class name. Supports Substrate nodes (SubstrateSlab, SubstrateHorizontalMixing, SubstrateVerticalLayering, etc.) and standard expression types.
+- `substrate_compile` [live verified] - Compile a Substrate material and return any errors or warnings.
+- `substrate_connect_nodes` [live verified] - Connect two material expression nodes. Links an output of one expression to an input of another (or to a material property).
+- `substrate_convert_legacy` [live verified] - Convert a traditional material to Substrate by inserting a SubstrateSlab node and remapping existing BaseColor/Metallic/Roughness/Normal inputs. The original inputs are preserved.
+- `substrate_create_material` [live verified] - Create a new Substrate material asset (UE 5.3+). Substrate is the next-generation material framework replacing the traditional material system.
+- `substrate_get_layer_info` [live verified] - Get detailed information about all Substrate-related expression nodes in a material, including node types, connections, and parameters.
+- `substrate_get_material_info` [live verified] - Get information about a Substrate material including layers and properties.
+- `substrate_npr_compile_validate` [live verified] - UE 5.8 rendering transaction: substrate_npr_compile_validate
+- `substrate_npr_material_configure` [live verified] - UE 5.8 rendering transaction: substrate_npr_material_configure
+- `substrate_npr_material_create` [live verified] - UE 5.8 rendering transaction: substrate_npr_material_create
+- `substrate_npr_render_qa_capture` [live verified] - UE 5.8 rendering transaction: substrate_npr_render_qa_capture
+- `substrate_npr_shading_model_catalog` [live verified] - UE 5.8 rendering transaction: substrate_npr_shading_model_catalog
+- `substrate_set_blend_mode` [live verified] - Set blend mode on a Substrate/standard material (Opaque, Translucent, Masked, Additive, AlphaComposite, AlphaHoldout).
+- `swarm_virtual_detachment_mock` [live verified] - Mock: isolate a member from a flocking Swarm AI and report the spawn identity. Purely diagnostic.
+- `take_recorder_capability_probe` [live verified] - Probe UE 5.7+ Take Recorder availability for recording actor, LiveLink, and gameplay performances.
+- `take_recorder_preset_probe` [live verified] - Scan content assets for Take Recorder presets and take-related LevelSequence assets.
+- `take_recorder_source_plan` [live verified] - Plan Take Recorder source bindings for actors, LiveLink subjects, cameras, and gameplay capture.
+- `take_recorder_spawnable_reference_configure` [live verified] - UE 5.8 vcam_take_recorder spawnable_reference_configure bridge, capability, contract, and receipt tool.
+- `teds_actor_table_snapshot` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_asset_table_snapshot` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_availability_probe` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_blackboard_sync_snapshot` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_cache_freshness_audit` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_column_catalog` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_column_schema` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_dirty_rows_audit` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_outliner_table_snapshot` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_query_receipt_validate` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_query_to_asset_set` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_row_inspect` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_row_query` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_row_tag_add_plan` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_row_tag_remove_plan` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_selection_table_snapshot` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_table_catalog` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `teds_world_partition_table_snapshot` [live verified] - P2 editor_data_storage_teds wrapper for editor_pilot.
+- `tensorboard_log_snapshot_get` [live verified] - P3 nne_neural_rendering_ml wrapper for external_tools.
+- `terrain_fill_tile_plan_landscape_noise` [live verified] - Batch: same grid as terrain_tile_plan — for each tile map world bounds to heightmap and apply Perlin noise (hydrology/large-world fill step). Optional dry_run.
+- `terrain_fill_tile_plan_landscape_weights_height_based` [live verified] - Batch: same grid as terrain_tile_plan — per tile read heightmap region and write paint weight data (height-based, sum-to-255 normalization). Optional dry_run.
+- `terrain_landscape_create_from_spec` [live verified] - Create a fully-functional landscape actor from a TerrainSpec. Uses UE's proper Landscape::Import() API to create heightmap data, components, and collision. Supports terrain_spec with world_bounds, cm_per_quad. landscape_material_instance_path is optional — if omitted the landscape is created without a custom material.
+- `terrain_pcg_generate_tiles` [live verified] - Generate PCG per TerrainSpec tiles (A/B graph build + tile-wise WP load -> volume bounds -> pcg_generate -> WP unload).
+- `terrain_pcg_pipeline_run` [live verified] - Production-grade high-level pipeline: validate TerrainSpec, create/bind Landscape+LayerInfos (A), write height (and optional weights), then run PCG per tile (A/B).
+- `terrain_qa_metrics` [live verified] - Compute terrain QA metrics from a landscape actor or base64 heightmap. Returns height range, roughness, flat/cliff ratios, and pass/warn status for terrain planning receipts.
+- `terrain_spec_validate` [live verified] - Validate a TerrainSpec object (bounds, World Partition cell size, optional overlap / landscape hints) for large-world PCG + streaming.
+- `terrain_tile_plan` [live verified] - Build a TilePlan: XY grid tiles in cm aligned to world_partition_cell_size_cm (optional tile_overlap_cm for seam blending).
+- `texture_analyze` [live verified] - Analyze a texture asset returning type, format, resolution, channels, compression, sRGB, memory estimate and source info.
+- `texture_batch_configure` [live verified] - Batch-edit UTexture2D import/runtime parameters with transaction, save/readback receipts, per-asset errors, and a safety cap. UE 5.7/5.8 compatible.
+- `texture_batch_preview` [live verified] - Preview the exact UTexture2D set and parameter changes before a batch mutation. Searches only Asset Registry paths, never scans the filesystem.
+- `texture_batch_report` [live verified] - Batch-analyze all textures under a directory. Returns per-format/size statistics and potential issues.
+- `texture_channel_pack` [live verified] - Pack channels from up to 4 source textures into a new RGBA UTexture2D. Each source = {texture_path, channel: 'r|g|b|a'}; missing sources fill with 0 (alpha defaults 255).
+- `texture_generate_mips` [live verified] - Set TextureMipGenSettings (default/sharpen0/sharpen5/sharpen10/alpha_distance_field/box/none) and re-build mip chain.
+- `texture_get_info` [live verified] - Get detailed texture information: dimensions, pixel format, compression settings, mip count, SRGB setting, LOD group, and source file path.
+- `texture_inspect` [live verified] - Inspect texture properties: size, format, compression, LOD.
+- `texture_modify` [live verified] - Modify texture parameters: SRGB, compression settings, mip generation, never_stream. The texture must be re-saved after modification.
+- `texture_resize` [live verified] - Change texture MaxTextureSize (power-of-2 limit).
+- `texture_set_compression` [live verified] - Set TextureCompressionSettings via a string preset (default/normalmap/masks/grayscale/hdr/alpha/vector_displacementmap/hdr_compressed/bc7/bc6h/uncompressed) and trigger re-encoding.
+- `texture_set_srgb` [live verified] - Toggle UTexture::SRGB; rebuilds the GPU resource so future samples honor the new gamma assumption.
+- `texture_settings_configure` [live verified] - Configure texture compression, LOD group, sRGB, filter.
+- `tiled_mipmap_video_encode` [live verified] - UE 5.8 media_pipeline encode bridge, capability, contract, and receipt tool.
+- `tiled_mipmap_video_source_create` [live verified] - UE 5.8 media_pipeline source_create bridge, capability, contract, and receipt tool.
+- `tiled_mipmap_video_validate` [live verified] - UE 5.8 media_pipeline validate bridge, capability, contract, and receipt tool.
+- `tool_batch_execute` [live verified] - Execute multiple SOMOLMCP tools in sequence with optional preview mode.
+- `tool_catalog` [live verified] - Discover this server's tools within a bounded context budget. This server registers thousands of tools and an unfiltered tools/list is far too large for any model, so start here.
+
+mode=groups   every tool group with its count. Cheap and complete; call this first.
+mode=names    tool names and one-line summaries for a group or a search, paged.
+mode=schemas  full input schemas for up to 40 named tools — call this last, only for the tools you are actually going to invoke.
+
+Every listing reports total, returned and next_cursor, so you can tell whether you have seen everything rather than assuming it. Keep paging while next_cursor is present; a tool you did not see is not proof it does not exist.
+- `tools_batch_execute` [live verified] - Cross-domain batch executor with structured step envelopes and optional rollback-on-error.
+- `tools_capabilities_describe` [live verified] - Return machine-readable capability metadata and recommended batch templates.
+- `transaction_abort` [live verified] - Abort a named transaction. Cancels FScopedTransaction → all Modify() changes since begin are rolled back. P3-7.
+- `transaction_begin` [live verified] - Begin a named transaction. All Modify() calls until transaction_end/abort become a single undo step. P3-7.
+- `transaction_end` [live verified] - Close a named transaction normally. Becomes 1 undo entry containing all changes since transaction_begin. P3-7.
+- `transaction_list` [live verified] - List all currently-open named transactions. Useful for AI to know what transactions are pending. P3-7.
+- `uaf_animation_asset_bind` [live verified] - Plan animation asset binding into UAF graph/component.
+- `uaf_capability_inventory` [live verified] - Inventory UE 5.8 UAF/AnimNext plugin, module, class, and struct gates.
+- `uaf_component_attach` [live verified] - Plan UAF component attachment to an actor or Blueprint.
+- `uaf_graph_template_apply` [live verified] - Plan UAF graph template application.
+- `uaf_injection_request` [live verified] - Plan UAF injection request/callback wiring.
+- `uaf_layering_setup_plan` [live verified] - Plan UAF layering and montage layer setup.
+- `uaf_play_anim_request` [live verified] - Plan UAF play-animation request.
+- `uaf_pose_search_bridge_plan` [live verified] - Plan UAF PoseSearch/motion-matching bridge.
+- `uaf_receipt_validate` [live verified] - Validate UAF/AnimNext production receipt before delivery.
+- `uaf_runtime_state_snapshot` [live verified] - Read UAF runtime state snapshot contract.
+- `uaf_trait_apply_plan` [live verified] - Plan UAF trait application to graph/template.
+- `uaf_trait_catalog` [live verified] - Read UAF trait/template class and struct catalog.
+- `uaf_validation_receipt` [live verified] - Validate UAF/AnimNext validation receipt.
+- `uaf_variable_set` [live verified] - Plan UAF/AnimNext variable binding or value update.
+- `uaf_warping_trait_plan` [live verified] - Plan UAF warping trait setup.
+- `ue_rpc_base_probe` [live verified] - P3 rpcbase_automation_controller_rpc wrapper for qa_inspector.
+- `ue_rpc_endpoint_catalog` [live verified] - P3 rpcbase_automation_controller_rpc wrapper for qa_inspector.
+- `ue58_all_toolsets_probe` [live verified] - Probe UE 5.8 Experimental/Toolsets bundle presence without linking official toolset modules.
+- `ue58_apv_codec_probe` [live verified] - P3 media_codecs_capture_ue58_delta wrapper for media_author.
+- `ue58_audio_insights_runtime_capability_probe` [live verified] - Probe UE 5.8 audio/live-production plugin deltas useful for recording and QA routing.
+- `ue58_av1_encode_profile_probe` [live verified] - P3 media_codecs_capture_ue58_delta wrapper for media_author.
+- `ue58_callable_diff_57_58` [live verified] - Compare UE 5.7 and UE 5.8 BlueprintCallable/AICallable source surfaces and return 5.8-added wrapper candidates.
+- `ue58_callable_inventory_v2` [live verified] - Inventory BlueprintCallable/AICallable surfaces through UE 5.7-safe source scan and current-editor reflection; excludes MCPClientToolset and official MCP.
+- `ue58_livelink_device_capture_plan` [live verified] - Plan UE 5.8 LiveLink device capture sessions for OBS, sound, KiPro, and generic recording devices.
+- `ue58_livelink_device_delta_probe` [live verified] - Probe UE 5.8 LiveLink device plugin deltas for virtual production capture planning.
+- `ue58_mass_character_trajectory_capability_probe` [live verified] - Probe UE 5.8 Mass character trajectory module availability for richer crowd movement planning.
+- `ue58_mass_character_trajectory_plan` [live verified] - Plan UE 5.8 MassCharacterTrajectory usage for richer crowd navigation and animation trajectory receipts.
+- `ue58_material_avalanche_delta_probe` [live verified] - Probe UE 5.8 Motion Design/Avalanche material module delta for generated broadcast scenes.
+- `ue58_metahuman_character_assembly_plan` [live verified] - Plan UE 5.8 MetaHuman runtime character assembly from generated character specs and animation handoff data.
+- `ue58_metahuman_crowd_capability_probe` [live verified] - Probe UE 5.8 MetaHuman Crowd plugin presence for high-density human crowd scene generation.
+- `ue58_metahuman_crowd_deployment_plan` [live verified] - Plan UE 5.8 MetaHuman Crowd deployment with Mass/ZoneGraph/PCG handoff and crowd-size guardrails.
+- `ue58_metahuman_runtime_capability_probe` [live verified] - Probe UE 5.8 MetaHuman runtime/character plugin presence for generated character workflows.
+- `ue58_module_gate_report` [live verified] - Build module/plugin gate facts for callable wrapper candidates so 5.7 and 5.8 agents can fail closed on missing modules.
+- `ue58_motion_design_avalanche_scene_plan` [live verified] - Plan UE 5.8 Avalanche/Motion Design scene assembly for generated broadcast graphics and material deltas.
+- `ue58_niagara_insights_capability_probe` [live verified] - Probe UE 5.8 Niagara Insights plugin presence for VFX profiling and diagnostics.
+- `ue58_niagara_insights_capture_plan` [live verified] - Plan UE 5.8 Niagara Insights profiling capture for generated VFX systems and QA receipts.
+- `ue58_official_mcp_capability_diff` [live verified] - UE 5.8 official_mcp_interop capability_diff bridge, capability, contract, and receipt tool.
+- `ue58_official_mcp_capability_probe` [live verified] - Probe UE 5.8-only official ModelContextProtocol plugin presence and version gate.
+- `ue58_official_mcp_import_plan` [live verified] - Build a fail-closed plan for using UE 5.8 official ModelContextProtocol surfaces without connecting to the official MCP server.
+- `ue58_official_mcp_route_execute` [live verified] - UE 5.8 official_mcp_interop route_execute bridge, capability, contract, and receipt tool.
+- `ue58_official_mcp_route_guard` [live verified] - Guard an agent-requested UE 5.8 official MCP/toolset route and return the SOMOLMCP fallback path for UE 5.7 installs.
+- `ue58_official_mcp_route_receipt_validate` [live verified] - UE 5.8 official_mcp_interop receipt_validate bridge, capability, contract, and receipt tool.
+- `ue58_official_mcp_server_inventory` [live verified] - UE 5.8 official_mcp_interop server_inventory bridge, capability, contract, and receipt tool.
+- `ue58_official_mcp_tool_mapping_get` [live verified] - UE 5.8 official_mcp_interop tool_mapping_get bridge, capability, contract, and receipt tool.
+- `ue58_pcg_interops_coverage_report` [live verified] - Report PCG interop coverage split into UE 5.7 baseline interops and UE 5.8-only MeshPartition interop.
+- `ue58_pcg_mesh_partition_adapter_plan` [live verified] - Read-only plan for the UE 5.8 Mesh Partition PCG Adapter component route that publishes built MeshPartition data for PCG sampling.
+- `ue58_pcg_mesh_partition_capability_probe` [live verified] - Probe UE 5.8 PCGMeshPartitionInterop availability and list the new Mesh Partition PCG node surface.
+- `ue58_pcg_mesh_partition_graph_apply` [live verified] - UE 5.8-only guarded Mesh Partition PCG graph apply. Adds Query/Write/Sculpt/Projection/Patch nodes through SOMOLMCP's existing PCG graph tools, captures snapshot/validate/rollback receipt evidence, and never uses MCPClientToolset.
+- `ue58_pcg_mesh_partition_graph_plan` [live verified] - Read-only plan for a UE 5.8 Mesh Partition PCG graph using query/write/sculpt/projection/spawner nodes.
+- `ue58_pcg_mesh_partition_query_plan` [live verified] - Read-only plan for the UE 5.8 Mesh Partition PCG Query node route for sampling MegaMesh/MeshPartition data.
+- `ue58_pcg_mesh_partition_receipt_validate` [live verified] - Validate a UE 5.8 Mesh Partition graph apply receipt before allowing generate or delivery claims.
+- `ue58_pcg_mesh_partition_sculpt_layer_plan` [live verified] - Read-only plan for the UE 5.8 Mesh Partition PCG Sculpt Layer Write node route for layer-based terrain/mesh deformation.
+- `ue58_pcg_mesh_partition_write_plan` [live verified] - Read-only plan for the UE 5.8 Mesh Partition PCG Write node route for writing positions/channels back into MegaMesh modifiers.
+- `ue58_pcg_niagara_interop_capability_probe` [live verified] - Probe UE 5.8 PCGNiagaraInterop plugin presence for direct PCG-to-Niagara workflows.
+- `ue58_pcg_niagara_interop_plan` [live verified] - Plan UE 5.8 PCGNiagaraInterop handoff from generated PCG points to Niagara systems.
+- `ue58_plugin_delta_report` [live verified] - Compare UE 5.7 and UE 5.8 engine plugin descriptors, excluding MCPClientToolset / official MCP policy paths.
+- `ue58_toolset_aicallable_schema` [live verified] - Return JSON-schema style parameter schemas for UE 5.8 Toolsets AICallable candidates, excluding MCPClientToolset.
+- `ue58_toolset_callable_binding_plan` [live verified] - Plan extraction and binding of UE 5.8 ToolsetRegistry AICallable surfaces into SOMOLMCP-safe tool wrappers, excluding MCPClientToolset.
+- `ue58_toolset_callable_inventory` [live verified] - Scan UE 5.8 Experimental/Toolsets files for AICallable and ToolsetDefinition markers.
+- `ue58_toolset_registry_live_inventory` [live verified] - Inventory UE 5.8 ToolsetRegistry / Toolsets AICallable surfaces via reflection, plugin descriptors, and source scan, excluding MCPClientToolset.
+- `ue58_toolset_registry_probe` [live verified] - Probe UE 5.8-only ToolsetRegistry plugin presence and version gate.
+- `ue58_toolset_schema_extract_plan` [live verified] - Plan schema extraction for UE 5.8 ToolsetDefinition Python/C++ files, excluding MCPClientToolset and keeping UE 5.7 builds isolated from 5.8-only classes.
+- `ue58_toolset_wrapper_smoke_matrix` [live verified] - Build a fail-closed smoke-test matrix for UE 5.8 Toolsets wrapper candidates and existing SOMOLMCP wrappers.
+- `ue58_toolset_wrapper_status` [live verified] - Report SOMOLMCP wrapper coverage status for UE 5.8 Toolsets AICallable candidates, keeping MCPClientToolset excluded.
+- `ue58_uaf_animation_capability_probe` [live verified] - Probe UE 5.8 UAF animation plugin presence for next-generation animation authoring paths.
+- `ue58_uaf_animation_graph_plan` [live verified] - Plan UE 5.8 UAF animation graph/chooser/pose-search workflow with UE 5.7 fallback routes.
+- `ue58_wrapper_candidate_rank` [live verified] - Rank UE 5.8 callable wrapper candidates by AI-callable/toolset/read-only/coverage score and attach receipt-gate guidance.
+- `umg_animation_add_keyframe` [live verified] - Add or update a keyframe on a safe UMG animation property track and verify it by readback.
+- `umg_animation_add_track` [live verified] - Add a safe UMG animation track shell for a widget. The receipt is incomplete until at least one keyframe is added.
+- `umg_animation_create` [live verified] - Create a new widget animation.
+- `umg_animation_delete` [live verified] - Delete a widget animation.
+- `umg_animation_inspect_tracks` [live verified] - Inspect movie scene tracks and sections for a widget animation.
+- `umg_animation_list` [live verified] - List widget animations on a widget blueprint.
+- `umg_animation_list_bindings` [live verified] - List widget bindings for an animation.
+- `umg_animation_rename` [live verified] - Rename a widget animation.
+- `umg_authoring_acceptance_contract` [live verified] - Read-only fail-closed UMG live-gate contract. Aggregates caller-supplied widget tree, binding, event, preview, and compile diagnostics evidence into an acceptance receipt without mutating assets.
+- `umg_binding_create_function_stub` [live verified] - Add or confirm a function graph on a WidgetBlueprint, then finalize Entry->Return execution and compile-check it.
+- `umg_binding_inspect_graph` [live verified] - Inspect a WidgetBlueprint's WidgetTree, graphs, animations, and component-bound UMG event nodes without mutation.
+- `umg_binding_validate_function_graph` [live verified] - Validate a WidgetBlueprint function graph for FunctionEntry, Return Node terminator, reachable exec chain, and orphan required nodes; optionally repair safe missing terminators.
+- `umg_binding_verify_delegate_signature` [live verified] - Conservatively verify whether a WidgetTree widget exposes an exact multicast delegate event and report its signature.
+- `umg_canvas_slot_configure` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_create_widget` [live verified] - [ALIAS] Create UMG widget blueprint. Use 'umg_widget_blueprint_create' with asset_path and widget_name.
+- `umg_drag_drop_repair` [live verified] - Repair and verify a UMG DragDropOperation Blueprint parent, then refresh/compile dependent widgets when requested.
+- `umg_focus_navigation_inspect` [live verified] - Inspect WidgetTree focusability and navigation hints without mutation.
+- `umg_grid_slot_configure` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_horizontal_box_slot_configure` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_image_bind_render_target` [live verified] - Bind a UMG Image widget brush to a Texture or TextureRenderTarget asset and return readback evidence.
+- `umg_list_named_slots` [live verified] - List named slots and their content on a widget blueprint or host widget.
+- `umg_list_view_bind_items_source` [live verified] - Validate and receipt a ListView, TileView, or TreeView item-source binding contract.
+- `umg_list_view_bind_selection_event` [live verified] - Conservatively bind a WidgetBlueprint ListView selection delegate via the existing component-bound event path, or fail closed.
+- `umg_list_view_refresh` [live verified] - Verify a WidgetBlueprint ListView target and, when given a smoke-owned runtime preview mount_handle, call UListView::RequestRefresh on the live instance.
+- `umg_list_view_set_entry_class` [live verified] - Set the EntryWidgetClass on a ListView, TileView, or TreeView widget blueprint child.
+- `umg_localization_key_audit` [live verified] - Audit WidgetTree FText properties for missing localization namespace/key metadata without mutation.
+- `umg_localization_key_autofill` [live verified] - Dry-run by default; autofill missing WidgetBlueprint FText localization namespace/key metadata without overwriting existing keys.
+- `umg_named_slot_set_content` [live verified] - P0 umg_toolset wrapper: Set named slot content.
+- `umg_named_slots_list` [live verified] - P0 umg_toolset wrapper: List named slots.
+- `umg_overlay_slot_configure` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_runtime_focus_probe` [live verified] - Probe current PIE/runtime UMG focus context and smoke-owned preview widgets without mutation.
+- `umg_runtime_preview_capture` [live verified] - Capture the active PIE viewport for a smoke-owned runtime UMG preview widget.
+- `umg_runtime_preview_spawn_widget` [live verified] - Mount a smoke-owned UserWidget into an already running PIE viewport without starting PIE.
+- `umg_runtime_preview_teardown` [live verified] - Remove a smoke-owned runtime UMG preview widget without stopping PIE or the editor.
+- `umg_text_localization_inspect` [live verified] - Inspect WidgetTree FText properties and their namespace/key metadata without mutation.
+- `umg_toolset_receipt_validate` [live verified] - P0 umg_toolset wrapper: Validate UMG toolset receipt.
+- `umg_tree_view_bind_hierarchy_source` [live verified] - Validate and receipt a TreeView hierarchy children-source binding contract.
+- `umg_uniform_grid_slot_configure` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_vertical_box_slot_configure` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_accessibility_configure` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_accessibility_validate` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_add_v2` [live verified] - P0 umg_toolset wrapper: Add widget to widget tree.
+- `umg_widget_bind_event` [live verified] - Bind an event on a UMG widget to a blueprint function. Creates a function with the event's signature in the Widget Blueprint's Event Graph.
+- `umg_widget_bind_property` [live verified] - Bind a property on a UMG widget to a blueprint variable. Creates a new variable and links it to the widget property for data binding.
+- `umg_widget_blueprint_compile_v2` [live verified] - P0 umg_toolset wrapper: Compile widget blueprint with diagnostics.
+- `umg_widget_blueprint_create` [live verified] - Create a widget blueprint asset.
+- `umg_widget_blueprint_create_v2` [live verified] - P0 umg_toolset wrapper: Create widget blueprint through UMG toolset route.
+- `umg_widget_blueprint_reparent` [live verified] - P0 umg_toolset wrapper: Reparent widget blueprint.
+- `umg_widget_classes_list` [live verified] - P0 umg_toolset wrapper: List creatable widget classes.
+- `umg_widget_clipping_configure` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_compile_delivery_gate` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_designer_validate` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_layout_configure` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_move_v2` [live verified] - P0 umg_toolset wrapper: Move widget in tree.
+- `umg_widget_navigation_configure` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_navigation_validate` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_property_readback` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_remove_v2` [live verified] - P0 umg_toolset wrapper: Remove widget from tree.
+- `umg_widget_rename_v2` [live verified] - P0 umg_toolset wrapper: Rename widget.
+- `umg_widget_render_transform_configure` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_responsive_matrix_validate` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_responsive_profile_apply` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_save_verified` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_set_as_variable` [live verified] - P0 umg_toolset wrapper: Set widget variable flag.
+- `umg_widget_slot_readback` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_style_configure` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_tooltip_configure` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `umg_widget_tree_add_widget` [live verified] - Add a widget to a widget blueprint tree.
+- `umg_widget_tree_clear_named_slot_content` [live verified] - Clear content for a named slot host.
+- `umg_widget_tree_copy_widgets` [live verified] - Copy widgets from a widget blueprint.
+- `umg_widget_tree_duplicate_widgets` [live verified] - Duplicate widgets in a widget blueprint.
+- `umg_widget_tree_get_widget` [live verified] - Get one widget entry from a widget blueprint tree.
+- `umg_widget_tree_inspect_properties` [live verified] - Inspect reflected WidgetTree widget properties, optionally including exported values, without mutation.
+- `umg_widget_tree_inspect_slots` [live verified] - Inspect WidgetTree slot classes and slot properties without mutating the WidgetBlueprint.
+- `umg_widget_tree_list` [live verified] - List widgets in a widget blueprint tree.
+- `umg_widget_tree_move_widget` [live verified] - Move a widget under a new parent widget.
+- `umg_widget_tree_paste_widgets` [live verified] - Paste widgets into a widget blueprint.
+- `umg_widget_tree_remove_widget` [live verified] - Remove a widget from a widget blueprint tree.
+- `umg_widget_tree_rename_widget` [live verified] - Rename a widget in a widget blueprint.
+- `umg_widget_tree_reorder_child` [live verified] - Reorder a child within a panel widget.
+- `umg_widget_tree_replace_widget` [live verified] - Replace a widget with another widget class.
+- `umg_widget_tree_set_named_slot_content` [live verified] - Set content for a named slot host.
+- `umg_widget_tree_set_slot_properties` [live verified] - Apply public properties to a widget slot in a widget blueprint.
+- `umg_widget_tree_set_widget_properties` [live verified] - Apply public properties to a widget in a widget blueprint.
+- `umg_widget_tree_wrap_widget` [live verified] - Wrap a widget in another panel widget class.
+- `umg_widgets_list_v2` [live verified] - P0 umg_toolset wrapper: List widgets in blueprint tree.
+- `umg_wrap_box_slot_configure` [live verified] - Native UMG Widget Blueprint configuration/readback/validation operation with fail-closed receipts.
+- `unified_input_capability_probe` [live verified] - UE 5.8 unified_input probe bridge, capability, contract, and receipt tool.
+- `unified_input_commonui_bridge_configure` [live verified] - UE 5.8 unified_input configure bridge, capability, contract, and receipt tool.
+- `unified_input_conflict_audit` [live verified] - UE 5.8 unified_input audit bridge, capability, contract, and receipt tool.
+- `unified_input_device_readback` [live verified] - UE 5.8 unified_input readback bridge, capability, contract, and receipt tool.
+- `unified_input_enhanced_input_bridge_configure` [live verified] - UE 5.8 unified_input configure bridge, capability, contract, and receipt tool.
+- `unified_input_route_create` [live verified] - UE 5.8 unified_input route_create bridge, capability, contract, and receipt tool.
+- `unified_input_route_update` [live verified] - UE 5.8 unified_input route_update bridge, capability, contract, and receipt tool.
+- `unified_input_runtime_smoke` [live verified] - UE 5.8 unified_input validate bridge, capability, contract, and receipt tool.
+- `unreal_remote_device_pair_validate` [live verified] - UE 5.8 platform_remote validate bridge, capability, contract, and receipt tool.
+- `unreal_remote_device_register` [live verified] - UE 5.8 platform_remote device_register bridge, capability, contract, and receipt tool.
+- `unreal_remote_session_validate` [live verified] - UE 5.8 platform_remote validate bridge, capability, contract, and receipt tool.
+- `unreal_remote_settings_get` [live verified] - UE 5.8 platform_remote settings_get bridge, capability, contract, and receipt tool.
+- `unreal_remote_settings_set` [live verified] - UE 5.8 platform_remote settings_set bridge, capability, contract, and receipt tool.
+- `update_reflection_captures` [live verified] - Native C++ compatibility name for editor_build_reflection_captures. Trigger editor reflection-capture build/update for the current level.
+- `usd_asset_pregeneration_configure` [live verified] - UE 5.8 content_pipeline configure bridge, capability, contract, and receipt tool.
+- `usd_asset_pregeneration_execute` [live verified] - UE 5.8 content_pipeline execute bridge, capability, contract, and receipt tool.
+- `usd_asset_pregeneration_readback` [live verified] - UE 5.8 content_pipeline readback bridge, capability, contract, and receipt tool.
+- `usd_stage_asset_probe` [live verified] - Scan content for USD Stage and USD-related assets for scene ingest or reconstruction handoff.
+- `variant_manager_asset_probe` [live verified] - Scan content for Variant Manager assets and candidate LevelVariantSets.
+- `variant_manager_capability_probe` [live verified] - Probe UE 5.7+ Variant Manager availability for authoring scene/product variants.
+- `variant_manager_level_variant_sets_plan` [live verified] - Plan LevelVariantSets authoring for product, lighting, layout, or material variants.
+- `vcam_attach_constraint_add` [live verified] - UE 5.8 vcam_take_recorder constraint_add bridge, capability, contract, and receipt tool.
+- `vcam_attach_constraint_update` [live verified] - UE 5.8 vcam_take_recorder constraint_update bridge, capability, contract, and receipt tool.
+- `vcam_per_axis_attachment_configure` [live verified] - UE 5.8 vcam_take_recorder attachment_configure bridge, capability, contract, and receipt tool.
+- `vfx_create_system` [live verified] - Create a new Niagara VFX system asset. Use niagara_add_emitter to add emitters.
+- `video_probe` [live verified] - Read real Media Foundation metadata and optionally decode every video frame.
+- `video_transcoder_job_cancel` [live verified] - Cancel native transcode and remove only the job-owned partial output.
+- `video_transcoder_job_status_get` [live verified] - Poll native transcode progress from the shared Job Runtime provider.
+- `video_transcoder_job_submit` [live verified] - Transcode a manifest-backed PNG/JPEG image sequence into a real MP4 using the shared Job Runtime.
+- `video_transcoder_output_validate` [live verified] - Fully decode and compare a transcoder output against expected media properties.
+- `video_transcoder_profile_create` [live verified] - Probe and create an H.264/MP4 native Media Foundation profile.
+- `virtual_camera_session_plan` [live verified] - Plan virtual camera capture setup including LiveLink, lens calibration, Take Recorder, and Sequencer handoff.
+- `volume_fog_create` [live verified] - Create an exponential height fog actor for volumetric fog.
+- `volume_fog_set_properties` [live verified] - Set volumetric fog properties on an exponential height fog actor.
+- `vp_capture_health_probe` [live verified] - Probe virtual-production capture readiness across LiveLink subjects, take assets, Remote Control presets, and variants.
+- `water_body_bounds_audit` [live verified] - UE 5.7+ read-only bounds audit for WaterBody/WaterZone actors, including spline point bounds and WaterZone extent fallback.
+- `water_body_component_schema` [live verified] - UE 5.7+ reflection schema/readback for WaterBody, WaterZone, WaterSpline, and related component properties.
+- `water_body_create` [live verified] - Spawn a water body actor by type.
+- `water_body_create_v2` [live verified] - P1 concrete Water body creator for UE 5.7/5.8. Dry-run by default; WaterBody execute is fail-closed unless allow_water_brush_manager=true because UE may spawn WaterBrushManager and update landscape brushes.
+- `water_body_list` [live verified] - List water body actors in level.
+- `water_body_property_set_v2` [live verified] - UE 5.7+ safe reflected property setter for WaterBody/WaterZone actors and components. Dry-run by default; execute=true requires editable property unless explicitly allowed.
+- `water_body_readback_snapshot` [live verified] - P1 concrete readback for WaterBody/WaterZone actors. With no actor argument, lists all live water actors in the editor world.
+- `water_body_rebuild` [live verified] - UE 5.7+ guarded WaterBody/WaterZone construction and render-state refresh after spline/material/property edits. Dry-run by default.
+- `water_body_spline_get` [live verified] - UE 5.7+ concrete WaterBody/WaterSpline readback. Resolves WaterSplineComponent or the first SplineComponent and returns point/tangent/length data.
+- `water_body_spline_point_add` [live verified] - UE 5.7+ concrete WaterBody/WaterSpline point insert. Dry-run by default; execute=true requires allow_water_spline_mutation for WaterBody actors.
+- `water_body_spline_point_remove` [live verified] - UE 5.7+ concrete WaterBody/WaterSpline point removal by index. Keeps at least two points. Dry-run by default.
+- `water_body_spline_point_update` [live verified] - UE 5.7+ concrete WaterBody/WaterSpline point update by index. Dry-run by default; execute=true requires allow_water_spline_mutation for WaterBody actors.
+- `water_body_spline_set` [live verified] - UE 5.7+ concrete WaterBody/WaterSpline point setter. Dry-run by default; execute=true requires allow_water_spline_mutation for WaterBody actors.
+- `water_collision_nav_audit` [live verified] - P1 concrete Water collision/navigation audit for components, collision profiles, overlap flags, and nav relevance.
+- `water_flowmap_generate_plan` [live verified] - UE 5.7+ concrete flow-vector planning from a WaterBody/WaterSpline. Produces per-segment directions and receipt steps; does not write texture assets yet.
+- `water_flowmap_texture_create` [live verified] - UE 5.7+ flowmap Texture2D baker from a WaterBody/WaterSpline or generic SplineComponent. Encodes R/G as XY flow direction, B as nearest-segment distance, A=255. Dry-run by default.
+- `water_landscape_receipt_validate` [live verified] - P1 concrete receipt validator for Water/Landscape Patch operations. Checks status and optional actor readback evidence.
+- `water_material_set_v2` [live verified] - P1 concrete Water material property binder. Dry-run lists editable material properties; execute=true sets material_path on matching properties.
+- `water_river_lake_pipeline_plan` [live verified] - UE 5.7+ river/lake production pipeline planner linking create, spline set, zone, material, audit, flowmap plan/texture bake, rebuild, and receipt validation tools.
+- `water_zone_coverage_audit` [live verified] - UE 5.7+ read-only WaterZone coverage audit. Compares WaterZone bounds/extent against live WaterBody actors and reports covered/outside memberships.
+- `water_zone_create_v2` [live verified] - P1 concrete WaterZone creator for UE 5.7/5.8. Dry-run by default; execute=true spawns a WaterZone actor and returns readback.
+- `water_zone_extent_set` [live verified] - UE 5.7+ reflected WaterZone extent setter. Finds editable ZoneExtent/Extent vector property, supports dry-run/readback, and posts editor change on execute.
+- `water_zone_inspect` [live verified] - Inspect water zone actor properties.
+- `water_zone_rebuild` [live verified] - Alias of water_body_rebuild for WaterZone actors. Refreshes construction scripts/components/render state behind an explicit side-effect gate.
+- `waveform_editor_commit` [live verified] - UE 5.8 audio commit bridge, capability, contract, and receipt tool.
+- `waveform_editor_gain_apply` [live verified] - UE 5.8 audio gain_apply bridge, capability, contract, and receipt tool.
+- `waveform_editor_multichannel_edit` [live verified] - UE 5.8 audio multichannel_edit bridge, capability, contract, and receipt tool.
+- `waveform_editor_pitch_shift` [live verified] - UE 5.8 audio pitch_shift bridge, capability, contract, and receipt tool.
+- `waveform_editor_preview_play` [live verified] - UE 5.8 audio preview_play bridge, capability, contract, and receipt tool.
+- `waveform_editor_region_select` [live verified] - UE 5.8 audio region_select bridge, capability, contract, and receipt tool.
+- `waveform_editor_rollback` [live verified] - UE 5.8 audio rollback bridge, capability, contract, and receipt tool.
+- `waveform_editor_session_open` [live verified] - UE 5.8 audio session_open bridge, capability, contract, and receipt tool.
+- `waveform_editor_time_stretch` [live verified] - UE 5.8 audio time_stretch bridge, capability, contract, and receipt tool.
+- `widget_automation_test_plan` [live verified] - Plan widget/UI automation coverage for UMG/CommonUI generated interfaces.
+- `widget_blueprint_inspect` [live verified] - Inspect Widget Blueprint: widget hierarchy, bindings, animations.
+- `windows_arm_build_validate` [live verified] - UE 5.8 platform_desktop validate bridge, capability, contract, and receipt tool.
+- `windows_arm64_target_profile_create` [live verified] - UE 5.8 platform_desktop profile_create bridge, capability, contract, and receipt tool.
+- `windows_arm64ec_target_profile_create` [live verified] - UE 5.8 platform_desktop profile_create bridge, capability, contract, and receipt tool.
+- `world_actor_summary` [live verified] - Summary of all actors grouped by class.
+- `world_condition_asset_inspect` [live verified] - P0 gameplay wrapper: Inspect WorldCondition asset.
+- `world_condition_schema_list` [live verified] - P0 gameplay wrapper: List WorldCondition schemas.
+- `world_get_state` [live verified] - Return the current editor world, level and selection state.
+- `world_load_level` [live verified] - Load an existing level asset into the editor.
+- `world_mpc_weather_override` [live verified] - Override a scalar parameter on a global MaterialParameterCollection instance (e.g. snow coverage, rain wetness) at editor runtime. Applies to the active editor world.
+- `world_new_level` [live verified] - Create a new level package and open it.
+- `world_partition_actor_assign` [live verified] - Assign one or more actors to a WorldPartition data layer.
+- `world_partition_add_streaming_source` [live verified] - Add a managed world partition streaming source.
+- `world_partition_cell_size_cm` [live verified] - Get the WorldPartition cell size in cm. Optionally request a new cell size (configuration only; requires editor restart to take effect).
+- `world_partition_data_layer_create` [live verified] - Create a new data layer in the current WorldPartition. Data layers control which actors are loaded/visible.
+- `world_partition_data_layer_toggle` [live verified] - Toggle a WorldPartition data layer between loaded and unloaded states.
+- `world_partition_diagnose` [live verified] - Run world partition diagnostics.
+- `world_partition_insights_cell_query` [live verified] - UE 5.8 world_partition_insights cell_query bridge, capability, contract, and receipt tool.
+- `world_partition_insights_report_export` [live verified] - UE 5.8 world_partition_insights report_export bridge, capability, contract, and receipt tool.
+- `world_partition_insights_session_start` [live verified] - UE 5.8 world_partition_insights session_start bridge, capability, contract, and receipt tool.
+- `world_partition_insights_session_stop` [live verified] - UE 5.8 world_partition_insights session_stop bridge, capability, contract, and receipt tool.
+- `world_partition_insights_snapshot` [live verified] - UE 5.8 world_partition_insights snapshot bridge, capability, contract, and receipt tool.
+- `world_partition_insights_streaming_anomaly_audit` [live verified] - UE 5.8 world_partition_insights audit bridge, capability, contract, and receipt tool.
+- `world_partition_list_actor_descs` [live verified] - List actor descriptors in world partition.
+- `world_partition_list_cells` [live verified] - List cells in the current world partition.
+- `world_partition_list_content_bundles` [live verified] - List content bundles in world partition.
+- `world_partition_list_hlods` [live verified] - List HLOD actors or descriptors in world partition.
+- `world_partition_list_streaming_sources` [live verified] - List world partition streaming sources.
+- `world_partition_load_large_region` [live verified] - Compatibility alias for world_partition_load_region. Not a production large-world batch loader; response marks capability_status=compat_region_delegate.
+- `world_partition_load_region` [live verified] - Load a world partition region.
+- `world_partition_remove_streaming_source` [live verified] - Remove a managed world partition streaming source.
+- `world_partition_status_lite` [live verified] - Fast read-only snapshot of the World Partition state for the current editor world. Returns wp_enabled, world_name, origin, and a count of actor descriptors WITHOUT iterating the actor pool — designed to never freeze the editor. Prefer this over python_exec scripts that call WorldPartition.get_loaded_regions() / EditorActorSubsystem.get_all_level_actors().
+- `world_partition_unload_large_region` [live verified] - Compatibility alias for world_partition_unload_region. Not a production large-world batch unloader; response marks capability_status=compat_region_delegate.
+- `world_partition_unload_region` [live verified] - Unload a world partition region.
+- `world_partition_validate` [live verified] - Run world partition validation checks.
+- `world_save_all_dirty_levels` [live verified] - Save all dirty levels.
+- `world_save_current_level` [live verified] - Save the current level.
+- `world_settings_read` [live verified] - Read WorldSettings for the current editor world (game mode, kill Z, streaming, etc).
+- `world_spawn_character` [live verified] - Spawn a SkeletalMeshActor in the current editor level at a specified location with an optional Animation Blueprint. Returns the actor name and transform.
+- `worldpartition_add_streaming_source` [live verified] - Attach a UWorldPartitionStreamingSourceComponent to an existing actor.
+- `worldpartition_hlod_actor_set_layer` [live verified] - Assign an HLODLayer to an actor (or clear it by passing an empty hlod_layer_path). Uses property reflection to set the actor's HLODLayer pointer.
+- `worldpartition_hlod_force_rebuild` [live verified] - Force-rebuild HLOD actors for the world (optional cell_filter_box). Dispatches the editor HLOD rebuild command and returns an async receipt. Filtered cell rebuild requests fail closed because the console command cannot prove partial-cell targeting.
+- `worldpartition_hlod_generate` [live verified] - Trigger HLOD generation. Internally invokes the WP HLOD builder via console (wp.HLOD.Generate). Returns a snapshot of cells_processed and proxy count.
+- `worldpartition_hlod_layer_create` [live verified] - Create a new UHLODLayer asset under the world's HLOD directory. Configures basic settings (screen_size, build_method).
+- `worldpartition_hlod_layer_inspect` [live verified] - Inspect a UHLODLayer's current settings.
+- `worldpartition_hlod_layer_set` [live verified] - Update an existing UHLODLayer's settings (screen_size, cell_size, runtime_grid). Returns the list of fields that were actually applied.
+- `worldpartition_inspect` [live verified] - Inspect the world's WP runtime: cell sizing, total/loaded cells, HLOD layers, and registered streaming sources.
+- `worldpartition_loading_range_set` [live verified] - Set the WP loading range on an actor. Accepts any actor; updates UWorldPartitionStreamingSourceComponent radius if present, else AActor loading-bounds extension if available.
+- `worldpartition_set_cell_size` [live verified] - Set the World Partition runtime cell size (cm). Returns total cell count snapshot.
+- `worldspace_assert` [live verified] - Quantified pass/value/threshold assertion (replaces eyeballing): ocean_continuous | no_z_step | seam_contrast | layer_ownership | layout_ok. Metric computed from provided sample arrays.
+- `worldspace_debug_toggle` [live verified] - Subtraction switches for root-cause localisation: hide_surface_bodies / hide_terrain / hide_atmosphere / hide_layers / unlit. Immediate + reversible; pair with worldspace_headless_shot for bisection.
+- `wrapper_generation_fixture_create` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `wrapper_generation_fixture_validate` [live verified] - P3 experimental_diagnostics_source_index wrapper for cpp_author.
+- `xr_add_floor` [live verified] - Spawn a flat floor StaticMeshActor centered at origin (size_cm x size_cm), with collision enabled — for VR safe play area.
+- `xr_add_motion_controllers` [live verified] - Add Left + Right UMotionControllerComponent to a pawn, attached to its root, with default tracking source mappings.
+- `xr_create_teleport_volume` [live verified] - Mark an existing actor as a teleport target: adds a tag (default 'TeleportTarget') and forces a navigable collision profile.
+- `xr_setup_pawn` [live verified] - Spawn a Pawn in the level with a head-tracked CameraComponent (VR-style). Optionally use an existing pawn class via pawn_path; otherwise spawn ADefaultPawn.
+- `xr_status` [live verified] - Diagnostic snapshot: HMD connectivity, XR system name, basic L/R controller state.
+- `zen_cooked_output_store_artifact_readback` [live verified] - UE 5.8 zen_cooked_output_store readback bridge, capability, contract, and receipt tool.
+- `zen_cooked_output_store_cache_invalidate` [live verified] - UE 5.8 zen_cooked_output_store invalidate bridge, capability, contract, and receipt tool.
+- `zen_cooked_output_store_capability_probe` [live verified] - UE 5.8 zen_cooked_output_store probe bridge, capability, contract, and receipt tool.
+- `zen_cooked_output_store_configure` [live verified] - UE 5.8 zen_cooked_output_store configure bridge, capability, contract, and receipt tool.
+- `zen_cooked_output_store_start` [live verified] - UE 5.8 zen_cooked_output_store start bridge, capability, contract, and receipt tool.
+- `zen_cooked_output_store_status` [live verified] - UE 5.8 zen_cooked_output_store status_get bridge, capability, contract, and receipt tool.
+- `zen_cooked_output_store_stop` [live verified] - UE 5.8 zen_cooked_output_store stop bridge, capability, contract, and receipt tool.
+- `zonegraph_asset_probe` [live verified] - Scan content for ZoneGraph data, lane profiles, and related world-AI assets.
+- `zonegraph_capability_probe` [live verified] - Probe UE 5.7+ ZoneGraph availability for lanes, traffic, crowd paths, and Mass navigation.
+- `zonegraph_lane_authoring_plan` [live verified] - Plan ZoneGraph lane/tag/connectivity authoring for pedestrians, traffic, crowds, or Mass agents.

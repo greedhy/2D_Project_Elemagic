@@ -1,0 +1,97 @@
+{
+  "schema": "somol.somolmcp.public_dag_pack.v1",
+  "version": "3.12.7",
+  "generatedAt": "2026-08-03T20:50:00.000Z",
+  "toolCatalogCount": 2795,
+  "templates": [
+    {
+      "id": "pcg_safe_generate",
+      "file": "pcg_safe_generate.json",
+      "domain": "pcg",
+      "tools": [
+        "pcg_node_catalog_lookup",
+        "pcg_graph_validate",
+        "pcg_dry_run",
+        "pcg_generate_async",
+        "pcg_tile_generation_status",
+        "pcg_generated_actor_health_audit",
+        "pcg_graph_explain"
+      ]
+    },
+    {
+      "id": "blueprint_first_pass_delivery",
+      "file": "blueprint_first_pass_delivery.json",
+      "domain": "blueprint",
+      "tools": [
+        "blueprint_first_pass_creation_contract_gate",
+        "blueprint_compile",
+        "blueprint_compile_diagnostics",
+        "blueprint_repair_compile_gate",
+        "asset_save"
+      ]
+    },
+    {
+      "id": "material_compile_receipt",
+      "file": "material_compile_receipt.json",
+      "domain": "material",
+      "tools": [
+        "material_inspect",
+        "material_recompile",
+        "material_get_statistics",
+        "material_validation_receipt_validate"
+      ]
+    },
+    {
+      "id": "niagara_hlsl_compile",
+      "file": "niagara_hlsl_compile.json",
+      "domain": "niagara",
+      "tools": [
+        "niagara_hlsl_validate",
+        "niagara_compile_system",
+        "niagara_compile_diagnostics",
+        "niagara_toolset_receipt_validate"
+      ]
+    },
+    {
+      "id": "umg_compile_visual_qa",
+      "file": "umg_compile_visual_qa.json",
+      "domain": "umg",
+      "tools": [
+        "umg_widget_blueprint_compile_v2",
+        "umg_toolset_receipt_validate",
+        "editor_get_screenshot"
+      ]
+    },
+    {
+      "id": "terrain_create_mode_guard",
+      "file": "terrain_create_mode_guard.json",
+      "domain": "terrain",
+      "tools": [
+        "editor_ui_activate_mode",
+        "landscape_actor_list_lite",
+        "terrain_spec_validate",
+        "terrain_landscape_create_from_spec",
+        "actor_get_detailed_bounds"
+      ]
+    },
+    {
+      "id": "editor_modal_recovery",
+      "file": "editor_modal_recovery.json",
+      "domain": "editor",
+      "tools": [
+        "editor_dialog_watchdog_tick",
+        "actor_list"
+      ]
+    },
+    {
+      "id": "scene_delivery_receipt",
+      "file": "scene_delivery_receipt.json",
+      "domain": "level",
+      "tools": [
+        "actor_list",
+        "editor_get_screenshot",
+        "world_save_current_level"
+      ]
+    }
+  ]
+}
