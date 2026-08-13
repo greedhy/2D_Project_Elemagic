@@ -6,6 +6,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "ElementSystemComponent.h"
+#include "InventoryComponent.h"
 
 APlayerCharacter::APlayerCharacter()
 {
@@ -22,6 +24,9 @@ APlayerCharacter::APlayerCharacter()
 	SideViewCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("SideViewCamera"));
 	SideViewCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	SideViewCamera->bUsePawnControlRotation = false;
+
+	ElementSystemComponent = CreateDefaultSubobject<UElementSystemComponent>(TEXT("ElementSystemComponent"));
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 }
 
 void APlayerCharacter::PostInitializeComponents()
@@ -62,6 +67,12 @@ void APlayerCharacter::PossessedBy(AController* NewController)
 			{
 				AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(AbilityClass, 1, 0));
 			}
+		}
+
+		// 初始化元素系统组件
+		if (ElementSystemComponent)
+		{
+			ElementSystemComponent->Init(AbilitySystemComponent);
 		}
 	}
 }

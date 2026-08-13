@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
 #include "AbilitySystemComponent.h"
+#include "GameplayTagContainer.h"
 #include "CharacterAttributeSetBase.generated.h"
 
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
@@ -55,6 +56,41 @@ public:
 	FGameplayAttributeData IncomingDamage;
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSetBase, IncomingDamage)
 
+	// === 元素抗性（7 种，值域 0~1，0=无抗性 1=免疫）===
+	// 现在声明，Phase 5 元素伤害时消耗。
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_FireResistance, Category = "Attributes|Element")
+	FGameplayAttributeData FireResistance;
+	ATTRIBUTE_ACCESSORS(UCharacterAttributeSetBase, FireResistance)
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_WaterResistance, Category = "Attributes|Element")
+	FGameplayAttributeData WaterResistance;
+	ATTRIBUTE_ACCESSORS(UCharacterAttributeSetBase, WaterResistance)
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_EarthResistance, Category = "Attributes|Element")
+	FGameplayAttributeData EarthResistance;
+	ATTRIBUTE_ACCESSORS(UCharacterAttributeSetBase, EarthResistance)
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_WindResistance, Category = "Attributes|Element")
+	FGameplayAttributeData WindResistance;
+	ATTRIBUTE_ACCESSORS(UCharacterAttributeSetBase, WindResistance)
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_LightningResistance, Category = "Attributes|Element")
+	FGameplayAttributeData LightningResistance;
+	ATTRIBUTE_ACCESSORS(UCharacterAttributeSetBase, LightningResistance)
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_LightResistance, Category = "Attributes|Element")
+	FGameplayAttributeData LightResistance;
+	ATTRIBUTE_ACCESSORS(UCharacterAttributeSetBase, LightResistance)
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_DarkResistance, Category = "Attributes|Element")
+	FGameplayAttributeData DarkResistance;
+	ATTRIBUTE_ACCESSORS(UCharacterAttributeSetBase, DarkResistance)
+
+	// 按元素 Tag 返回对应抗性值（未知 Tag 返回 0）
+	UFUNCTION(BlueprintPure, Category = "Attributes|Element")
+	float GetResistanceForElement(FGameplayTag ElementTag) const;
+
 protected:
 	UFUNCTION()
 	virtual void OnRep_Health(const FGameplayAttributeData& OldHealth);
@@ -73,6 +109,27 @@ protected:
 
 	UFUNCTION()
 	virtual void OnRep_IncomingDamage(const FGameplayAttributeData& OldIncomingDamage);
+
+	UFUNCTION()
+	virtual void OnRep_FireResistance(const FGameplayAttributeData& OldFireResistance);
+
+	UFUNCTION()
+	virtual void OnRep_WaterResistance(const FGameplayAttributeData& OldWaterResistance);
+
+	UFUNCTION()
+	virtual void OnRep_EarthResistance(const FGameplayAttributeData& OldEarthResistance);
+
+	UFUNCTION()
+	virtual void OnRep_WindResistance(const FGameplayAttributeData& OldWindResistance);
+
+	UFUNCTION()
+	virtual void OnRep_LightningResistance(const FGameplayAttributeData& OldLightningResistance);
+
+	UFUNCTION()
+	virtual void OnRep_LightResistance(const FGameplayAttributeData& OldLightResistance);
+
+	UFUNCTION()
+	virtual void OnRep_DarkResistance(const FGameplayAttributeData& OldDarkResistance);
 
 private:
 	void ClampHealthAttribute(float& Value) const;

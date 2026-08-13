@@ -6,8 +6,10 @@
 #include "GameFramework/HUD.h"
 #include "MyHUD.generated.h"
 
+class UElemagicHUDWidget;
+
 /**
- * 
+ *
  */
 UCLASS()
 class ELEMAGIC_API AMyHUD : public AHUD
@@ -18,10 +20,10 @@ public:
 	virtual void BeginPlay() override;
 
 protected:
-	// 在编辑器里创建具体的 HUD UMG 蓝图后赋值(生命值条/技能图标等)
+	// 在编辑器里创建具体的 HUD UMG 蓝图后赋值(生命值条/属性列表等)
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Elemagic|UI")
-	TSubclassOf<class UUserWidget> HUDWidgetClass;
+	TSubclassOf<UElemagicHUDWidget> HUDWidgetClass;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Elemagic|UI")
-	TObjectPtr<class UUserWidget> HUDWidgetInstance;
+	TObjectPtr<UElemagicHUDWidget> HUDWidgetInstance;
 };

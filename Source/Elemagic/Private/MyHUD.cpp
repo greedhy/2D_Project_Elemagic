@@ -2,7 +2,7 @@
 
 
 #include "MyHUD.h"
-#include "Blueprint/UserWidget.h"
+#include "UI/ElemagicHUDWidget.h"
 
 void AMyHUD::BeginPlay()
 {
@@ -10,10 +10,11 @@ void AMyHUD::BeginPlay()
 
 	if (HUDWidgetClass)
 	{
-		HUDWidgetInstance = CreateWidget<UUserWidget>(GetOwningPlayerController(), HUDWidgetClass);
+		HUDWidgetInstance = CreateWidget<UElemagicHUDWidget>(GetOwningPlayerController(), HUDWidgetClass);
 		if (HUDWidgetInstance)
 		{
 			HUDWidgetInstance->AddToViewport();
+			HUDWidgetInstance->BindToPlayer(GetOwningPlayerController());
 		}
 	}
 }

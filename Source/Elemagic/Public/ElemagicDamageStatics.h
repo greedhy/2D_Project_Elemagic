@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "GameplayEffect.h"
+#include "GameplayTagContainer.h"
 #include "ElemagicDamageStatics.generated.h"
 
 /**
@@ -33,6 +34,22 @@ public:
 		AActor* TargetActor,
 		TSubclassOf<UGameplayEffect> DamageEffectClass,
 		float DamageMultiplier,
+		FVector2D KnockbackImpulse,
+		float KnockbackDirectionSign
+	);
+
+	/**
+	 * 施加元素伤害：读取目标的对应元素抗性，按 (1 - Resistance) 缩放伤害。
+	 * 其余流程与 ApplyDamageToTarget 相同。
+	 *
+	 * @param ElementTag 元素类型（用于查询目标抗性）
+	 */
+	static float ApplyElementalDamageToTarget(
+		AActor* SourceActor,
+		AActor* TargetActor,
+		TSubclassOf<UGameplayEffect> DamageEffectClass,
+		float DamageMultiplier,
+		FGameplayTag ElementTag,
 		FVector2D KnockbackImpulse,
 		float KnockbackDirectionSign
 	);

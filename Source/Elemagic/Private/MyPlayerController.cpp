@@ -11,6 +11,7 @@
 #include "Input/EleInputComponent.h"
 #include "Input/EleInputConfig.h"
 #include "GameFramework/Character.h"
+#include "ElementSystemComponent.h"
 
 AMyPlayerController::AMyPlayerController()
 {
@@ -96,6 +97,18 @@ void AMyPlayerController::JumpReleased()
 
 void AMyPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 {
+    // 元素系统输入路由：Skill1-4 / Synthesize 交给元素组件处理
+    if (APawn* ControlledPawn = GetPawn())
+    {
+        if (UElementSystemComponent* ElementSystem = ControlledPawn->FindComponentByClass<UElementSystemComponent>())
+        {
+            if (ElementSystem->HandleInputTag(InputTag))
+            {
+                return;
+            }
+        }
+    }
+
     if (const IAbilitySystemInterface* ASI = Cast<IAbilitySystemInterface>(GetPawn()))
     {
         if (UAbilitySystemComponent* ASC = ASI->GetAbilitySystemComponent())

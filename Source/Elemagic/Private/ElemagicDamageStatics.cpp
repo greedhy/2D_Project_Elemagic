@@ -3,6 +3,7 @@
 #include "ElemagicDamageStatics.h"
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemGlobals.h"
+#include "AbilitySystemInterface.h"
 #include "CharacterAttributeSetBase.h"
 #include "CharacterBase.h"
 #include "ElemagicGameplayTags.h"
@@ -109,4 +110,41 @@ float UElemagicDamageStatics::ApplyDamageToTarget(
 	}
 
 	return FinalDamage;
+}
+
+float UElemagicDamageStatics::ApplyElementalDamageToTarget(
+	AActor* SourceActor,
+	AActor* TargetActor,
+	TSubclassOf<UGameplayEffect> DamageEffectClass,
+	float DamageMultiplier,
+	FGameplayTag ElementTag,
+	FVector2D KnockbackImpulse,
+	float KnockbackDirectionSign)
+{
+	// 读取目标对应元素抗性
+	float Resistance = 0.f;
+	if (TargetActor)
+	{
+		if (const IAbilitySystemInterface* ASI = Cast<IAbilitySystemInterface>(TargetActor))
+		{
+			if (const UAbilitySystemComponent* TargetASC = ASI->GetAbilitySystemComponent())
+			{
+				if (const UCharacterAttributeSetBase* AttrSet = TargetASC->GetSet<UCharacterAttributeSetBase>())
+				{
+					Resistance = AttrSet->GetResistanceForElement(ElementTag);
+				}
+			}
+		}
+	}
+
+	// 按抗性缩放伤害倍率，再走通用伤害流程
+	const float ElementalMultiplier = DamageMultiplier * (1.f - Resistance);
+	return ApplyDamageToTarget(
+		SourceActor,
+		TargetActor,
+		DamageEffectClass,
+		ElementalMultiplier,
+		KnockbackImpulse,
+		KnockbackDirectionSign
+	);
 }

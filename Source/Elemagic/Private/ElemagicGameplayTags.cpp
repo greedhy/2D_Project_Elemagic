@@ -29,4 +29,18 @@ namespace ElemagicGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(State_Hurt, "State.Hurt");
 	UE_DEFINE_GAMEPLAY_TAG(State_Knockback, "State.Knockback");
 	UE_DEFINE_GAMEPLAY_TAG(Combo_WindowOpen, "Combo.WindowOpen");
+
+	UE_DEFINE_GAMEPLAY_TAG(Element_Fire, "Element.Fire");
+	UE_DEFINE_GAMEPLAY_TAG(Element_Water, "Element.Water");
+	UE_DEFINE_GAMEPLAY_TAG(Element_Earth, "Element.Earth");
+	UE_DEFINE_GAMEPLAY_TAG(Element_Wind, "Element.Wind");
+	UE_DEFINE_GAMEPLAY_TAG(Element_Lightning, "Element.Lightning");
+	UE_DEFINE_GAMEPLAY_TAG(Element_Light, "Element.Light");
+	UE_DEFINE_GAMEPLAY_TAG(Element_Dark, "Element.Dark");
+
+	UE_DEFINE_GAMEPLAY_TAG(Input_Skill1, "Input.Skill1");
+	UE_DEFINE_GAMEPLAY_TAG(Input_Skill2, "Input.Skill2");
+	UE_DEFINE_GAMEPLAY_TAG(Input_Skill3, "Input.Skill3");
+	UE_DEFINE_GAMEPLAY_TAG(Input_Skill4, "Input.Skill4");
+	UE_DEFINE_GAMEPLAY_TAG(Input_Synthesize, "Input.Synthesize");
 }
